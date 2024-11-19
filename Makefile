@@ -1,6 +1,6 @@
-CC = clang
+CC = gcc
 CFLAGS = -I/opt/homebrew/include/
-LDFLAGS = -L/opt/homebrew/lib -lSDL2
+LDFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2main -framework Cocoa
 
 all: app
 
@@ -9,3 +9,8 @@ app: main.c
 
 clean:
 	rm -f app
+
+fclean: clean
+	rm -f app
+
+re: fclean all
