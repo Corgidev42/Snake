@@ -3,6 +3,32 @@
 # include "defs.h"
 # include <SDL2/SDL.h>
 
+typedef enum e_skin
+{
+	YELLOW,
+	BLUE,
+	GREEN
+}						t_skin;
+
+typedef enum e_bonus
+{
+	EMPTY,
+	LIFE_UP,
+	TP, // permet de passer de l'autre cote de la map
+	STAR, // rend invincible ( annule tout effet negatif)
+	MISSILE,
+	SLOW,
+	POISON //DOT
+}						t_bonus;
+
+typedef enum e_obstacle
+{
+	EMPTY,
+	WALL,
+	TREE,
+	ROCK
+}						t_obstable;
+
 typedef struct s_app
 {
 	SDL_bool			running;
@@ -25,31 +51,12 @@ typedef struct s_snake_part
 	struct s_snake_part	*next;
 }						t_snake_part;
 
-typedef enum e_skin
+typedef struct s_gametick
 {
-	YELLOW,
-	BLUE,
-	GREEN
-}						t_skin;
-
-typedef enum e_bonus
-{
-	EMPTY,
-	LIFE_UP,
-	TP,
-	STAR,
-	MISSILE,
-	SLOW,
-	POISON
-}						t_bonus;
-
-typedef enum e_obstacle
-{
-	EMPTY,
-	WALL,
-	TREE,
-	ROCK
-}						t_obstable;
+	int					elapsed_time;
+	int					apple_cooldown;
+	int					object_cooldown;
+}						t_gametick;
 
 typedef struct s_cell
 {
@@ -70,10 +77,11 @@ typedef struct s_grid
 typedef struct s_user_data
 {
 	int					id;
+	SDL_bool			is_ready;
 	int					score;
 	int					life;
-	t_snake_part		head_snake;
 	t_bonus				inventory[INVENTORY_SIZE];
+	t_snake_part		*head_snake;
 }						t_user_data;
 
 #endif
