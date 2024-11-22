@@ -1,0 +1,79 @@
+#ifndef STRUCTS_H
+# define STRUCTS_H
+# include "defs.h"
+# include <SDL2/SDL.h>
+
+typedef struct s_app
+{
+	SDL_bool			running;
+	SDL_Window			*window;
+	SDL_Renderer		*renderer;
+}						t_app;
+
+typedef struct s_coords
+{
+	int					x;
+	int					y;
+}						t_coords;
+
+typedef struct s_snake_part
+{
+	t_coords			coords;
+	int					orientation;
+	int					speed;
+	t_skin				skin;
+	struct s_snake_part	*next;
+}						t_snake_part;
+
+typedef enum e_skin
+{
+	YELLOW,
+	BLUE,
+	GREEN
+}						t_skin;
+
+typedef enum e_bonus
+{
+	EMPTY,
+	LIFE_UP,
+	TP,
+	STAR,
+	MISSILE,
+	SLOW,
+	POISON
+}						t_bonus;
+
+typedef enum e_obstacle
+{
+	EMPTY,
+	WALL,
+	TREE,
+	ROCK
+}						t_obstable;
+
+typedef struct s_cell
+{
+	t_coords			coords;
+	t_obstable			obstacle;
+	SDL_bool			has_apple;
+	SDL_bool			has_bomb;
+	t_bonus				bonus;
+	t_skin				texture;
+}						t_cell;
+
+typedef struct s_grid
+{
+	SDL_Rect			rect_pos;
+	t_cell				**cells;
+}						t_grid;
+
+typedef struct s_user_data
+{
+	int					id;
+	int					score;
+	int					life;
+	t_snake_part		head_snake;
+	t_bonus				inventory[INVENTORY_SIZE];
+}						t_user_data;
+
+#endif
