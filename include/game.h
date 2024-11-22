@@ -25,10 +25,11 @@ void init_map(t_grid *grid);
  * @param headsnake_1 Tête du serpent 1.
  * @param headsnake_2 Tête du serpent 2.
  */
-void spawn_snake(t_grid grid, t_snake_part headsnake_1, t_snake_part headsnake_2);
+void spawn_snakes(t_grid grid, t_snake_part headsnake_1, t_snake_part headsnake_2);
 
 /**
- * @brief Initialise les paramètres de jeu.
+ * @brief Initialise les paramètres de temps pour la gestion du temps de tous les evenements,
+ * il va s'occuper des cooldown des pommes et des objets
  *
  * @param gametick Pointeur vers la structure de gestion du temps de jeu.
  */
@@ -59,7 +60,7 @@ void move_snake(t_user_data player);
 void do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
 
 /**
- * @brief Met à jour les paramètres de jeu.
+ * @brief Met à jour les paramètres de temps de jeu en fonction des actions des joueurs.
  *
  * @param gametick Pointeur vers la structure de gestion du temps de jeu.
  */
@@ -74,7 +75,7 @@ void update_gametick(t_gametick *gametick);
 void generate_apple(t_grid grid, t_gametick gametick);
 
 /**
- * @brief Génère un objet sur la carte.
+ * @brief Génère un objet (Bonus ou Bombe) sur la carte.
  *
  * @param grid Grille de jeu.
  * @param gametick Structure de gestion du temps de jeu.
@@ -90,18 +91,21 @@ void generate_object(t_grid grid, t_gametick gametick);
 void print_snake(t_grid grid, t_user_data player);
 
 /**
- * @brief Affiche les objets sur la carte.
+ * @brief Affiche les objets (Bonus, Pomme et Bombe) sur la carte.
  *
  * @param grid Grille de jeu.
  */
 void print_objets(t_grid grid);
 
 /**
- * @brief Affiche le tableau des scores.
+ * @brief Affiche le tableau des scores en haut
  *
  * @param player1 Données du joueur 1.
  * @param player2 Données du joueur 2.
  */
 void print_scoreboard(t_user_data player1, t_user_data player2);
+
+//Creer une fonction pour check si une case est valide ?
+// ou alors une fonction qui check automatiquement toute les acse pour savoir lesquels sont bonne ou pas.
 
 #endif

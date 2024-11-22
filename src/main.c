@@ -1,7 +1,7 @@
-#include "include/app.h"
-#include "include/game.h"
-#include "include/menu.h"
-#include "include/structs.h"
+#include "../include/app.h"
+#include "../include/game.h"
+#include "../include/menu.h"
+#include "../include/structs.h"
 
 static void	init_players(t_user_data *player1, t_user_data *player2);
 
