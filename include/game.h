@@ -83,19 +83,24 @@ void	generate_apple(t_grid *grid, int *apple_cooldown);
 void	generate_object(t_grid *grid, int *object_cooldown);
 
 /**
+ * @brief Affiche l'état actuel de la grille de jeu avec tous les objets.
+ *
+ * Cette fonction prend une structure t_grid en entrée et affiche la grille
+ * sur la sortie standard. La grille représente la zone de jeu où le serpent
+ * se déplace, où la nourriture est placée, ainsi que les bonus et autres objets.
+ * L'affichage est basé sur l'état des valeurs dans la structure t_grid.
+ *
+ * @param grid La grille de jeu à afficher.
+ */
+void	print_grid(t_grid grid, t_gametick gametick);
+
+/**
  * @brief Affiche le serpent sur la carte.
  *
  * @param grid Grille de jeu.
  * @param player Données du joueur.
  */
-void	print_snake(t_grid grid, t_user_data player);
-
-/**
- * @brief Affiche les objets (Bonus, Pomme et Bombe) sur la carte.
- *
- * @param grid Grille de jeu.
- */
-void	print_objets(t_grid grid);
+void	print_snake(t_grid grid, t_snake_part head_snake);
 
 /**
  * @brief Affiche le tableau des scores en haut.
@@ -103,6 +108,6 @@ void	print_objets(t_grid grid);
  * @param player1 Données du joueur 1.
  * @param player2 Données du joueur 2.
  */
-void	print_scoreboard(t_user_data player1, t_user_data player2);
+void	print_scoreboard(SDL_Rect rect_pos,t_user_data player1, t_user_data player2);
 
 #endif

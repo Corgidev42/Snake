@@ -6,7 +6,9 @@ void	game_window(t_user_data player1, t_user_data player2)
 {
 	t_grid		grid;
 	t_gametick	gametick;
+	SDL_Rect	scoreboard_rect_pos;
 
+	scoreboard_rect_pos.x = SCOREBOARD_POS_X; scoreboard_rect_pos.y = SCOREBOARD_POS_Y; scoreboard_rect_pos.h = SCREEN_HEIGHT - (CONTAINER_MARGING * 2) ; scoreboard_rect_pos.w = SCREEN_WIDTH - (CONTAINER_MARGING * 2);
 	init_map(&grid);
 	spawn_snake(grid, &player1.head_snake);
 	spawn_snake(grid, &player2.head_snake);
@@ -27,11 +29,10 @@ void	game_window(t_user_data player1, t_user_data player2)
 		generate_object(&grid,&gametick.object_cooldown);
 
 		print_grid(grid);
-		print_snake(grid, player1);
-		print_snake(grid, player2);
-		print_objets(grid);
+		print_snake(grid, player1.head_snake);
+		print_snake(grid, player2.head_snake);
 
-		print_scoreboard(player1, player2);
+		print_scoreboard(scoreboard_rect_pos, player1, player2);
 
 		SDL_RenderPresent(App.renderer);
 	}

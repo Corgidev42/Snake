@@ -16,8 +16,8 @@ void	menu_window(t_user_data *player1, t_user_data *player2)
 
 		do_input(player1, player2);
 
-		render_player_choice(*player1, rect_left);
-		render_player_choice(*player2, rect_right);
+		print_player_choice(rect_left, player1);
+		print_player_choice(rect_left, player2);
 
 		SDL_RenderPresent(App.renderer);
 	}
