@@ -55,6 +55,8 @@ typedef struct s_gametick
 {
 	int					elapsed_time;
 	int					apple_cooldown;
+	int					snake_1_cooldown;
+	int					snake_2_cooldown;
 	int					object_cooldown;
 }						t_gametick;
 
@@ -66,6 +68,7 @@ typedef struct s_cell
 	SDL_bool			has_bomb;
 	t_bonus				bonus;
 	t_skin				texture;
+	SDL_bool			is_pending;
 }						t_cell;
 
 typedef struct s_grid

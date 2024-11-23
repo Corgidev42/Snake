@@ -14,5 +14,8 @@
 # define RIGHT 4
 # define INVENTORY_SIZE 2
 # define LIFE_MAX 3
+# define APPLE_GENERATION_TIME
+# define OBJECT_GENERATION_TIME
+# define SNAKE_MOVE_TIME
 # define BASE_SPEED 1
 #endif
