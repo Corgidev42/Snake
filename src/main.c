@@ -4,6 +4,7 @@
 #include "../include/structs.h"
 
 static void	init_players(t_user_data *player1, t_user_data *player2);
+static void	free_players(t_user_data player1, t_user_data player2);
 
 int	main(int argc, char const *argv[])
 {
@@ -17,6 +18,7 @@ int	main(int argc, char const *argv[])
 		menu_window(&player1, &player2);
 		game_window(player1, player2);
 	}
+	free_players(player1, player2);
 	kill_app();
 	return (0);
 }
