@@ -8,7 +8,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 	t_gametick	gametick;
 
 	init_map(&grid);
-	spawn_snakes(grid, player1.head_snake, player2.head_snake);
+	spawn_snake(grid, &player1.head_snake);
+	spawn_snake(grid, &player2.head_snake);
 	init_gametick(&gametick);
 	while (App.running && player1.life && player2.life)
 	{

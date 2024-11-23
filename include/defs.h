@@ -13,4 +13,6 @@
 # define LEFT 3
 # define RIGHT 4
 # define INVENTORY_SIZE 2
+# define LIFE_MAX 3
+# define BASE_SPEED 1
 #endif

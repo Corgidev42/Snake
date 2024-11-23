@@ -19,13 +19,12 @@ void game_window(t_user_data player1, t_user_data player2);
 void init_map(t_grid *grid);
 
 /**
- * @brief Fait apparaître les serpents sur la carte.
+ * @brief Fait apparaître la tete du serpents sur la carte.
  *
  * @param grid Grille de jeu.
  * @param headsnake_1 Tête du serpent 1.
- * @param headsnake_2 Tête du serpent 2.
  */
-void spawn_snakes(t_grid grid, t_snake_part headsnake_1, t_snake_part headsnake_2);
+void spawn_snake(t_grid grid, t_snake_part *headsnake);
 
 /**
  * @brief Initialise les paramètres de temps pour la gestion du temps de tous les evenements,
