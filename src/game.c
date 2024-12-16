@@ -1,6 +1,6 @@
-#include "../include/app.h"
-#include "../include/defs.h"
-#include "../include/structs.h"
+#include "app.h"
+#include "defs.h"
+#include "structs.h"
 
 static free_all_game(t_grid grid);
 

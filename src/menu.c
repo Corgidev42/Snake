@@ -1,6 +1,6 @@
-#include "../include/app.h"
-#include "../include/structs.h"
-#include "../include/defs.h"
+#include "app.h"
+#include "structs.h"
+#include "defs.h"
 
 void	menu_window(t_user_data *player1, t_user_data *player2)
 {
