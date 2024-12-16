@@ -2,7 +2,8 @@
 #include "../include/defs.h"
 #include "../include/structs.h"
 
-static free_all_game(t_grid grid);
+static	free_all_game(t_grid grid);
+void	init_map(t_grid *grid);
 
 void	game_window(t_user_data player1, t_user_data player2)
 {

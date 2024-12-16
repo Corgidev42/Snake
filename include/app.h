@@ -3,7 +3,7 @@
 
 #include "structs.h"
 
-t_app	App;
+extern t_app	App;
 
 /**
  * @brief Initialise l'application (window, renderer, running).
@@ -15,4 +15,6 @@ void	init_app(void);
  */
 void	kill_app(void);
 
+
+void	SDL_ExitWithError(const char *message);
 #endif
