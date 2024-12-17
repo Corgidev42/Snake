@@ -3,6 +3,8 @@
 
 # include "structs.h"
 
+void	free_all_game(t_grid grid);
+
 /**
  * @brief Fonction principale qui gère le jeu.
  *
@@ -100,7 +102,7 @@ void	print_grid(t_grid grid, t_gametick gametick);
  * @param grid Grille de jeu.
  * @param player Données du joueur.
  */
-void	print_snake(t_grid grid, t_snake_part head_snake);
+void	print_snake(t_grid grid, t_snake_part *head_snake);
 
 /**
  * @brief Affiche le tableau des scores en haut.

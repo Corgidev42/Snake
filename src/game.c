@@ -2,7 +2,19 @@
 #include "defs.h"
 #include "structs.h"
 
-static	free_all_game(t_grid grid)
+void	spawn_snake(t_grid grid, t_snake_part *head_snake);
+void	init_gametick(t_gametick *gametick);
+void	do_input(t_user_data *player1, t_user_data *player2);
+void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
+void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
+void	update_gametick(t_gametick *gametick);
+void	generate_apple(t_grid *grid, int *apple_cooldown);
+void	generate_object(t_grid *grid, int *object_cooldown);
+void	print_grid(t_grid grid, t_gametick gametick);
+void	print_snake(t_grid grid, t_snake_part *head_snake);
+void	print_scoreboard(SDL_Rect rect_pos,t_user_data player1, t_user_data player2);
+
+void	free_all_game(t_grid grid)
 {
 	int	x;
 
@@ -27,7 +39,8 @@ void	init_map(t_grid *grid)
 	grid->cells = malloc(sizeof(t_cell* ) * GRID_COLS);
 	while (x < GRID_COLS)
 	{
-		grid->cells[y] = malloc(sizeof(t_cell) * GRID_COLS);
+		grid->cells[x] = malloc(sizeof(t_cell) * GRID_COLS);
+		y = 0;
 		while (y < GRID_ROWS)
 		{
 			grid->cells[x][y].coords.x = x;
@@ -38,7 +51,7 @@ void	init_map(t_grid *grid)
 				grid->cells[x][y].obstacle = 0;
 			grid->cells[x][y].has_apple = SDL_FALSE;
 			grid->cells[x][y].has_bomb = SDL_FALSE;
-			grid->cells[x][y].bonus = EMPTY;
+			grid->cells[x][y].bonus = BONUS_EMPTY;
 			grid->cells[x][y].texture = EMPTY;
 			grid->cells[x][y].is_pending = SDL_FALSE;
 			y++;
@@ -47,39 +60,39 @@ void	init_map(t_grid *grid)
 	}
 }
 
-void	game_window(t_user_data player1, t_user_data player2)
-{
-	t_grid		grid;
-	t_gametick	gametick;
-	SDL_Rect	scoreboard_rect_pos;
+// void	game_window(t_user_data player1, t_user_data player2)
+// {
+// 	t_grid		grid;
+// 	t_gametick	gametick;
+// 	SDL_Rect	scoreboard_rect_pos;
 
-	scoreboard_rect_pos.x = SCOREBOARD_POS_X; scoreboard_rect_pos.y = SCOREBOARD_POS_Y; scoreboard_rect_pos.h = SCREEN_HEIGHT - (CONTAINER_MARGING * 2) ; scoreboard_rect_pos.w = SCREEN_WIDTH - (CONTAINER_MARGING * 2);
-	init_map(&grid);
-	spawn_snake(grid, &player1.head_snake);
-	spawn_snake(grid, &player2.head_snake);
-	init_gametick(&gametick);
-	while (App.running && player1.life && player2.life)
-	{
-		update_gametick(&gametick);
-		SDL_RenderClear(App.renderer);
+// 	scoreboard_rect_pos.x = SCOREBOARD_POS_X; scoreboard_rect_pos.y = SCOREBOARD_POS_Y; scoreboard_rect_pos.h = SCREEN_HEIGHT - (CONTAINER_MARGING * 2) ; scoreboard_rect_pos.w = SCREEN_WIDTH - (CONTAINER_MARGING * 2);
+// 	init_map(&grid);
+// 	spawn_snake(grid, player1.head_snake);
+// 	spawn_snake(grid, player2.head_snake);
+// 	init_gametick(&gametick);
+// 	while (App.running && player1.life && player2.life)
+// 	{
+// 		update_gametick(&gametick);
+// 		SDL_RenderClear(App.renderer);
 
-		do_input(&player1, &player2);
+// 		do_input(&player1, &player2);
 
-		move_snake(&gametick.snake_1_cooldown, &player1.head_snake);
-		move_snake(&gametick.snake_2_cooldown, &player2.head_snake);
+// 		move_snake(&gametick.snake_1_cooldown, player1.head_snake);
+// 		move_snake(&gametick.snake_2_cooldown, player2.head_snake);
 
-		do_collision(grid, &player1, &player2);
+// 		do_collision(grid, &player1, &player2);
 
-		generate_apple(&grid, &gametick.apple_cooldown);
-		generate_object(&grid,&gametick.object_cooldown);
+// 		generate_apple(&grid, &gametick.apple_cooldown);
+// 		generate_object(&grid,&gametick.object_cooldown);
 
-		print_grid(grid);
-		print_snake(grid, player1.head_snake);
-		print_snake(grid, player2.head_snake);
+// 		print_grid(grid, gametick);
+// 		print_snake(grid, player1.head_snake);
+// 		print_snake(grid, player2.head_snake);
 
-		print_scoreboard(scoreboard_rect_pos, player1, player2);
+// 		print_scoreboard(scoreboard_rect_pos, player1, player2);
 
-		SDL_RenderPresent(App.renderer);
-	}
-	free_all_game(grid);
-}
+// 		SDL_RenderPresent(App.renderer);
+// 	}
+// 	free_all_game(grid);
+// }
