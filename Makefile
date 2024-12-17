@@ -1,7 +1,24 @@
-CC = gcc
-CFLAGS = -I/opt/homebrew/include/ -Iinclude
-LDFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2main -framework Cocoa
+# Détection de l'OS
+OS := $(shell uname -s)
 
+# Configuration par défaut
+CC = gcc
+CFLAGS = -Iinclude
+LDFLAGS = -lSDL2 -lSDL2main
+
+# Spécifique à macOS
+ifeq ($(OS), Darwin)
+    CFLAGS += -I/opt/homebrew/include/ -Iinclude
+    LDFLAGS += -L/opt/homebrew/lib -framework Cocoa
+endif
+
+# Spécifique à Linux
+ifeq ($(OS), Linux)
+    CFLAGS += -Iinclude
+    LDFLAGS +=
+endif
+
+# Cibles principales
 all: app
 
 app: main.c
@@ -18,7 +35,7 @@ tclean:
 
 re: fclean all
 
+# Cible tests
 tests: tclean
-	gcc -Iinclude tests/*.c src/player.c -o tests.out
+	$(CC) $(CFLAGS) $(LDFLAGS) tests/*.c src/player.c -o tests.out
 	./tests.out
-
