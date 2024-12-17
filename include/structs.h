@@ -5,6 +5,7 @@
 
 typedef enum e_skin
 {
+	EMPTY,
 	YELLOW,
 	BLUE,
 	GREEN

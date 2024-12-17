@@ -1,8 +1,22 @@
 #ifndef DEFS_H
 # define DEFS_H
 
+// SIZE AND POS
 # define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 800
+# define SCREEN_HEIGHT 1000
+# define SCOREBOARD_HEIGHT 200
+# define SCOREBOARD_WIDTH SCREEN_WIDTH
+# define GRID_HEIGHT (SCREEN_HEIGHT - SCOREBOARD_HEIGHT)
+# define GRID_WIDTH SCREEN_WIDTH
+# define SCOREBOARD_POS_X 0
+# define SCOREBOARD_POS_Y 0//position du scoreboard
+# define GRID_POS_X 0//position de la gride d'origine
+# define GRID_POS_Y SCOREBOARD_HEIGHT
+# define GRID_COLS 50
+# define GRID_ROWS 50
+# define SIZE_CELL 16
+
+// ITEMS
 # define INVENTORY_SIZE 2
 # define LIFE_MAX 3
 # define BASE_SPEED 1
@@ -12,8 +26,4 @@
 # define OBJECT_GENERATION_TIME 0
 # define SNAKE_MOVE_TIME 0
 # define CONTAINER_MARGING 0
-# define SCOREBOARD_POS_X 0
-# define SCOREBOARD_POS_Y 0//position du scoreboard
-# define GRID_POS_X 0//position de la gride d'origine
-# define GRID_POS_Y 0
 #endif
