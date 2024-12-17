@@ -13,9 +13,12 @@ clean:
 fclean: clean
 	rm -f app
 
+tclean:
+	rm -f tests.out
+
 re: fclean all
 
-tests: tests.out
+tests: tclean
 	gcc -Iinclude tests/*.c src/player.c -o tests.out
 	./tests.out
 
