@@ -1,10 +1,11 @@
-#include <assert.h>
 #include <stdio.h>
 #include "game.h"
 #include "player.h"
+#include "tests.h"
 
 void test_init_map(void)
 {
+	int	assert_file = 1;
 	t_grid grid;
 	init_map(&grid);
 	// Check grid dimensions
@@ -35,6 +36,6 @@ void test_init_map(void)
 	}
 
 	free_all_game(grid);
-	printf(__FILE__ " / test_init_map() \033[32m[OK]\033[30m\n");
+	printf( __FILE__ " / init_map() %s\033[30m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
 }
 
