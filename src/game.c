@@ -14,6 +14,7 @@ static	free_all_game(t_grid grid)
 	}
 	free(grid.cells);
 }
+
 void	init_map(t_grid *grid)
 {
 	int	x;
