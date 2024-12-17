@@ -14,3 +14,8 @@ fclean: clean
 	rm -f app
 
 re: fclean all
+
+tests: tests.out
+	gcc -Iinclude tests/*.c src/player.c -o tests.out
+	./tests.out
+

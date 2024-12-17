@@ -1,10 +1,11 @@
 #include <stdio.h>
-#include <assert.h>
 
+#include "tests.h"
 #include "player.h"
 
 void test_init_players(void)
 {
+	int	assert_file = 1;
 	// Déclare les structures à initialiser
 	t_user_data player1;
 	t_user_data player2;
@@ -53,5 +54,5 @@ void test_init_players(void)
 	assert(player2.head_snake->next == NULL);
 
 	// Affiche le résultat du test si tout est correct
-	printf("All tests passed successfully!\n");
+	printf( __FILE__ " / init_players() %s\033[30m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
 }
