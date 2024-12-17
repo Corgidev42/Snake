@@ -1,5 +1,5 @@
-#include "../include/app.h"
-#include "../include/structs.h"
+#include "structs.h"
+#include "app.h"
 
 void	SDL_ExitWithError(const char *message)
 {

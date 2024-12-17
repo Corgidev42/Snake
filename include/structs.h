@@ -13,7 +13,7 @@ typedef enum e_skin
 
 typedef enum e_bonus
 {
-	EMPTY,
+	BONUS_EMPTY,
 	LIFE_UP,
 	TP, // permet de passer de l'autre cote de la map
 	STAR, // rend invincible ( annule tout effet negatif)
@@ -24,7 +24,7 @@ typedef enum e_bonus
 
 typedef enum e_obstacle
 {
-	EMPTY,
+	OBS_EMPTY,
 	WALL,
 	TREE,
 	ROCK

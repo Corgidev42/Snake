@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -I/opt/homebrew/include/
+CFLAGS = -I/opt/homebrew/include/ -Iinclude
 LDFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2main -framework Cocoa
 
 all: app
@@ -14,3 +14,8 @@ fclean: clean
 	rm -f app
 
 re: fclean all
+
+tests: tests.out
+	gcc -Iinclude tests/*.c src/player.c -o tests.out
+	./tests.out
+
