@@ -22,7 +22,7 @@ void test_init_app(void)
 	// Clean up
 	kill_app();
 	// Affiche le résultat du test si tout est correct
-	printf( __FILE__ " / init_app() %s\033[30m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
+	printf( __FILE__ " / init_app() %s\033[0m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
 }
 
 void test_kill_app(void)
@@ -38,6 +38,6 @@ void test_kill_app(void)
 	assert(SDL_WasInit(SDL_INIT_EVERYTHING) == 0);
 
 	// Affiche le résultat du test si tout est correct
-	printf( __FILE__ " / kill_app() %s\033[30m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
+	printf( __FILE__ " / kill_app() %s\033[0m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
 }
 

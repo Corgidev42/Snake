@@ -3,6 +3,22 @@
 #include "player.h"
 #include "tests.h"
 
+void test_init_gametick(void)
+{
+	int	assert_file = 1;
+	t_gametick	gametick;
+
+	init_gametick(&gametick);
+
+	assert(gametick.elapsed_time == 0);
+	assert(gametick.apple_cooldown == APPLE_GENERATION_TIME);
+	assert(gametick.object_cooldown == OBJECT_GENERATION_TIME);
+	assert(gametick.snake_1_cooldown == SNAKE_MOVE_TIME);
+	assert(gametick.snake_2_cooldown == SNAKE_MOVE_TIME);
+
+	printf( __FILE__ " / init_gametick() %s\033[0m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
+}
+
 void test_init_map(void)
 {
 	int	assert_file = 1;

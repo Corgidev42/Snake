@@ -3,7 +3,6 @@
 #include "structs.h"
 
 void	spawn_snake(t_grid grid, t_snake_part *head_snake);
-void	init_gametick(t_gametick *gametick);
 void	do_input(t_user_data *player1, t_user_data *player2);
 void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
 void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
@@ -13,6 +12,16 @@ void	generate_object(t_grid *grid, int *object_cooldown);
 void	print_grid(t_grid grid, t_gametick gametick);
 void	print_snake(t_grid grid, t_snake_part *head_snake);
 void	print_scoreboard(SDL_Rect rect_pos,t_user_data player1, t_user_data player2);
+
+
+void	init_gametick(t_gametick *gametick)
+{
+	gametick->elapsed_time = 0;
+	gametick->apple_cooldown = APPLE_GENERATION_TIME;
+	gametick->object_cooldown = OBJECT_GENERATION_TIME;
+	gametick->snake_1_cooldown = SNAKE_MOVE_TIME;
+	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
+}
 
 void	free_all_game(t_grid grid)
 {

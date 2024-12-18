@@ -31,5 +31,5 @@ re: fclean all
 
 # Cible tests
 tests: tclean
-	$(CC) $(CFLAGS) $(LDFLAGS) tests/*.c src/player.c src/game.c src/app.c -o tests.out
+	$(CC) $(CFLAGS) tests/*.c src/player.c src/game.c src/app.c  $(LDFLAGS) -o tests.out
 	./tests.out

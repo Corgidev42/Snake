@@ -6,6 +6,7 @@ int	main(int argc, char *argv[])
 	test_kill_app();
 	test_init_players();
 	test_init_map();
+	test_init_gametick();
 	
 	return (0);
 }
