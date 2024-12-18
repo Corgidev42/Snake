@@ -53,6 +53,7 @@ void test_init_players(void)
 	assert(player2.head_snake->skin == 1);
 	assert(player2.head_snake->next == NULL);
 
+	free_players(&player1, &player2);
 	// Affiche le résultat du test si tout est correct
-	printf( __FILE__ " / init_players() %s\033[30m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
+	printf( __FILE__ " / init_players() %s\033[0m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
 }
