@@ -36,6 +36,6 @@ void test_init_map(void)
 	}
 
 	free_all_game(grid);
-	printf( __FILE__ " / init_map() %s\033[30m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
+	printf( __FILE__ " / init_map() %s\033[0m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
 }
 

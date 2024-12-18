@@ -24,10 +24,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 	player2->life = LIFE_MAX;
 	player2->head_snake = malloc(sizeof(t_snake_part));
 	if (!player2->head_snake)
-	{
-		free(player1->head_snake);
 		exit(1);
-	}
 	player2->head_snake->coords.x = -1;
 	player2->head_snake->coords.y = -1;
 	player2->head_snake->orientation = UP;
@@ -43,4 +40,25 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 	}
 }
 
-void	free_players(t_user_data player1, t_user_data player2);
+void free_players(t_user_data *player1, t_user_data *player2)
+{
+	t_snake_part *current;
+	t_snake_part *next;
+
+	current = player1->head_snake;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	player1->head_snake = NULL;
+
+	current = player2->head_snake;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+}
