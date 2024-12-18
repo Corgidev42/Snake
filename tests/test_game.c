@@ -3,6 +3,28 @@
 #include "player.h"
 #include "tests.h"
 
+/*Fonction qui test update_gametick*/
+void test_update_gametick(void)
+{
+	int	assert_file = 1;
+	t_gametick	gametick;
+	int speed1 = 1;
+	int speed2 = 1;
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+	init_gametick(&gametick);
+	update_gametick(&gametick, speed1, speed2);
+	
+	assert(gametick.elapsed_time > 0);
+	assert(gametick.apple_cooldown < APPLE_GENERATION_TIME);
+	assert(gametick.object_cooldown < OBJECT_GENERATION_TIME);
+	assert(gametick.snake_1_cooldown < SNAKE_MOVE_TIME);
+	assert(gametick.snake_2_cooldown < SNAKE_MOVE_TIME);
+
+	SDL_Quit();
+	printf( __FILE__ " / update_gametick() %s\033[0m\n", assert_file ? "\033[32m[OK]" : "\033[31m[KO]");
+}
+
 void test_init_gametick(void)
 {
 	int	assert_file = 1;

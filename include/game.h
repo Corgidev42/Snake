@@ -66,7 +66,7 @@ void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
  *
  * @param gametick Pointeur vers la structure de gestion du temps de jeu.
  */
-void	update_gametick(t_gametick *gametick);
+void	update_gametick(t_gametick *gametick, int speed1, int speed2);
 
 /**
  * @brief Génère une pomme sur la carte.

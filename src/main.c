@@ -1,5 +1,6 @@
 #include "app.h"
 #include "game.h"
+#include "player.h"
 #include "menu.h"
 #include "structs.h"
 
@@ -13,11 +14,11 @@ int	main(int argc, char const *argv[])
 	init_app();
 	while (App.running)
 	{
-		//init_players(&player1, &player2);
+		init_players(&player1, &player2);
 		//menu_window(&player1, &player2);
 		game_window(player1, player2);
 	}
-	//free_players(player1, player2);
+	free_players(&player1, &player2);
 	kill_app();
 	return (0);
 }

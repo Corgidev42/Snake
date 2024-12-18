@@ -3,6 +3,12 @@
 #include "structs.h"
 
 void	spawn_snake(t_grid grid, t_snake_part *head_snake);
+void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
+void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
+void	generate_apple(t_grid *grid, int *apple_cooldown);
+void	generate_object(t_grid *grid, int *object_cooldown);
+void	print_grid(t_grid grid, t_gametick gametick);
+void	print_snake(t_grid grid, t_snake_part *head_snake);
 
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
@@ -11,8 +17,7 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 	SDL_Event	event;
 	int			nb_events;
 
-	nb_events = 0;
-	while (!nb_events && SDL_PollEvent(&event))
+	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
 		{
@@ -25,13 +30,26 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 	}
 }
 
-void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
-void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
-void	update_gametick(t_gametick *gametick);
-void	generate_apple(t_grid *grid, int *apple_cooldown);
-void	generate_object(t_grid *grid, int *object_cooldown);
-void	print_grid(t_grid grid, t_gametick gametick);
-void	print_snake(t_grid grid, t_snake_part *head_snake);
+void	init_gametick(t_gametick *gametick)
+{
+	gametick->elapsed_time = 0;
+	gametick->apple_cooldown = APPLE_GENERATION_TIME;
+	gametick->object_cooldown = OBJECT_GENERATION_TIME;
+	gametick->snake_1_cooldown = SNAKE_MOVE_TIME;
+	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
+}
+
+void	update_gametick(t_gametick *gametick, int speed1, int speed2)
+{
+	int	elapsed_time;
+
+	elapsed_time = SDL_GetTicks();
+	gametick->elapsed_time = elapsed_time - gametick->elapsed_time;
+	gametick->apple_cooldown -= gametick->elapsed_time;
+	gametick->object_cooldown -= gametick->elapsed_time;
+	gametick->snake_1_cooldown -= gametick->elapsed_time * speed1;
+	gametick->snake_2_cooldown -= gametick->elapsed_time * speed2;
+}
 
 void render_text(SDL_Renderer* renderer, const char* text, SDL_Rect rect, TTF_Font* font, SDL_Color color) {
 	SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
@@ -70,16 +88,6 @@ void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1, t_user_data player
 	render_text(App.renderer, "Player 2", name_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "3", life_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "4343", score_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
-}
-
-
-void	init_gametick(t_gametick *gametick)
-{
-	gametick->elapsed_time = 0;
-	gametick->apple_cooldown = APPLE_GENERATION_TIME;
-	gametick->object_cooldown = OBJECT_GENERATION_TIME;
-	gametick->snake_1_cooldown = SNAKE_MOVE_TIME;
-	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
 }
 
 void	free_all_game(t_grid grid)
@@ -138,10 +146,10 @@ void	game_window(t_user_data player1, t_user_data player2)
 	init_map(&grid);
 	// spawn_snake(grid, player1.head_snake);
 	// spawn_snake(grid, player2.head_snake);
-	// init_gametick(&gametick);
+	init_gametick(&gametick);
 	while (App.running && player1.life && player2.life)
 	{
-		// update_gametick(&gametick);
+		update_gametick(&gametick, player1.head_snake->speed, player2.head_snake->speed);
 		if(SDL_SetRenderDrawColor(App.renderer, 0, 0, 0, 255))
 			SDL_ExitWithError("Color set in black");
 		if(SDL_RenderClear(App.renderer))

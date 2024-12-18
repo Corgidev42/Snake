@@ -20,6 +20,6 @@ void test_init_map(void);
 void test_kill_app(void);
 void test_init_app(void);
 void test_init_gametick(void);
-
+void test_update_gametick(void);
 
 #endif
