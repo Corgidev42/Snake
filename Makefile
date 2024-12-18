@@ -4,7 +4,7 @@ OS := $(shell uname -s)
 # Configuration par défaut
 CC = gcc
 CFLAGS = -Iinclude
-LDFLAGS = -lSDL2 -lSDL2main
+LDFLAGS = -lSDL2 -lSDL2main -lSDL2_ttf
 
 # Spécifique à macOS
 ifeq ($(OS), Darwin)
@@ -15,8 +15,8 @@ endif
 # Cibles principales
 all: app
 
-app: main.c
-	$(CC) main.c -o app $(CFLAGS) $(LDFLAGS)
+app: $(wildcard src/*.c)
+	$(CC) $(wildcard src/*.c) -o app $(CFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f app

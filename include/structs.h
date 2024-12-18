@@ -2,6 +2,7 @@
 # define STRUCTS_H
 # include "defs.h"
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_ttf.h>
 
 typedef enum e_skin
 {
@@ -35,6 +36,7 @@ typedef struct s_app
 	SDL_bool			running;
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
+	TTF_Font			*font;
 }						t_app;
 
 typedef struct s_coords
