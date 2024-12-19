@@ -15,7 +15,7 @@ int	main(int argc, char const *argv[])
 	while (App.running)
 	{
 		init_players(&player1, &player2);
-		//menu_window(&player1, &player2);
+		// menu_window(&player1, &player2);
 		game_window(player1, player2);
 	}
 	free_players(&player1, &player2);
