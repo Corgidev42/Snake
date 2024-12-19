@@ -15,7 +15,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 	player1->head_snake->coords.y = -1;
 	player1->head_snake->orientation = UP;
 	player1->head_snake->speed = BASE_SPEED;
-	player1->head_snake->skin = 1;
+	player1->head_snake->skin = YELLOW;
 	player1->head_snake->next = NULL;
 
 	player2->id = 2;
@@ -29,7 +29,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 	player2->head_snake->coords.y = -1;
 	player2->head_snake->orientation = UP;
 	player2->head_snake->speed = BASE_SPEED;
-	player2->head_snake->skin = 1;
+	player2->head_snake->skin = YELLOW;
 	player2->head_snake->next = NULL;
 
 	while (i < INVENTORY_SIZE)

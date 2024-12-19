@@ -31,7 +31,7 @@ void test_init_players(void)
 	assert(player1.head_snake->coords.y == -1);
 	assert(player1.head_snake->orientation == UP);
 	assert(player1.head_snake->speed == BASE_SPEED);
-	assert(player1.head_snake->skin == 1);
+	assert(player1.head_snake->skin == YELLOW);
 	assert(player1.head_snake->next == NULL);
 
 	// Répète les mêmes vérifications pour le joueur 2
@@ -50,7 +50,7 @@ void test_init_players(void)
 	assert(player2.head_snake->coords.y == -1);
 	assert(player2.head_snake->orientation == UP);
 	assert(player2.head_snake->speed == BASE_SPEED);
-	assert(player2.head_snake->skin == 1);
+	assert(player2.head_snake->skin == YELLOW);
 	assert(player2.head_snake->next == NULL);
 
 	free_players(&player1, &player2);

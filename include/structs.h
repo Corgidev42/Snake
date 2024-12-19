@@ -4,14 +4,6 @@
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_ttf.h>
 
-typedef enum e_skin
-{
-	EMPTY,
-	YELLOW,
-	BLUE,
-	GREEN
-}						t_skin;
-
 typedef enum e_bonus
 {
 	BONUS_EMPTY,
@@ -72,7 +64,7 @@ typedef struct s_snake_part
 	t_coords			coords;
 	int					orientation;
 	int					speed;
-	t_skin				skin;
+	t_color				skin;
 	struct s_snake_part	*next;
 }						t_snake_part;
 
@@ -92,7 +84,7 @@ typedef struct s_cell
 	SDL_bool			has_apple;
 	SDL_bool			has_bomb;
 	t_bonus				bonus;
-	t_skin				texture;
+	t_color				texture;
 	SDL_bool			is_pending;
 }						t_cell;
 
