@@ -4,7 +4,7 @@ OS := $(shell uname -s)
 # Configuration par défaut
 CC = gcc
 CFLAGS = -Iinclude
-LDFLAGS = -lSDL2 -lSDL2main -lSDL2_ttf
+LDFLAGS = -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_image
 
 # Spécifique à macOS
 ifeq ($(OS), Darwin)
