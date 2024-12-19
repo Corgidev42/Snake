@@ -32,6 +32,21 @@ typedef enum e_color
 	GREEN
 }			t_color;
 
+typedef enum e_orientation
+{
+	LEFT,
+	UP,
+	RIGHT,
+	DOWN
+}			t_orientation;
+
+typedef enum e_snake_state
+{
+	NORMAL,
+	BONKED,
+	DEAD
+}			t_snake_state;
+
 typedef struct	s_texture_rects
 {
 	SDL_Rect	tile[NB_COLORS][8];

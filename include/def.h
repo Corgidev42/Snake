@@ -21,12 +21,6 @@
 # define LIFE_MAX 3
 # define BASE_SPEED 1
 
-# define LEFT 0
-# define UP 1
-# define RIGHT 2
-# define DOWN 3
-
-
 // A DEFINIR
 # define APPLE_GENERATION_TIME 2000
 # define OBJECT_GENERATION_TIME 20000

@@ -16,9 +16,9 @@ static void	init_texture_rects_color(t_color color)
 		}
 	}
 	// Obstacle rects
-	for (int x = 4; x < 16; x++)
+	for (int x = 0; x < 12; x++)
 	{
-		App.texture_rects.obstacle[color][x].x = x * SPRITE_WIDTH;
+		App.texture_rects.obstacle[color][x].x = (SPRITE_WIDTH * 4) + x * SPRITE_WIDTH;
 		App.texture_rects.obstacle[color][x].y = color_y_start;
 		App.texture_rects.obstacle[color][x].w = SPRITE_WIDTH;
 		App.texture_rects.obstacle[color][x].h = SPRITE_HEIGHT * 2;
@@ -67,6 +67,7 @@ void	kill_app(void)
 	TTF_CloseFont(App.font);
 	TTF_Quit();
 
+	SDL_DestroyTexture(App.spritesheet_texture);
 	SDL_DestroyRenderer(App.renderer);
 	SDL_DestroyWindow(App.window);
 	SDL_Quit();
