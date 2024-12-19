@@ -15,8 +15,10 @@ endif
 # Cibles principales
 all: app
 
-app: $(wildcard src/*.c)
+libft.a: 
 	make -C libft re
+
+app: $(wildcard src/*.c) libft.a
 	$(CC) $(wildcard src/*.c) libft.a -o app $(CFLAGS) $(LDFLAGS)
 
 clean:
