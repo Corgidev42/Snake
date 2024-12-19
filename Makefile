@@ -23,6 +23,7 @@ app: $(wildcard src/*.c) libft.a
 
 clean:
 	rm -f app
+	make -C libft clean
 
 fclean: clean
 	rm -f app
