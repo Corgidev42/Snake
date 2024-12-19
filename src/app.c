@@ -56,7 +56,7 @@ static void	init_texture_rects()
 	for (int x = 0; x < 3; x++)
 	{
 		App.texture_rects.apple[x].x = x * SPRITE_WIDTH;
-		App.texture_rects.apple[x].y = SPRITE_HEIGHT * 7;
+		App.texture_rects.apple[x].y = SPRITE_HEIGHT * 21;
 		App.texture_rects.apple[x].w = SPRITE_WIDTH;
 		App.texture_rects.apple[x].h = SPRITE_HEIGHT;
 	}
