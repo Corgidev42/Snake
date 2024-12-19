@@ -30,19 +30,14 @@ typedef enum e_color
 	GREEN
 }			t_color;
 
-typedef struct	t_texture_snake
+typedef struct	s_texture_rects
 {
-	SDL_Texture		*body[10];
-	SDL_Texture		*head[NB_SNAKE_STATES][NB_ORIENTATIONS][8];
-}				t_texture_snake;
-
-typedef struct	s_texture
-{
-	SDL_Texture		*tile[NB_COLORS][8];
-	SDL_Texture		*obstacle[NB_COLORS][12];
-	t_texture_snake	snake[NB_COLORS];
-	SDL_Texture		*apple[3];
-}				t_texture;
+	SDL_Rect	tile[NB_COLORS][8];
+	SDL_Rect	obstacle[NB_COLORS][12];
+	SDL_Rect	snake_body[NB_COLORS][10];
+	SDL_Rect	snake_head[NB_COLORS][NB_SNAKE_STATES][NB_ORIENTATIONS][8];
+	SDL_Rect	apple[3];
+}				t_texture_rects;
 
 typedef struct s_app
 {
@@ -50,7 +45,7 @@ typedef struct s_app
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	TTF_Font			*font;
-	t_texture_snake		textures;
+	t_texture_rects		texture_rects;
 }						t_app;
 
 typedef struct s_coords

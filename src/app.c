@@ -1,7 +1,18 @@
 #include "structs.h"
 #include "app.h"
 
+void	load_textures_color(t_color color)
+{
+	// Load the tile textures
+		
+}
 
+void	load_textures()
+{
+	load_textures_color(YELLOW);
+	load_textures_color(BLUE);
+	load_textures_color(GREEN);
+}
 
 void	kill_app(void)
 {
