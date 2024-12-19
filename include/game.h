@@ -104,6 +104,8 @@ void	print_grid(t_grid grid, t_gametick gametick);
  */
 void	print_snake(t_grid grid, t_snake_part *head_snake);
 
+void	print_obstacles(t_grid grid);
+
 /**
  * @brief Affiche le tableau des scores en haut.
  *

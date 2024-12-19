@@ -34,11 +34,11 @@ typedef enum e_color
 
 typedef struct	s_texture_rects
 {
-	SDL_Rect	tile[NB_COLORS][8];
-	SDL_Rect	obstacle[NB_COLORS][12];
+	SDL_Rect	tile[NB_COLORS][NB_TILES];
+	SDL_Rect	obstacle[NB_COLORS][NB_OBSTACLES];
 	SDL_Rect	snake_body[NB_COLORS][10];
 	SDL_Rect	snake_head[NB_COLORS][NB_SNAKE_STATES][NB_ORIENTATIONS][8];
-	SDL_Rect	apple[3];
+	SDL_Rect	apple[NB_APPLES];
 }				t_texture_rects;
 
 typedef struct s_app
