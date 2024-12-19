@@ -23,6 +23,7 @@ app: $(wildcard src/*.c) libft.a
 
 clean:
 	rm -f app
+	make -C libft clean
 
 fclean: clean
 	rm -f app
@@ -34,5 +35,5 @@ re: fclean all
 
 # Cible tests
 tests: tclean
-	$(CC) $(CFLAGS) tests/*.c src/player.c src/game.c src/app.c src/asset.c libft.a $(LDFLAGS) -o tests.out
+	$(CC) $(CFLAGS) tests/*.c src/player.c src/game.c src/menu.c src/app.c src/asset.c libft.a $(LDFLAGS) -o tests.out
 	./tests.out

@@ -1,5 +1,67 @@
 #include "snake.h"
 
+static void	init_texture_rects_color(t_color color)
+{
+	int	color_y_start = color * SPRITE_HEIGHT * 7;
+
+	// Tile rects
+	for (int y = 0; y < 2; y++)
+	{
+		for (int x = 0; x < 4; x++)
+		{
+			App.texture_rects.tile[color][x + y * 4].x = x * SPRITE_WIDTH;
+			App.texture_rects.tile[color][x + y * 4].y = color_y_start + y * SPRITE_HEIGHT;
+			App.texture_rects.tile[color][x + y * 4].w = SPRITE_WIDTH;
+			App.texture_rects.tile[color][x + y * 4].h = SPRITE_HEIGHT;
+		}
+	}
+	// Obstacle rects
+	for (int x = 4; x < 16; x++)
+	{
+		App.texture_rects.obstacle[color][x].x = x * SPRITE_WIDTH;
+		App.texture_rects.obstacle[color][x].y = color_y_start;
+		App.texture_rects.obstacle[color][x].w = SPRITE_WIDTH;
+		App.texture_rects.obstacle[color][x].h = SPRITE_HEIGHT * 2;
+	}
+	// Snake body rects
+	for (int x = 0; x < 10; x++)
+	{
+		App.texture_rects.snake_body[color][x].x = x * SPRITE_WIDTH;
+		App.texture_rects.snake_body[color][x].y = color_y_start + SPRITE_HEIGHT * 2;
+		App.texture_rects.snake_body[color][x].w = SPRITE_WIDTH;
+		App.texture_rects.snake_body[color][x].h = SPRITE_HEIGHT;
+	}
+	// Snake head rects
+	for (int y = 0; y < NB_SNAKE_STATES; y++)
+	{
+		for (int z = 0; z < NB_ORIENTATIONS; z++)
+		{
+			for (int x = 0; x < 8; x++)
+			{
+				App.texture_rects.snake_head[color][y][z][x].x = x * SPRITE_WIDTH;
+				App.texture_rects.snake_head[color][y][z][x].y = color_y_start + SPRITE_HEIGHT * (3 + y * 2 + z);
+				App.texture_rects.snake_head[color][y][z][x].w = SPRITE_WIDTH;
+				App.texture_rects.snake_head[color][y][z][x].h = SPRITE_HEIGHT;
+			}
+		}
+	}
+}
+
+static void	init_texture_rects()
+{
+	init_texture_rects_color(YELLOW);
+	init_texture_rects_color(BLUE);
+	init_texture_rects_color(GREEN);
+	// Apple rects
+	for (int x = 0; x < 3; x++)
+	{
+		App.texture_rects.apple[x].x = x * SPRITE_WIDTH;
+		App.texture_rects.apple[x].y = SPRITE_HEIGHT * 7;
+		App.texture_rects.apple[x].w = SPRITE_WIDTH;
+		App.texture_rects.apple[x].h = SPRITE_HEIGHT;
+	}
+}
+
 void	kill_app(void)
 {
 	TTF_CloseFont(App.font);
@@ -34,4 +96,5 @@ void	init_app(void)
 	App.font = TTF_OpenFont("asset/kenney_mini.ttf", 16);
 	if(!App.font)
 		SDL_ExitWithError("Failed to load font");
+	init_texture_rects();
 }

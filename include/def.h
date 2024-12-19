@@ -37,4 +37,7 @@
 # define NB_SNAKE_STATES 2
 # define NB_ORIENTATIONS 4
 
+# define SPRITE_WIDTH 16
+# define SPRITE_HEIGHT 16
+
 #endif
