@@ -1,7 +1,4 @@
-#include "structs.h"
-#include "app.h"
-
-
+#include "snake.h"
 
 void	kill_app(void)
 {
