@@ -4,6 +4,7 @@
 # include "snake.h"
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_ttf.h>
+# include <SDL2/SDL_image.h>
 
 typedef enum e_bonus
 {
@@ -46,6 +47,7 @@ typedef struct s_app
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	TTF_Font			*font;
+	SDL_Texture			*spritesheet_texture;
 	t_texture_rects		texture_rects;
 }						t_app;
 

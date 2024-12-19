@@ -97,4 +97,5 @@ void	init_app(void)
 	if(!App.font)
 		SDL_ExitWithError("Failed to load font");
 	init_texture_rects();
+	App.spritesheet_texture = load_texture("asset/spritesheet.png");
 }

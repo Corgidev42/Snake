@@ -8,7 +8,7 @@ void	menu_do_input(t_user_data *player1, t_user_data *player2)
 
 void	print_player_choice(SDL_Rect rect_side, t_user_data player)
 {
-
+	
 }
 
 void	menu_window(t_user_data *player1, t_user_data *player2)
@@ -23,10 +23,12 @@ void	menu_window(t_user_data *player1, t_user_data *player2)
 	{
 		SDL_RenderClear(App.renderer);
 
-		menu_do_input(player1, player2);
+		SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.snake_head[GREEN][0][0][0], &rect_left);
 
-		print_player_choice(rect_left, *player1);
-		print_player_choice(rect_left, *player2);
+		// menu_do_input(player1, player2);
+
+		// print_player_choice(rect_left, *player1);
+		// print_player_choice(rect_left, *player2);
 
 		SDL_RenderPresent(App.renderer);
 	}
