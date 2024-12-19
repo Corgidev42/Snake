@@ -1,6 +1,5 @@
-#include "app.h"
-#include "structs.h"
-#include "defs.h"
+#include "snake.h"
+
 
 void	menu_do_input(t_user_data *player1, t_user_data *player2)
 {

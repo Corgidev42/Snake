@@ -1,4 +1,4 @@
-#include "player.h"
+#include "snake.h"
 
 void	init_players(t_user_data *player1, t_user_data *player2)
 {

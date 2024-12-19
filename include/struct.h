@@ -1,6 +1,7 @@
-#ifndef STRUCTS_H
-# define STRUCTS_H
-# include "defs.h"
+#ifndef STRUCT_H
+# define STRUCT_H
+
+# include "snake.h"
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_ttf.h>
 

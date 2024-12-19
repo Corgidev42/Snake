@@ -1,8 +1,4 @@
-#include "app.h"
-#include "game.h"
-#include "player.h"
-#include "menu.h"
-#include "structs.h"
+#include "snake.h"
 
 t_app App;
 

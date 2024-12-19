@@ -1,7 +1,7 @@
 #ifndef GAME_H
 # define GAME_H
 
-# include "structs.h"
+# include "snake.h"
 
 void	free_all_game(t_grid grid);
 

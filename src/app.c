@@ -1,5 +1,4 @@
-#include "structs.h"
-#include "app.h"
+#include "snake.h"
 
 static void	init_texture_rects_color(t_color color)
 {

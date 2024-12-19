@@ -1,7 +1,7 @@
 #ifndef APP_H
 # define APP_H
 
-#include "structs.h"
+#include "snake.h"
 
 extern t_app	App;
 

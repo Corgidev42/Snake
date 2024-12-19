@@ -1,7 +1,7 @@
 #ifndef MENU_H
 # define MENU_H
 
-# include "structs.h"
+# include "snake.h"
 
 /**
  * @brief Fonction principale qui gère le menu.

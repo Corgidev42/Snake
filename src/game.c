@@ -1,32 +1,16 @@
-#include "app.h"
-#include "defs.h"
-#include "structs.h"
-#include "libft.h"
+#include "snake.h"
 
 void	spawn_snake(t_grid grid, t_snake_part *head_snake);
 void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
 void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
 void	generate_apple(t_grid *grid, int *apple_cooldown);
 void	generate_object(t_grid *grid, int *object_cooldown);
-void	print_grid(t_grid grid, t_gametick gametick);
+
+void	print_grid(t_grid grid, t_gametick gametick)
+{
+
+}
 void	print_snake(t_grid grid, t_snake_part *head_snake);
-
-int get_text_width(const char* text, TTF_Font* font)
-{
-	int width, height;
-
-	if (TTF_SizeText(font, text, &width, &height) != 0)
-		SDL_ExitWithError("Error while retrieving text width");
-	return width;
-}
-int get_text_height(const char* text, TTF_Font* font)
-{
-	int width, height;
-
-	if (TTF_SizeText(font, text, &width, &height) != 0)
-		SDL_ExitWithError("Error while retrieving text height");
-	return height;
-}
 
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
@@ -67,19 +51,6 @@ void	update_gametick(t_gametick *gametick, int speed1, int speed2)
 	gametick->object_cooldown -= gametick->elapsed_time;
 	gametick->snake_1_cooldown -= gametick->elapsed_time * speed1;
 	gametick->snake_2_cooldown -= gametick->elapsed_time * speed2;
-}
-
-void render_text(SDL_Renderer* renderer, const char* text, SDL_Rect rect, TTF_Font* font, SDL_Color color)
-{
-	SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
-	if (!surface)
-		SDL_ExitWithError("Failed to creation of surface");
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-	if (!texture)
-		SDL_ExitWithError("Failed to creation of texture");
-	SDL_RenderCopy(renderer, texture, NULL, &rect);
-	SDL_DestroyTexture(texture);
 }
 
 void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1, t_user_data player2)

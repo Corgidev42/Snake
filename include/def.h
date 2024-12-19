@@ -1,5 +1,5 @@
-#ifndef DEFS_H
-# define DEFS_H
+#ifndef DEF_H
+# define DEF_H
 
 // SIZE AND POS
 # define SCREEN_WIDTH 1100

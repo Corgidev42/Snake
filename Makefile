@@ -15,7 +15,7 @@ endif
 # Cibles principales
 all: app
 
-libft.a: 
+libft.a:
 	make -C libft re
 
 app: $(wildcard src/*.c) libft.a
@@ -35,5 +35,5 @@ re: fclean all
 
 # Cible tests
 tests: tclean
-	$(CC) $(CFLAGS) tests/*.c src/player.c src/game.c src/menu.c src/app.c  $(LDFLAGS) -o tests.out
+	$(CC) $(CFLAGS) tests/*.c src/player.c src/game.c src/menu.c src/app.c src/asset.c libft.a $(LDFLAGS) -o tests.out
 	./tests.out
