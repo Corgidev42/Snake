@@ -17,8 +17,7 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 	(void) player1;
 	(void) player2;
 	SDL_Event	event;
-	int			nb_events;
-
+	
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)

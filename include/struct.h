@@ -34,10 +34,10 @@ typedef enum e_color
 
 typedef enum e_orientation
 {
-	LEFT,
 	UP,
-	RIGHT,
-	DOWN
+	LEFT,
+	DOWN,
+	RIGHT
 }			t_orientation;
 
 typedef enum e_snake_state
