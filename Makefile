@@ -8,7 +8,7 @@ LDFLAGS = -lSDL2 -lSDL2main -lSDL2_ttf
 
 # Spécifique à macOS
 ifeq ($(OS), Darwin)
-	CFLAGS += -I/opt/homebrew/include/ -Iinclude
+	CFLAGS += -I/opt/homebrew/include/
 	LDFLAGS += -L/opt/homebrew/lib -framework Cocoa
 endif
 
