@@ -6,11 +6,67 @@ void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
 void	generate_apple(t_grid *grid, int *apple_cooldown);
 void	generate_object(t_grid *grid, int *object_cooldown);
 
+int		get_seed_number(int x, int y, int max)
+{
+	return ((x + y) % max);
+}
+
 void	print_grid(t_grid grid, t_gametick gametick)
 {
+	int	x;
+	int	y;
+	SDL_Rect cell_rect = {GRID_POS_X, GRID_POS_Y, CELL_WIDTH, CELL_HEIGHT};
 
+	x = 0;
+	while (x < GRID_COLS)
+	{
+		y = 0;
+		cell_rect.y = GRID_POS_Y;
+		while (y < GRID_ROWS)
+		{
+			SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.tile[grid.cells[x][y].texture][get_seed_number(x, y, NB_TILES)], &cell_rect);
+
+			if (grid.cells[x][y].has_apple == SDL_TRUE)
+				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.apple[get_seed_number(x, y, NB_APPLES)], &cell_rect);
+
+			cell_rect.y += CELL_HEIGHT;
+			y++;
+		}
+		cell_rect.x += CELL_WIDTH;
+		x++;
+	}
 }
+
 void	print_snake(t_grid grid, t_snake_part *head_snake);
+void	print_obstacles(t_grid grid)
+{
+	int	x;
+	int	y;
+	SDL_Rect cell_rect = {GRID_POS_X, GRID_POS_Y, CELL_WIDTH, CELL_HEIGHT};
+
+	x = 0;
+	while (x < GRID_COLS)
+	{
+		y = 0;
+		cell_rect.y = GRID_POS_Y;
+		while (y < GRID_ROWS)
+		{
+			if (grid.cells[x][y].obstacle == SDL_TRUE)
+			{
+				cell_rect.y -= CELL_HEIGHT;
+				cell_rect.h += CELL_HEIGHT;
+				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.obstacle[grid.cells[x][y].texture][get_seed_number(x, y, NB_OBSTACLES)], &cell_rect);
+				cell_rect.y += CELL_HEIGHT;
+				cell_rect.h -= CELL_HEIGHT;
+			}
+			cell_rect.y += CELL_HEIGHT;
+			y++;
+		}
+		cell_rect.x += CELL_WIDTH;
+		x++;
+	}
+}
+
 
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
@@ -145,9 +201,9 @@ void	game_window(t_user_data player1, t_user_data player2)
 {
 	t_grid		grid;
 	t_gametick	gametick;
-	SDL_Rect	scoreboard_rect_pos;
+	SDL_Rect scoreboard_rect_pos = {SCOREBOARD_POS_X, SCOREBOARD_POS_Y, SCOREBOARD_WIDTH, SCOREBOARD_HEIGHT};
+	SDL_Rect grid_rect_pos = {GRID_POS_X, GRID_POS_Y, GRID_WIDTH, GRID_HEIGHT};
 
-	scoreboard_rect_pos.x = SCOREBOARD_POS_X; scoreboard_rect_pos.y = SCOREBOARD_POS_Y; scoreboard_rect_pos.h = SCOREBOARD_HEIGHT ; scoreboard_rect_pos.w = SCOREBOARD_WIDTH;
 	init_map(&grid);
 	// spawn_snake(grid, player1.head_snake);
 	// spawn_snake(grid, player2.head_snake);
@@ -170,10 +226,10 @@ void	game_window(t_user_data player1, t_user_data player2)
 		// generate_apple(&grid, &gametick.apple_cooldown);
 		// generate_object(&grid,&gametick.object_cooldown);
 
-		//print_grid(grid, gametick);
+		print_grid(grid, gametick);
 		// print_snake(grid, player1.head_snake);
 		// print_snake(grid, player2.head_snake);
-
+		print_obstacles(grid);
 		print_scoreboard(scoreboard_rect_pos, player1, player2);
 
 		SDL_RenderPresent(App.renderer);

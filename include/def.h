@@ -9,12 +9,13 @@
 # define GRID_HEIGHT (SCREEN_HEIGHT - SCOREBOARD_HEIGHT)
 # define GRID_WIDTH SCREEN_WIDTH
 # define SCOREBOARD_POS_X 0
-# define SCOREBOARD_POS_Y 0//position du scoreboard
-# define GRID_POS_X 0//position de la gride d'origine
+# define SCOREBOARD_POS_Y 0
+# define GRID_POS_X 0
 # define GRID_POS_Y SCOREBOARD_HEIGHT
-# define GRID_COLS 50
-# define GRID_ROWS 50
-# define SIZE_CELL 16
+# define GRID_COLS 25
+# define GRID_ROWS 20
+# define CELL_WIDTH GRID_WIDTH / GRID_COLS
+# define CELL_HEIGHT GRID_HEIGHT / GRID_ROWS
 
 // ITEMS
 # define INVENTORY_SIZE 2
@@ -28,6 +29,9 @@
 # define CONTAINER_MARGING 1000
 
 # define NB_COLORS 3
+# define NB_TILES 8
+# define NB_OBSTACLES 12
+# define NB_APPLES 3
 # define NB_SNAKE_STATES 2
 # define NB_ORIENTATIONS 4
 
