@@ -11,3 +11,5 @@ libft.a
 *.old
 
 *.out
+
+*.o
