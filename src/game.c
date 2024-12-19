@@ -1,6 +1,7 @@
 #include "app.h"
 #include "defs.h"
 #include "structs.h"
+#include <stdlib.h>
 
 void	spawn_snake(t_grid grid, t_snake_part *head_snake);
 void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
@@ -9,6 +10,26 @@ void	generate_apple(t_grid *grid, int *apple_cooldown);
 void	generate_object(t_grid *grid, int *object_cooldown);
 void	print_grid(t_grid grid, t_gametick gametick);
 void	print_snake(t_grid grid, t_snake_part *head_snake);
+
+int get_text_width(const char* text, TTF_Font* font)
+{
+	int width, height;
+
+	if (TTF_SizeText(font, text, &width, &height) != 0) {
+		printf("Erreur lors de la récupération de la taille du texte : %s\n", TTF_GetError());
+		return -1;
+	}
+	return width;
+}
+int get_text_height(const char* text, TTF_Font* font)
+{
+	int width, height;
+	if (TTF_SizeText(font, text, &width, &height) != 0) {
+		printf("Erreur lors de la récupération de la taille du texte : %s\n", TTF_GetError());
+		return -1;
+	}
+	return height;
+}
 
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
@@ -71,20 +92,18 @@ void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1, t_user_data player
 	if(SDL_RenderDrawRect(App.renderer, &rect_pos))
 		SDL_ExitWithError("print_scoreboard : draw rect");
 
-	SDL_Rect name_rect_player1 = {rect_pos.x, rect_pos.y + 20, 100, SCOREBOARD_HEIGHT / 2};
-	SDL_Rect name_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 50, rect_pos.y + 20, 100, SCOREBOARD_HEIGHT / 2};
+	SDL_Rect name_rect_player1 = {rect_pos.x, rect_pos.y + 20, get_text_width(player1.id, App.font), get_text_height(ft_itoa(player1.id), App.font)};
+	SDL_Rect life_rect_player1 = {rect_pos.x + 200, rect_pos.y + 20, get_text_width(player1.life, App.font), get_text_height(player1.life, App.font)};
+	SDL_Rect score_rect_player1 = {rect_pos.x + 400, rect_pos.y + 20,  get_text_width(player1.score, App.font), get_text_height(player1.score, App.font)};
 
-	SDL_Rect life_rect_player1 = {rect_pos.x + 200, rect_pos.y + 20, 32, SCOREBOARD_HEIGHT / 2};
-	SDL_Rect life_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 200, rect_pos.y + 20, 32, SCOREBOARD_HEIGHT / 2};
-
-	SDL_Rect score_rect_player1 = {rect_pos.x + 400, rect_pos.y + 20, 100, SCOREBOARD_HEIGHT / 2};
-	SDL_Rect score_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 400, rect_pos.y + 20, 100, SCOREBOARD_HEIGHT / 2};
-
-
+	SDL_Rect name_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 50, rect_pos.y + 20, get_text_width(player2.id, App.font), get_text_height(player2.id, App.font)};
+	SDL_Rect life_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 250, rect_pos.y + 20, get_text_width(player2.life, App.font), get_text_height(player2.life, App.font)};
+	SDL_Rect score_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 450, rect_pos.y + 20, get_text_width(player2.score, App.font), get_text_height(player2.score, App.font)};
 
 	render_text(App.renderer, "Player 1", name_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "3", life_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "1013", score_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
+
 	render_text(App.renderer, "Player 2", name_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "3", life_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "4343", score_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
