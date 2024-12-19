@@ -31,12 +31,34 @@ typedef enum e_obstacle
 	ROCK
 }						t_obstable;
 
+typedef enum e_color
+{
+	YELLOW,
+	BLUE,
+	GREEN
+}			t_color;
+
+typedef struct	t_texture_snake
+{
+	SDL_Texture		*body[10];
+	SDL_Texture		*head[NB_SNAKE_STATES][NB_ORIENTATIONS][8];
+}				t_texture_snake;
+
+typedef struct	s_texture
+{
+	SDL_Texture		*tile[NB_COLORS][8];
+	SDL_Texture		*obstacle[NB_COLORS][12];
+	t_texture_snake	snake[NB_COLORS];
+	SDL_Texture		*apple[3];
+}				t_texture;
+
 typedef struct s_app
 {
 	SDL_bool			running;
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	TTF_Font			*font;
+	t_texture_snake		textures;
 }						t_app;
 
 typedef struct s_coords
