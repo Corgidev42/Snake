@@ -67,8 +67,9 @@ void test_init_map(void)
 				assert(grid.cells[x][y].obstacle == 0);
 			assert(grid.cells[x][y].has_apple == SDL_FALSE);
 			assert(grid.cells[x][y].has_bomb == SDL_FALSE);
-			assert(grid.cells[x][y].bonus == EMPTY);
-			assert(grid.cells[x][y].texture == EMPTY);
+			assert(grid.cells[x][y].bonus == BONUS_EMPTY);
+			// A modifier pour les textures
+			assert(grid.cells[x][y].texture == YELLOW);
 			assert(grid.cells[x][y].is_pending == SDL_FALSE);
 		}
 	}

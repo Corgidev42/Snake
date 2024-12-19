@@ -4,14 +4,6 @@
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_ttf.h>
 
-typedef enum e_skin
-{
-	EMPTY,
-	YELLOW,
-	BLUE,
-	GREEN
-}						t_skin;
-
 typedef enum e_bonus
 {
 	BONUS_EMPTY,
@@ -31,12 +23,34 @@ typedef enum e_obstacle
 	ROCK
 }						t_obstable;
 
+typedef enum e_color
+{
+	YELLOW,
+	BLUE,
+	GREEN
+}			t_color;
+
+typedef struct	t_texture_snake
+{
+	SDL_Texture		*body[10];
+	SDL_Texture		*head[NB_SNAKE_STATES][NB_ORIENTATIONS][8];
+}				t_texture_snake;
+
+typedef struct	s_texture
+{
+	SDL_Texture		*tile[NB_COLORS][8];
+	SDL_Texture		*obstacle[NB_COLORS][12];
+	t_texture_snake	snake[NB_COLORS];
+	SDL_Texture		*apple[3];
+}				t_texture;
+
 typedef struct s_app
 {
 	SDL_bool			running;
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	TTF_Font			*font;
+	t_texture_snake		textures;
 }						t_app;
 
 typedef struct s_coords
@@ -50,7 +64,7 @@ typedef struct s_snake_part
 	t_coords			coords;
 	int					orientation;
 	int					speed;
-	t_skin				skin;
+	t_color				skin;
 	struct s_snake_part	*next;
 }						t_snake_part;
 
@@ -70,7 +84,7 @@ typedef struct s_cell
 	SDL_bool			has_apple;
 	SDL_bool			has_bomb;
 	t_bonus				bonus;
-	t_skin				texture;
+	t_color				texture;
 	SDL_bool			is_pending;
 }						t_cell;
 

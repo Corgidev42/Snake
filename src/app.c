@@ -1,6 +1,8 @@
 #include "structs.h"
 #include "app.h"
 
+
+
 void	kill_app(void)
 {
 	TTF_CloseFont(App.font);

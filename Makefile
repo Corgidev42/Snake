@@ -16,6 +16,7 @@ endif
 all: app
 
 app: $(wildcard src/*.c)
+	make -C libft re
 	$(CC) $(wildcard src/*.c) libft.a -o app $(CFLAGS) $(LDFLAGS)
 
 clean:

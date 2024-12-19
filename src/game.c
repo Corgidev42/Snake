@@ -144,7 +144,7 @@ void	init_map(t_grid *grid)
 			grid->cells[x][y].has_apple = SDL_FALSE;
 			grid->cells[x][y].has_bomb = SDL_FALSE;
 			grid->cells[x][y].bonus = BONUS_EMPTY;
-			grid->cells[x][y].texture = EMPTY;
+			grid->cells[x][y].texture = YELLOW;
 			grid->cells[x][y].is_pending = SDL_FALSE;
 			y++;
 		}
