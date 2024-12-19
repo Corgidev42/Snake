@@ -8,6 +8,21 @@ void	generate_object(t_grid *grid, int *object_cooldown);
 
 void	print_grid(t_grid grid, t_gametick gametick)
 {
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < GRID_COLS)
+	{
+		y = 0;
+		while (y < GRID_ROWS)
+		{
+			// SDL_RenderCopy(App.renderer, App.te)
+			y++;
+		}
+		x++;
+	}
 
 }
 void	print_snake(t_grid grid, t_snake_part *head_snake);
