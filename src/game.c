@@ -69,7 +69,8 @@ void	update_gametick(t_gametick *gametick, int speed1, int speed2)
 	gametick->snake_2_cooldown -= gametick->elapsed_time * speed2;
 }
 
-void render_text(SDL_Renderer* renderer, const char* text, SDL_Rect rect, TTF_Font* font, SDL_Color color) {
+void render_text(SDL_Renderer* renderer, const char* text, SDL_Rect rect, TTF_Font* font, SDL_Color color)
+{
 	SDL_Surface* surface = TTF_RenderText_Solid(font, text, color);
 	if (!surface)
 		SDL_ExitWithError("Failed to creation of surface");
@@ -89,21 +90,39 @@ void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1, t_user_data player
 	if(SDL_RenderDrawRect(App.renderer, &rect_pos))
 		SDL_ExitWithError("print_scoreboard : draw rect");
 
-	SDL_Rect name_rect_player1 = {rect_pos.x, rect_pos.y + 20, get_text_width(ft_itoa(player1.id), App.font), get_text_height(ft_itoa(player1.id), App.font)};
-	SDL_Rect life_rect_player1 = {rect_pos.x + 200, rect_pos.y + 20, get_text_width(ft_itoa(player1.life), App.font), get_text_height(ft_itoa(player1.life), App.font)};
-	SDL_Rect score_rect_player1 = {rect_pos.x + 400, rect_pos.y + 20,  get_text_width(ft_itoa(player1.score), App.font), get_text_height(ft_itoa(player1.score), App.font)};
+	rect_pos.y += SCOREBOARD_HEIGHT / 2 - get_text_height("A", App.font) / 2;
+	SDL_Rect player_text_rect ={rect_pos.x + 20, rect_pos.y, get_text_width("Player", App.font), get_text_height("Player", App.font)};
+	SDL_Rect score_text_rect = {rect_pos.x + 120 + get_text_width("A", App.font), rect_pos.y, get_text_width("score", App.font), get_text_height("score", App.font)};
+	SDL_Rect life_text_rect ={rect_pos.x + 220 + get_text_width("A", App.font) + get_text_width("99999", App.font), rect_pos.y, get_text_width("life", App.font), get_text_height("life", App.font)};
 
-	SDL_Rect name_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 50, rect_pos.y + 20, get_text_width(ft_itoa(player2.id), App.font), get_text_height(ft_itoa(player2.id), App.font)};
-	SDL_Rect life_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 250, rect_pos.y + 20, get_text_width(ft_itoa(player2.life), App.font), get_text_height(ft_itoa(player2.life), App.font)};
-	SDL_Rect score_rect_player2 = {rect_pos.x + SCREEN_WIDTH - 450, rect_pos.y + 20, get_text_width(ft_itoa(player2.score), App.font), get_text_height(ft_itoa(player2.score), App.font)};
+	SDL_Rect id_rect_player1 = {player_text_rect.x + get_text_width("Player", App.font) + 5, rect_pos.y, get_text_width(ft_itoa(player1.id), App.font), get_text_height(ft_itoa(player1.id), App.font)};
+	SDL_Rect score_rect_player1 = {score_text_rect.x + get_text_width("score", App.font) + 5, rect_pos.y,  get_text_width(ft_itoa(player1.score), App.font), get_text_height(ft_itoa(player1.score), App.font)};
+	SDL_Rect life_rect_player1 = {life_text_rect.x + get_text_width("life", App.font) + 5, rect_pos.y, get_text_width(ft_itoa(player1.life), App.font), get_text_height(ft_itoa(player1.life), App.font)};
 
-	render_text(App.renderer, ft_itoa(player1.id), name_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
-	render_text(App.renderer, ft_itoa(player1.life), life_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
+
+	render_text(App.renderer, "Player", player_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+	render_text(App.renderer, "score", score_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+	render_text(App.renderer, "life", life_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+
+	render_text(App.renderer, ft_itoa(player1.id), id_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, ft_itoa(player1.score), score_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
+	render_text(App.renderer, ft_itoa(player1.life), life_rect_player1, App.font, (SDL_Color){255, 255, 255, 255});
 
-	render_text(App.renderer, ft_itoa(player2.id), name_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
-	render_text(App.renderer, ft_itoa(player2.life), life_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
+	player_text_rect.x = SCREEN_WIDTH - 20 - get_text_width("Player", App.font) - get_text_width("A", App.font);
+	score_text_rect.x = SCREEN_WIDTH - 120 - get_text_width("score", App.font) - get_text_width("99999", App.font);
+	life_text_rect.x = SCREEN_WIDTH - 220  - get_text_width("life", App.font) - get_text_width("A", App.font) - get_text_width("99999", App.font);
+
+	SDL_Rect id_rect_player2 = {player_text_rect.x + get_text_width("Player", App.font) + 5, rect_pos.y, get_text_width(ft_itoa(player2.id), App.font), get_text_height(ft_itoa(player2.id), App.font)};
+	SDL_Rect score_rect_player2 = {score_text_rect.x + get_text_width("score", App.font) + 5, rect_pos.y, get_text_width(ft_itoa(player2.score), App.font), get_text_height(ft_itoa(player2.score), App.font)};
+	SDL_Rect life_rect_player2 = {life_text_rect.x + get_text_width("life", App.font) + 5, rect_pos.y, get_text_width(ft_itoa(player2.life), App.font), get_text_height(ft_itoa(player2.life), App.font)};
+
+	render_text(App.renderer, "Player", player_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+	render_text(App.renderer, "score", score_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+	render_text(App.renderer, "life", life_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+
+	render_text(App.renderer, ft_itoa(player2.id), id_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, ft_itoa(player2.score), score_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
+	render_text(App.renderer, ft_itoa(player2.life), life_rect_player2, App.font, (SDL_Color){255, 255, 255, 255});
 }
 
 void	free_all_game(t_grid grid)
