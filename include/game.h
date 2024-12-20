@@ -44,6 +44,8 @@ void	init_gametick(t_gametick *gametick);
  */
 void	do_input(t_user_data *player1, t_user_data *player2);
 
+t_snake_part	*add_behind_snake_part(t_snake_part *head_snake);
+
 /**
  * @brief Déplace le serpent d'un joueur.
  *
@@ -102,7 +104,7 @@ void	print_grid(t_grid grid, t_gametick gametick);
  * @param grid Grille de jeu.
  * @param player Données du joueur.
  */
-void	print_snake(t_grid grid, t_snake_part *head_snake);
+void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation);
 
 void	print_obstacles(t_grid grid);
 

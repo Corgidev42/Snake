@@ -37,7 +37,92 @@ void	print_grid(t_grid grid, t_gametick gametick)
 	}
 }
 
-void	print_snake(t_grid grid, t_snake_part *head_snake);
+t_snake_part	*add_behind_snake_part(t_snake_part *head_snake)
+{
+	t_snake_part	*new_snake_part;
+	t_snake_part	*current;
+
+	new_snake_part = malloc(sizeof(t_snake_part));
+	if (!new_snake_part)
+		SDL_ExitWithError("malloc new_snake_part");
+	new_snake_part->speed = head_snake->speed;
+	new_snake_part->skin = head_snake->skin;
+	new_snake_part->next = NULL;
+
+	current = head_snake;
+	while (current && current->next)
+		current = current->next;
+	new_snake_part->orientation = current->orientation;
+	switch (current->orientation)
+	{
+	case UP:
+		new_snake_part->coords.x = current->coords.x;
+		new_snake_part->coords.y = current->coords.y + 1;
+		break;
+	case DOWN:
+		new_snake_part->coords.x = current->coords.x;
+		new_snake_part->coords.y = current->coords.y - 1;
+		break;
+	case LEFT:
+		new_snake_part->coords.x = current->coords.x + 1;
+		new_snake_part->coords.y = current->coords.y;
+		break;
+	case RIGHT:
+		new_snake_part->coords.x = current->coords.x - 1;
+		new_snake_part->coords.y = current->coords.y;
+		break;
+	default:
+		break;
+	}
+	current->next = new_snake_part;
+	return (new_snake_part);
+}
+
+void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
+{
+	t_snake_part	*current;
+	SDL_Rect		cell_rect = {GRID_POS_X, GRID_POS_Y, CELL_WIDTH, CELL_HEIGHT};
+	
+	current = head_snake;
+	cell_rect.x = GRID_POS_X + CELL_WIDTH * current->coords.x;
+	cell_rect.y = GRID_POS_Y + CELL_HEIGHT * current->coords.y;
+	SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.snake_head[current->skin][NORMAL][current->orientation][snake_animation / (SNAKES_ANIMATION_TIME / 8)], &cell_rect);
+
+	current = current->next;
+	while (current)
+	{
+		cell_rect.x = GRID_POS_X + CELL_WIDTH * current->coords.x;
+		cell_rect.y = GRID_POS_Y + CELL_HEIGHT * current->coords.y;
+		int	body_sprite;
+		if (current->next)
+		{
+			if ((current->orientation == UP && current->next->orientation == UP)
+				|| (current->orientation == DOWN && current->next->orientation == DOWN))
+				body_sprite = 0;
+			if ((current->orientation == LEFT && current->next->orientation == LEFT)
+				|| (current->orientation == RIGHT && current->next->orientation == RIGHT))
+				body_sprite = 1;
+			if ((current->orientation == UP && current->next->orientation == RIGHT)
+				|| (current->orientation == LEFT && current->next->orientation == DOWN))
+				body_sprite = 2;
+			if ((current->orientation == UP && current->next->orientation == LEFT)
+				|| (current->orientation == RIGHT && current->next->orientation == DOWN))
+				body_sprite = 3;
+			if ((current->orientation == LEFT && current->next->orientation == UP)
+				|| (current->orientation == DOWN && current->next->orientation == RIGHT))
+				body_sprite = 4;
+			if ((current->orientation == RIGHT && current->next->orientation == UP)
+				|| (current->orientation == DOWN && current->next->orientation == LEFT))
+				body_sprite = 5;
+		}
+		else
+			body_sprite = 6 + current->orientation;
+		SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.snake_body[current->skin][body_sprite], &cell_rect);
+		current = current->next;
+	}
+}
+
+
 void	print_obstacles(t_grid grid)
 {
 	int	x;
@@ -89,23 +174,26 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 
 void	init_gametick(t_gametick *gametick)
 {
-	gametick->elapsed_time = 0;
+	gametick->elapsed_time = SDL_GetTicks();
 	gametick->apple_cooldown = APPLE_GENERATION_TIME;
 	gametick->object_cooldown = OBJECT_GENERATION_TIME;
 	gametick->snake_1_cooldown = SNAKE_MOVE_TIME;
 	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
+	gametick->snakes_animation = SNAKES_ANIMATION_TIME;
 }
 
 void	update_gametick(t_gametick *gametick, int speed1, int speed2)
 {
-	int	elapsed_time;
-
-	elapsed_time = SDL_GetTicks();
-	gametick->elapsed_time = elapsed_time - gametick->elapsed_time;
-	gametick->apple_cooldown -= gametick->elapsed_time;
-	gametick->object_cooldown -= gametick->elapsed_time;
-	gametick->snake_1_cooldown -= gametick->elapsed_time * speed1;
-	gametick->snake_2_cooldown -= gametick->elapsed_time * speed2;
+	int	elapsed_time = SDL_GetTicks() - gametick->elapsed_time;
+	
+	gametick->apple_cooldown -= elapsed_time;
+	gametick->object_cooldown -= elapsed_time;
+	gametick->snake_1_cooldown -= elapsed_time * speed1;
+	gametick->snake_2_cooldown -= elapsed_time * speed2;
+	gametick->snakes_animation -= elapsed_time;
+	if (gametick->snakes_animation <= 0)
+		gametick->snakes_animation += SNAKES_ANIMATION_TIME;
+	gametick->elapsed_time = SDL_GetTicks();
 }
 
 void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1, t_user_data player2)
@@ -227,12 +315,14 @@ void	game_window(t_user_data player1, t_user_data player2)
 		// generate_object(&grid,&gametick.object_cooldown);
 
 		print_grid(grid, gametick);
-		// print_snake(grid, player1.head_snake);
-		// print_snake(grid, player2.head_snake);
+		print_snake(grid, player1.head_snake, gametick.snakes_animation);
+		// print_snake(grid, player2.head_snake, gametick.snakes_animation);
 		print_obstacles(grid);
 		print_scoreboard(scoreboard_rect_pos, player1, player2);
 
 		SDL_RenderPresent(App.renderer);
+
+		SDL_Delay(1000 / 60);
 	}
 	free_all_game(grid);
 }

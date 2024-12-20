@@ -85,6 +85,7 @@ typedef struct s_gametick
 {
 	int					elapsed_time;
 	int					apple_cooldown;
+	int					snakes_animation;
 	int					snake_1_cooldown;
 	int					snake_2_cooldown;
 	int					object_cooldown;
