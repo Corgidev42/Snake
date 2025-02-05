@@ -139,6 +139,8 @@ void	spawn_snake(t_grid grid, t_user_data *player)
 	head_snake->next = NULL;
 	head_snake->speed = 1;
 	add_behind_snake_part(head_snake);
+	cell->has_snake = SDL_TRUE;
+	grid.cells[head_snake->next->coords.x][head_snake->next->coords.y].has_snake = SDL_TRUE;
 }
 
 void	print_grid(t_grid grid, t_gametick gametick)
@@ -487,7 +489,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 		do_input(&player1, &player2);
 
 		move_snake(&gametick.snake_1_cooldown, &player1);
-		// move_snake(&gametick.snake_2_cooldown, &player2);
+		move_snake(&gametick.snake_2_cooldown, &player2);
 
 		// do_collision(grid, &player1, &player2);
 
