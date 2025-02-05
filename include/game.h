@@ -26,7 +26,7 @@ void	init_map(t_grid *grid);
  * @param grid Grille de jeu.
  * @param head_snake Tête du serpent.
  */
-void	spawn_snake(t_grid grid, t_snake_part *head_snake);
+void	spawn_snake(t_grid grid, t_user_data *player);
 
 /**
  * @brief Initialise les paramètres de temps pour la gestion du temps de tous les événements,

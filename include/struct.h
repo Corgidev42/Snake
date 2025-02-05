@@ -76,7 +76,7 @@ typedef struct s_coords
 typedef struct s_snake_part
 {
 	t_coords			coords;
-	int					orientation;
+	t_orientation		orientation;
 	int					speed;
 	t_color				skin;
 	struct s_snake_part	*next;
@@ -118,6 +118,7 @@ typedef struct s_user_data
 	int					life;
 	t_bonus				inventory[INVENTORY_SIZE];
 	t_snake_part		*head_snake;
+	t_orientation		orientation_snake;
 }						t_user_data;
 
 #endif
