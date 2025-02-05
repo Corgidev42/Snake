@@ -2,6 +2,7 @@
 # define STRUCT_H
 
 # include "snake.h"
+# include <time.h>
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_ttf.h>
 # include <SDL2/SDL_image.h>
@@ -97,6 +98,7 @@ typedef struct s_cell
 	t_obstable			obstacle;
 	SDL_bool			has_apple;
 	SDL_bool			has_bomb;
+	SDL_bool			has_snake;
 	t_bonus				bonus;
 	t_color				texture;
 	SDL_bool			is_pending;

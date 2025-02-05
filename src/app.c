@@ -82,6 +82,7 @@ void	SDL_ExitWithError(const char *message)
 
 void	init_app(void)
 {
+	srand(time(NULL));
 	if (SDL_Init(SDL_INIT_EVERYTHING))
 		SDL_ExitWithError("Initialisation of SDL");
 	App.window = SDL_CreateWindow("Snake EnV Numeric.", SDL_WINDOWPOS_UNDEFINED,

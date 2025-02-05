@@ -1,6 +1,5 @@
 #include "snake.h"
 
-void	spawn_snake(t_grid grid, t_snake_part *head_snake);
 void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
 void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
 void	generate_apple(t_grid *grid, int *apple_cooldown);
@@ -9,6 +8,66 @@ void	generate_object(t_grid *grid, int *object_cooldown);
 int		get_seed_number(int x, int y, int max)
 {
 	return ((x + y) % max);
+}
+
+SDL_bool	cell_is_empty(t_cell *cell)
+{
+	if (cell->obstacle == OBS_EMPTY
+		&& cell->has_apple == SDL_FALSE
+		&& cell->has_bomb == SDL_FALSE
+		&& cell->has_snake == SDL_FALSE
+		&& cell->bonus == BONUS_EMPTY)
+		return (SDL_TRUE);
+	return (SDL_FALSE);
+}
+
+SDL_bool	recursive_neighbourg_empty_cells(t_grid *grid, int x, int y, int r, int i)
+{
+	SDL_bool	result = SDL_TRUE;
+
+	if (!cell_is_empty(&grid->cells[x][y]))
+		return (SDL_FALSE);
+	if (i < r)
+	{
+		if (x > 0 && !recursive_neighbourg_empty_cells(grid, x - 1, y, r, i + 1))
+			result = SDL_FALSE;
+		if (x < GRID_COLS - 1 && !recursive_neighbourg_empty_cells(grid, x + 1, y, r, i + 1))
+			result = SDL_FALSE;
+		if (y > 0 && !recursive_neighbourg_empty_cells(grid, x, y - 1, r, i + 1))
+			result = SDL_FALSE;
+		if (y < GRID_ROWS - 1 && !recursive_neighbourg_empty_cells(grid, x, y + 1, r, i + 1))
+			result = SDL_FALSE;
+	}
+	return (result);
+}
+
+t_cell	*get_rand_empty_cell(t_grid *grid, int r)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	i = 0;
+	while (SDL_TRUE)
+	{
+		x = rand() % GRID_COLS;
+		y = rand() % GRID_ROWS;
+		if (recursive_neighbourg_empty_cells(grid, x, y, r, 0))
+			return (&grid->cells[x][y]);
+	}
+}
+
+void	spawn_snake(t_grid grid, t_snake_part *head_snake)
+{
+	t_cell	*cell;
+
+	cell = get_rand_empty_cell(&grid, 2);
+	head_snake->coords.x = cell->coords.x;
+	head_snake->coords.y = cell->coords.y;
+	head_snake->orientation = rand() % 4;
+	head_snake->next = NULL;
+	head_snake->speed = SNAKE_MOVE_TIME;
+	add_behind_snake_part(head_snake);
 }
 
 void	print_grid(t_grid grid, t_gametick gametick)
@@ -276,6 +335,7 @@ void	init_map(t_grid *grid)
 				grid->cells[x][y].obstacle = 0;
 			grid->cells[x][y].has_apple = SDL_FALSE;
 			grid->cells[x][y].has_bomb = SDL_FALSE;
+			grid->cells[x][y].has_snake = SDL_FALSE;
 			grid->cells[x][y].bonus = BONUS_EMPTY;
 			grid->cells[x][y].texture = YELLOW;
 			grid->cells[x][y].is_pending = SDL_FALSE;
@@ -293,7 +353,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 	SDL_Rect grid_rect_pos = {GRID_POS_X, GRID_POS_Y, GRID_WIDTH, GRID_HEIGHT};
 
 	init_map(&grid);
-	// spawn_snake(grid, player1.head_snake);
+	spawn_snake(grid, player1.head_snake);
 	// spawn_snake(grid, player2.head_snake);
 	init_gametick(&gametick);
 	while (App.running && player1.life && player2.life)
