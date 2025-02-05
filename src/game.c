@@ -2,7 +2,8 @@
 
 void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2)
 {
-
+	kill_collision(); //mur, bombe, collision entre snake [tete contre tete, tete apres tete, tete contre corps]
+	score_collision(); // pomme, bonus
 }
 
 void	generate_object(t_grid *grid, int *object_cooldown);
