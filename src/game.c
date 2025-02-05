@@ -26,12 +26,41 @@ void	move_snake(int *snake_cooldown, t_user_data *player)
 			current = prev->next;
 			if (current->next == NULL)
 			{
-				current = player->head_snake;
+				current->next = player->head_snake;
 				prev->next = NULL;
 
 				current->coords.x = player->head_snake->coords.x;
 				current->coords.y = player->head_snake->coords.y;
+				current->orientation = player->orientation_snake;
+				player->head_snake = current;
+				break;
 			}
+		}
+		current = player->head_snake->next;
+		switch (player->orientation_snake)
+		{
+		case LEFT:
+			player->head_snake->coords.x -= 1;
+			if (current)
+				current->orientation = LEFT;
+			break;
+		case RIGHT:
+			player->head_snake->coords.x += 1;
+			if (current)
+				current->orientation = RIGHT;
+			break;
+		case UP:
+			player->head_snake->coords.y -= 1;
+			if (current)
+				current->orientation = UP;
+			break;
+		case DOWN:
+			player->head_snake->coords.y += 1;
+			if (current)
+				current->orientation = DOWN;
+			break;
+		default:
+			break;
 		}
 		*snake_cooldown += SNAKE_MOVE_TIME;
 	}
@@ -457,8 +486,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		do_input(&player1, &player2);
 
-		// move_snake(&gametick.snake_1_cooldown, player1);
-		// move_snake(&gametick.snake_2_cooldown, player2);
+		move_snake(&gametick.snake_1_cooldown, &player1);
+		// move_snake(&gametick.snake_2_cooldown, &player2);
 
 		// do_collision(grid, &player1, &player2);
 
