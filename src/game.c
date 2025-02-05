@@ -2,7 +2,7 @@
 
 void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
 void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
-void	generate_apple(t_grid *grid, int *apple_cooldown);
+
 void	generate_object(t_grid *grid, int *object_cooldown);
 
 int		get_seed_number(int x, int y, int max)
@@ -54,6 +54,19 @@ t_cell	*get_rand_empty_cell(t_grid *grid, int r)
 		y = rand() % GRID_ROWS;
 		if (recursive_neighbourg_empty_cells(grid, x, y, r, 0))
 			return (&grid->cells[x][y]);
+	}
+}
+
+void	generate_apple(t_grid *grid, int *apple_cooldown)
+{
+	t_cell *cell;
+	if (*apple_cooldown > 0)
+		return;
+	if (*apple_cooldown <= 0)
+	{
+		cell = get_rand_empty_cell(grid, 0);
+		cell->has_apple = SDL_TRUE;
+		*apple_cooldown += APPLE_GENERATION_TIME;
 	}
 }
 
@@ -141,7 +154,7 @@ void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 {
 	t_snake_part	*current;
 	SDL_Rect		cell_rect = {GRID_POS_X, GRID_POS_Y, CELL_WIDTH, CELL_HEIGHT};
-	
+
 	current = head_snake;
 	cell_rect.x = GRID_POS_X + CELL_WIDTH * current->coords.x;
 	cell_rect.y = GRID_POS_Y + CELL_HEIGHT * current->coords.y;
@@ -217,7 +230,7 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 	(void) player1;
 	(void) player2;
 	SDL_Event	event;
-	
+
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
@@ -244,7 +257,7 @@ void	init_gametick(t_gametick *gametick)
 void	update_gametick(t_gametick *gametick, int speed1, int speed2)
 {
 	int	elapsed_time = SDL_GetTicks() - gametick->elapsed_time;
-	
+
 	gametick->apple_cooldown -= elapsed_time;
 	gametick->object_cooldown -= elapsed_time;
 	gametick->snake_1_cooldown -= elapsed_time * speed1;
@@ -371,7 +384,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		// do_collision(grid, &player1, &player2);
 
-		// generate_apple(&grid, &gametick.apple_cooldown);
+		generate_apple(&grid, &gametick.apple_cooldown);
 		// generate_object(&grid,&gametick.object_cooldown);
 
 		print_grid(grid, gametick);
