@@ -13,7 +13,7 @@ SDL_bool		recursive_neighbourg_empty_cells(t_grid *grid, int x, int y,
 					int r, int i);
 t_cell			*get_rand_empty_cell(t_grid *grid, int r);
 void			generate_apple(t_grid *grid, int *apple_cooldown);
-void			spawn_snake(t_grid grid, t_snake_part *head_snake);
+void			spawn_snake(t_grid grid, t_user_data *player);
 void			print_grid(t_grid grid, t_gametick gametick);
 t_snake_part	*add_behind_snake_part(t_snake_part *head_snake);
 void			print_snake(t_grid grid, t_snake_part *head_snake,
