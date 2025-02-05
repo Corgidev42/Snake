@@ -70,16 +70,18 @@ void	generate_apple(t_grid *grid, int *apple_cooldown)
 	}
 }
 
-void	spawn_snake(t_grid grid, t_snake_part *head_snake)
+void	spawn_snake(t_grid grid, t_user_data *player)
 {
-	t_cell	*cell;
+	t_snake_part	*head_snake = player->head_snake;
+	t_cell			*cell;
 
 	cell = get_rand_empty_cell(&grid, 2);
 	head_snake->coords.x = cell->coords.x;
 	head_snake->coords.y = cell->coords.y;
 	head_snake->orientation = rand() % 4;
+	player->orientation_snake = head_snake->orientation;
 	head_snake->next = NULL;
-	head_snake->speed = SNAKE_MOVE_TIME;
+	head_snake->speed = 1;
 	add_behind_snake_part(head_snake);
 }
 
@@ -224,6 +226,23 @@ void	print_obstacles(t_grid grid)
 	}
 }
 
+void	rotate_snake(t_user_data *player, t_orientation orientation)
+{
+	t_snake_part	*second = player->head_snake->next;
+
+	if (second)
+	{
+		if (second->orientation == UP && orientation == DOWN)
+			return;
+		if (second->orientation == DOWN && orientation == UP)
+			return;
+		if (second->orientation == LEFT && orientation == RIGHT)
+			return;
+		if (second->orientation == RIGHT && orientation == LEFT)
+			return;
+	}
+	player->orientation_snake = orientation;
+}
 
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
@@ -238,7 +257,39 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 			case SDL_QUIT:
 				App.running = SDL_FALSE;
 				break;
-			default:
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.scancode)
+				{
+					case SDL_SCANCODE_ESCAPE:
+						App.running = SDL_FALSE;
+						break;
+					case SDL_SCANCODE_A:
+						rotate_snake(player1, LEFT);
+						break;
+					case SDL_SCANCODE_D:
+						rotate_snake(player1, RIGHT);
+						break;
+					case SDL_SCANCODE_W:
+						rotate_snake(player1, UP);
+						break;
+					case SDL_SCANCODE_S:
+						rotate_snake(player1, DOWN);
+						break;
+					case SDL_SCANCODE_LEFT:
+						rotate_snake(player2, LEFT);
+						break;
+					case SDL_SCANCODE_RIGHT:
+						rotate_snake(player2, RIGHT);
+						break;
+					case SDL_SCANCODE_UP:
+						rotate_snake(player2, UP);
+						break;
+					case SDL_SCANCODE_DOWN:
+						rotate_snake(player2, DOWN);
+						break;
+					default:
+						break;
+				}
 				break;
 		}
 	}
@@ -366,8 +417,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 	SDL_Rect grid_rect_pos = {GRID_POS_X, GRID_POS_Y, GRID_WIDTH, GRID_HEIGHT};
 
 	init_map(&grid);
-	spawn_snake(grid, player1.head_snake);
-	// spawn_snake(grid, player2.head_snake);
+	spawn_snake(grid, &player1);
+	spawn_snake(grid, &player2);
 	init_gametick(&gametick);
 	while (App.running && player1.life && player2.life)
 	{
