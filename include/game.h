@@ -7,7 +7,8 @@ void			do_collision(t_grid grid, t_user_data *player1,
 					t_user_data *player2);
 void			generate_object(t_grid *grid, int *object_cooldown);
 int				get_seed_number(int x, int y, int max);
-void			move_snake(int *snake_cooldown, t_user_data *player);
+void			move_snake(t_grid *grid, int *snake_cooldown,
+					t_user_data *player);
 SDL_bool		cell_is_empty(t_cell *cell);
 SDL_bool		recursive_neighbourg_empty_cells(t_grid *grid, int x, int y,
 					int r, int i);

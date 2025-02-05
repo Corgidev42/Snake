@@ -1,6 +1,9 @@
 #include "snake.h"
 
-void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
+void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2)
+{
+
+}
 
 void	generate_object(t_grid *grid, int *object_cooldown);
 
@@ -9,7 +12,7 @@ int		get_seed_number(int x, int y, int max)
 	return ((x + y) % max);
 }
 
-void	move_snake(int *snake_cooldown, t_user_data *player)
+void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 {
 	t_snake_part *current;
 	t_snake_part *prev;
@@ -22,10 +25,12 @@ void	move_snake(int *snake_cooldown, t_user_data *player)
 	{
 		while(current)
 		{
+			// grid->cells
 			prev = current;
 			current = prev->next;
 			if (current->next == NULL)
 			{
+				grid->cells[current->coords.x][current->coords.y].has_snake = SDL_FALSE;
 				current->next = player->head_snake;
 				prev->next = NULL;
 
@@ -62,6 +67,7 @@ void	move_snake(int *snake_cooldown, t_user_data *player)
 		default:
 			break;
 		}
+		grid->cells[player->head_snake->coords.x][player->head_snake->coords.y].has_snake = SDL_TRUE;
 		*snake_cooldown += SNAKE_MOVE_TIME;
 	}
 }
@@ -486,8 +492,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		do_input(&player1, &player2);
 
-		move_snake(&gametick.snake_1_cooldown, &player1);
-		// move_snake(&gametick.snake_2_cooldown, &player2);
+		move_snake(&grid, &gametick.snake_1_cooldown, &player1);
+		move_snake(&grid, &gametick.snake_2_cooldown, &player2);
 
 		// do_collision(grid, &player1, &player2);
 
