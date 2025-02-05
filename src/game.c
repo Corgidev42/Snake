@@ -1,6 +1,5 @@
 #include "snake.h"
 
-void	move_snake(int *snake_cooldown, t_snake_part *head_snake);
 void	do_collision(t_grid grid, t_user_data *player1, t_user_data *player2);
 
 void	generate_object(t_grid *grid, int *object_cooldown);
@@ -8,6 +7,34 @@ void	generate_object(t_grid *grid, int *object_cooldown);
 int		get_seed_number(int x, int y, int max)
 {
 	return ((x + y) % max);
+}
+
+void	move_snake(int *snake_cooldown, t_user_data *player)
+{
+	t_snake_part *current;
+	t_snake_part *prev;
+
+	prev = player->head_snake;
+	current = player->head_snake;
+	if (*snake_cooldown > 0)
+		return ;
+	if (*snake_cooldown <= 0)
+	{
+		while(current)
+		{
+			prev = current;
+			current = prev->next;
+			if (current->next == NULL)
+			{
+				current = player->head_snake;
+				prev->next = NULL;
+
+				current->coords.x = player->head_snake->coords.x;
+				current->coords.y = player->head_snake->coords.y;
+			}
+		}
+		*snake_cooldown += SNAKE_MOVE_TIME;
+	}
 }
 
 SDL_bool	cell_is_empty(t_cell *cell)
@@ -79,7 +106,7 @@ void	spawn_snake(t_grid grid, t_snake_part *head_snake)
 	head_snake->coords.y = cell->coords.y;
 	head_snake->orientation = rand() % 4;
 	head_snake->next = NULL;
-	head_snake->speed = SNAKE_MOVE_TIME;
+	head_snake->speed = 1;
 	add_behind_snake_part(head_snake);
 }
 
@@ -367,7 +394,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 	init_map(&grid);
 	spawn_snake(grid, player1.head_snake);
-	// spawn_snake(grid, player2.head_snake);
+	spawn_snake(grid, player2.head_snake);
 	init_gametick(&gametick);
 	while (App.running && player1.life && player2.life)
 	{
@@ -379,8 +406,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		do_input(&player1, &player2);
 
-		// move_snake(&gametick.snake_1_cooldown, player1.head_snake);
-		// move_snake(&gametick.snake_2_cooldown, player2.head_snake);
+		// move_snake(&gametick.snake_1_cooldown, player1);
+		// move_snake(&gametick.snake_2_cooldown, player2);
 
 		// do_collision(grid, &player1, &player2);
 
@@ -389,7 +416,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		print_grid(grid, gametick);
 		print_snake(grid, player1.head_snake, gametick.snakes_animation);
-		// print_snake(grid, player2.head_snake, gametick.snakes_animation);
+		print_snake(grid, player2.head_snake, gametick.snakes_animation);
 		print_obstacles(grid);
 		print_scoreboard(scoreboard_rect_pos, player1, player2);
 
