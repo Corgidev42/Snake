@@ -126,12 +126,12 @@ void	generate_apple(t_grid *grid, int *apple_cooldown)
 	}
 }
 
-void	spawn_snake(t_grid grid, t_user_data *player)
+void	spawn_snake(t_grid *grid, t_user_data *player)
 {
 	t_snake_part	*head_snake = player->head_snake;
 	t_cell			*cell;
 
-	cell = get_rand_empty_cell(&grid, 2);
+	cell = get_rand_empty_cell(grid, 2);
 	head_snake->coords.x = cell->coords.x;
 	head_snake->coords.y = cell->coords.y;
 	head_snake->orientation = rand() % 4;
@@ -140,7 +140,7 @@ void	spawn_snake(t_grid grid, t_user_data *player)
 	head_snake->speed = 1;
 	add_behind_snake_part(head_snake);
 	cell->has_snake = SDL_TRUE;
-	grid.cells[head_snake->next->coords.x][head_snake->next->coords.y].has_snake = SDL_TRUE;
+	grid->cells[head_snake->next->coords.x][head_snake->next->coords.y].has_snake = SDL_TRUE;
 }
 
 void	print_grid(t_grid grid, t_gametick gametick)
@@ -475,8 +475,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 	SDL_Rect grid_rect_pos = {GRID_POS_X, GRID_POS_Y, GRID_WIDTH, GRID_HEIGHT};
 
 	init_map(&grid);
-	spawn_snake(grid, &player1);
-	spawn_snake(grid, &player2);
+	spawn_snake(&grid, &player1);
+	spawn_snake(&grid, &player2);
 	init_gametick(&gametick);
 	while (App.running && player1.life && player2.life)
 	{
