@@ -72,7 +72,7 @@ void	remove_snake_head_parts(t_grid *grid, t_user_data *player, int nb_removes)
 		nb_removes--;
 	}
 	player->head_snake = current;
-	if (nb_removes > 0)
+	if (nb_removes > 0 || !player->head_snake->next)
 	{
 		player->life -= 1;
 		kill_snake(grid, player);
@@ -562,7 +562,7 @@ void	init_gametick(t_gametick *gametick)
 {
 	gametick->elapsed_time = SDL_GetTicks();
 	gametick->apple_cooldown = APPLE_GENERATION_TIME;
-	gametick->object_cooldown = OBJECT_GENERATION_TIME;
+	gametick->object_cooldown = OBJECT_GENERATION_TIME / 2;
 	gametick->snake_1_cooldown = SNAKE_MOVE_TIME;
 	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
 	gametick->snakes_animation = SNAKES_ANIMATION_TIME;
@@ -672,6 +672,19 @@ void	init_map(t_grid *grid)
 	}
 }
 
+void	print_is_pending(t_grid grid, int object_cooldown)
+{
+	SDL_Rect	cell_rect = {GRID_POS_X, GRID_POS_Y, CELL_WIDTH, CELL_HEIGHT};
+	t_cell		*is_pending_cell;
+
+	is_pending_cell = get_is_pending_cell(&grid);
+	if (!is_pending_cell)
+		return ;
+	cell_rect.x = GRID_POS_X + CELL_WIDTH * is_pending_cell->coords.x;
+	cell_rect.y = GRID_POS_Y + CELL_HEIGHT * is_pending_cell->coords.y;
+	render_text(App.renderer, ft_itoa((object_cooldown / 1000) + 1), cell_rect, App.font, (SDL_Color){255, 255, 255, 255});
+}
+
 void	game_window(t_user_data player1, t_user_data player2)
 {
 	t_grid		grid;
@@ -705,6 +718,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 		print_snake(grid, player1.head_snake, gametick.snakes_animation);
 		print_snake(grid, player2.head_snake, gametick.snakes_animation);
 		print_obstacles(grid);
+		print_is_pending(grid, gametick.object_cooldown);
 		print_scoreboard(scoreboard_rect_pos, player1, player2);
 
 		SDL_RenderPresent(App.renderer);
