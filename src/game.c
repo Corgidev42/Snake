@@ -161,7 +161,7 @@ t_cell	*get_is_pending_cell(t_grid *grid)
 	while (x < GRID_COLS)
 	{
 		y = 0;
-		while (y < GRID_HEIGHT)
+		while (y < GRID_ROWS)
 		{
 			if (grid->cells[x][y].is_pending == SDL_TRUE)
 			{
@@ -367,6 +367,8 @@ void	print_grid(t_grid grid, t_gametick gametick)
 
 			if (grid.cells[x][y].has_apple == SDL_TRUE)
 				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.apple[get_seed_number(x, y, NB_APPLES)], &cell_rect);
+			if (grid.cells[x][y].has_bomb == SDL_TRUE)
+				SDL_RenderCopy(App.renderer, App.texture_bomb.a3, &App.texture_bomb.r, &cell_rect);
 
 			cell_rect.y += CELL_HEIGHT;
 			y++;

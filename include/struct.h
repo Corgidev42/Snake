@@ -57,6 +57,14 @@ typedef struct	s_texture_rects
 	SDL_Rect	apple[NB_APPLES];
 }				t_texture_rects;
 
+typedef struct	s_texture_bomb
+{
+	SDL_Rect	r;
+	SDL_Texture	*a1;
+	SDL_Texture	*a2;
+	SDL_Texture	*a3;
+}				t_texture_bomb;
+
 typedef struct s_app
 {
 	SDL_bool			running;
@@ -64,6 +72,7 @@ typedef struct s_app
 	SDL_Renderer		*renderer;
 	TTF_Font			*font;
 	SDL_Texture			*spritesheet_texture;
+	t_texture_bomb		texture_bomb;
 	t_texture_rects		texture_rects;
 }						t_app;
 
