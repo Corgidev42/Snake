@@ -29,8 +29,8 @@ typedef enum e_obstacle
 typedef enum e_color
 {
 	YELLOW,
-	BLUE,
-	GREEN
+	GREEN,
+	BLUE
 }			t_color;
 
 typedef enum e_orientation
@@ -116,6 +116,7 @@ typedef struct s_gametick
 
 typedef struct s_cell
 {
+	int					rand;
 	t_coords			coords;
 	t_obstable			obstacle;
 	SDL_bool			has_apple;

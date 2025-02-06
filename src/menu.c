@@ -109,6 +109,7 @@ void	menu_window(t_user_data *player1, t_user_data *player2)
 
 	while (App.running && (!player1->is_ready || !player2->is_ready))
 	{
+		SDL_SetRenderDrawColor(App.renderer, 0, 0, 0, 255);
 		SDL_RenderClear(App.renderer);
 
 		menu_do_input(player1, player2);

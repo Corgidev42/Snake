@@ -9,7 +9,9 @@ void	kill_snake(t_grid *grid, t_user_data *player)
 	{
 		prev = current;
 		current = prev->next;
-		grid->cells[prev->coords.x][prev->coords.y].has_snake = SDL_FALSE;
+		if (prev->coords.x >= 0 && prev->coords.x < GRID_COLS
+			&& prev->coords.y >= 0 && prev->coords.y < GRID_ROWS)
+			grid->cells[prev->coords.x][prev->coords.y].has_snake = SDL_FALSE;
 		free(prev);
 	}
 }
@@ -87,6 +89,25 @@ void	kill_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 	t_snake_part	*current1 = player1->head_snake;
 	t_snake_part	*current2 = player2->head_snake;
 
+	if (current1->coords.x < 0 || current1->coords.x >= GRID_COLS
+		|| current1->coords.y < 0 || current1->coords.y >= GRID_ROWS)
+	{
+		player1->life -= 1;
+		kill_snake(grid, player1);
+		if (player1->life == 0)
+			return ;
+		spawn_snake(grid, player1);
+	}
+	if (current2->coords.x < 0 || current2->coords.x >= GRID_COLS
+		|| current2->coords.y < 0 || current2->coords.y >= GRID_ROWS)
+	{
+		player2->life -= 1;
+		kill_snake(grid, player2);
+		if (player2->life == 0)
+			return ;
+		spawn_snake(grid, player2);
+	}
+
 	if (are_snakes_facing(current1, current2))
 	{
 		if ((current1->coords.x == current2->coords.x && current1->coords.y == current2->coords.y)
@@ -148,6 +169,8 @@ void	score_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 void	do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 {
 	kill_collision(grid, player1, player2); //mur, bombe, collision entre snake [tete contre tete, tete apres tete, tete contre corps]
+	if (player1->life == 0 || player2->life == 0)
+		return ;
 	score_collision(grid, player1, player2); // pomme, bonus
 }
 
@@ -261,7 +284,9 @@ void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 		default:
 			break;
 		}
-		grid->cells[player->head_snake->coords.x][player->head_snake->coords.y].has_snake = SDL_TRUE;
+		if (player->head_snake->coords.x > 0 && player->head_snake->coords.x < GRID_COLS
+			&& player->head_snake->coords.y > 0 && player->head_snake->coords.y < GRID_ROWS)
+			grid->cells[player->head_snake->coords.x][player->head_snake->coords.y].has_snake = SDL_TRUE;
 		*snake_cooldown += SNAKE_MOVE_TIME;
 	}
 }
@@ -285,6 +310,8 @@ SDL_bool	recursive_neighbourg_empty_cells(t_grid *grid, int x, int y, int r, int
 		return (SDL_FALSE);
 	if (i < r)
 	{
+		if (x < -1 || x > GRID_COLS || y < -1 || y > GRID_ROWS)
+			return (SDL_FALSE);
 		if (x > 0 && !recursive_neighbourg_empty_cells(grid, x - 1, y, r, i + 1))
 			result = SDL_FALSE;
 		if (x < GRID_COLS - 1 && !recursive_neighbourg_empty_cells(grid, x + 1, y, r, i + 1))
@@ -363,7 +390,14 @@ void	print_grid(t_grid grid, t_gametick gametick)
 		cell_rect.y = GRID_POS_Y;
 		while (y < GRID_ROWS)
 		{
-			SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.tile[grid.cells[x][y].texture][get_seed_number(x, y, NB_TILES)], &cell_rect);
+			int is_light;
+			if (grid.cells[x][y].texture == YELLOW)
+				is_light = App.seed.is_yellow_light;
+			else if (grid.cells[x][y].texture == GREEN)
+				is_light = App.seed.is_green_light;
+			else
+				is_light = App.seed.is_blue_light;
+			SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.tile[grid.cells[x][y].texture][(is_light ? 0 : 4) + (grid.cells[x][y].rand % 4)], &cell_rect);
 
 			if (grid.cells[x][y].has_apple == SDL_TRUE)
 				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.apple[get_seed_number(x, y, NB_APPLES)], &cell_rect);
@@ -481,7 +515,7 @@ void	print_obstacles(t_grid grid)
 			{
 				cell_rect.y -= CELL_HEIGHT;
 				cell_rect.h += CELL_HEIGHT;
-				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.obstacle[grid.cells[x][y].texture][get_seed_number(x, y, NB_OBSTACLES)], &cell_rect);
+				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.obstacle[grid.cells[x][y].texture][grid.cells[x][y].rand % 12], &cell_rect);
 				cell_rect.y += CELL_HEIGHT;
 				cell_rect.h -= CELL_HEIGHT;
 			}
@@ -644,6 +678,10 @@ void	free_all_game(t_grid grid)
 
 void	init_map(t_grid *grid)
 {
+	int	zone_limit = GRID_COLS / 3;
+	int	yellow_obs_percent = 3;
+	int	green_obs_percent = 9;
+	int	blue_obs_percent = 6;
 	int	x;
 	int	y;
 
@@ -658,17 +696,24 @@ void	init_map(t_grid *grid)
 		y = 0;
 		while (y < GRID_ROWS)
 		{
+			grid->cells[x][y].rand = rand();
 			grid->cells[x][y].coords.x = x;
 			grid->cells[x][y].coords.y = y;
-			if (x == 0 || y == 0 || x == GRID_COLS - 1 || y == GRID_ROWS - 1)
-				grid->cells[x][y].obstacle = WALL;
-			else
-				grid->cells[x][y].obstacle = OBS_EMPTY;
+			grid->cells[x][y].obstacle = OBS_EMPTY;
+			if (y <= zone_limit)
+				if (rand() % 100 < yellow_obs_percent)
+					grid->cells[x][y].obstacle = WALL;
+			if (y > zone_limit && y <= zone_limit * 2)
+				if (rand() % 100 < green_obs_percent)
+					grid->cells[x][y].obstacle = WALL;
+			if (y > zone_limit * 2)
+				if (rand() % 100 < blue_obs_percent)
+					grid->cells[x][y].obstacle = WALL;
 			grid->cells[x][y].has_apple = SDL_FALSE;
 			grid->cells[x][y].has_bomb = SDL_FALSE;
 			grid->cells[x][y].has_snake = SDL_FALSE;
 			grid->cells[x][y].bonus = BONUS_EMPTY;
-			grid->cells[x][y].texture = YELLOW;
+			grid->cells[x][y].texture = get_map_color(&grid->cells[x][y]);
 			grid->cells[x][y].is_pending = SDL_FALSE;
 			y++;
 		}

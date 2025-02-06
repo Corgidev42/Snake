@@ -4,6 +4,7 @@
 #include "def.h"
 #include "struct.h"
 #include "app.h"
+#include "seed.h"
 #include "asset.h"
 #include "game.h"
 #include "libft.h"
