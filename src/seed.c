@@ -16,21 +16,42 @@ int	seed_hash(int x, int y)
 	return (abs(result));
 }
 
-int	get_map_color(t_cell *cell)
+int	get_map_color(t_grid *grid, int x, int y)
 {
 	int zone = GRID_COLS / 3;
-	int smooth = App.seed.smooth;
+	int is_in_zone = 0;
+	int smooth = App.seed.smooth + 1;
 
-	if (cell->coords.x < zone - (App.seed.smooth + 1))
-		return (GREEN);
-	else if (cell->coords.x >= zone - (App.seed.smooth + 1) && cell->coords.x < zone + (App.seed.smooth + 1))
-		return (cell->rand % 2 == 0 ? YELLOW : GREEN);
-	else if (cell->coords.x < zone * 2 - (App.seed.smooth + 1))
+	t_cell *current_cell = &grid->cells[x][y];
+	t_cell *left_cell = NULL;
+	if (x > 0)
+		left_cell = &grid->cells[x - 1][y];
+
+	if ((x >= zone - smooth && x < zone + smooth)
+		|| (x >= zone * 2 - smooth && x < zone * 2 + smooth))
+		is_in_zone = 1;
+
+	if (!is_in_zone)
+	{
+		if (x < zone - smooth)
+			return (GREEN);
+		else if (x < zone * 2 - smooth)
+			return (YELLOW);
+		else
+			return (BLUE);
+	}
+	if (x >= zone - smooth && x < zone + smooth)
+	{
+		if (left_cell->texture == GREEN)
+			return (rand() % 2 == 0 ? GREEN : YELLOW);
 		return (YELLOW);
-	else if (cell->coords.x >= zone * 2 - (App.seed.smooth + 1) && cell->coords.x < zone * 2 + (App.seed.smooth + 1))
-		return (cell->rand % 2 == 0 ? YELLOW : BLUE);
-	else
+	}
+	if (x >= zone * 2 - smooth && x < zone * 2 + smooth)
+	{
+		if (left_cell->texture == YELLOW)
+			return (rand() % 2 == 0 ? YELLOW : BLUE);
 		return (BLUE);
+	}
 }
 
 int	get_map_tile(int x, int y)

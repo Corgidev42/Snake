@@ -170,7 +170,10 @@ void	do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 {
 	kill_collision(grid, player1, player2); //mur, bombe, collision entre snake [tete contre tete, tete apres tete, tete contre corps]
 	if (player1->life == 0 || player2->life == 0)
+	{
+		printf("Player %d won !!!\n", player1->life ? 1 : 2);
 		return ;
+	}
 	score_collision(grid, player1, player2); // pomme, bonus
 }
 
@@ -306,19 +309,19 @@ SDL_bool	recursive_neighbourg_empty_cells(t_grid *grid, int x, int y, int r, int
 {
 	SDL_bool	result = SDL_TRUE;
 
+	if (x < 0 || x > GRID_COLS - 1 || y < 0 || y > GRID_ROWS - 1)
+		return (SDL_FALSE);
 	if (!cell_is_empty(&grid->cells[x][y]))
 		return (SDL_FALSE);
 	if (i < r)
 	{
-		if (x < -1 || x > GRID_COLS || y < -1 || y > GRID_ROWS)
-			return (SDL_FALSE);
-		if (x > 0 && !recursive_neighbourg_empty_cells(grid, x - 1, y, r, i + 1))
+		if (!recursive_neighbourg_empty_cells(grid, x - 1, y, r, i + 1))
 			result = SDL_FALSE;
-		if (x < GRID_COLS - 1 && !recursive_neighbourg_empty_cells(grid, x + 1, y, r, i + 1))
+		if (!recursive_neighbourg_empty_cells(grid, x + 1, y, r, i + 1))
 			result = SDL_FALSE;
-		if (y > 0 && !recursive_neighbourg_empty_cells(grid, x, y - 1, r, i + 1))
+		if (!recursive_neighbourg_empty_cells(grid, x, y - 1, r, i + 1))
 			result = SDL_FALSE;
-		if (y < GRID_ROWS - 1 && !recursive_neighbourg_empty_cells(grid, x, y + 1, r, i + 1))
+		if (!recursive_neighbourg_empty_cells(grid, x, y + 1, r, i + 1))
 			result = SDL_FALSE;
 	}
 	return (result);
@@ -329,15 +332,17 @@ t_cell	*get_rand_empty_cell(t_grid *grid, int r)
 	int	x;
 	int	y;
 	int	i;
+	int	nb_iter = 0;
 
 	i = 0;
-	while (SDL_TRUE)
+	while (SDL_TRUE && nb_iter++ < GRID_COLS * GRID_ROWS * 2)
 	{
 		x = rand() % GRID_COLS;
 		y = rand() % GRID_ROWS;
 		if (recursive_neighbourg_empty_cells(grid, x, y, r, 0))
 			return (&grid->cells[x][y]);
 	}
+	return (NULL);
 }
 
 void	generate_apple(t_grid *grid, int *apple_cooldown)
@@ -365,7 +370,10 @@ void	spawn_snake(t_grid *grid, t_user_data *player)
 			SDL_ExitWithError("malloc head_snake");
 		player->head_snake = head_snake;
 	}
-	cell = get_rand_empty_cell(grid, 2);
+	int	i = 4;
+	cell = get_rand_empty_cell(grid, i);
+	while (!cell)
+		cell = get_rand_empty_cell(grid, --i);
 	head_snake->coords.x = cell->coords.x;
 	head_snake->coords.y = cell->coords.y;
 	head_snake->orientation = rand() % 4;
@@ -713,7 +721,7 @@ void	init_map(t_grid *grid)
 			grid->cells[x][y].has_bomb = SDL_FALSE;
 			grid->cells[x][y].has_snake = SDL_FALSE;
 			grid->cells[x][y].bonus = BONUS_EMPTY;
-			grid->cells[x][y].texture = get_map_color(&grid->cells[x][y]);
+			grid->cells[x][y].texture = get_map_color(grid, x, y);
 			grid->cells[x][y].is_pending = SDL_FALSE;
 			y++;
 		}
