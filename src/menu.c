@@ -9,6 +9,8 @@ void	menu_do_input(t_user_data *player1, t_user_data *player2)
 		switch (event.type)
 		{
 			case SDL_KEYDOWN:
+				if (event.key.keysym.sym == SDLK_ESCAPE)
+					App.running = SDL_FALSE;
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
 					player1->is_ready = (player1->is_ready ? SDL_FALSE : SDL_TRUE);

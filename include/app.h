@@ -2,6 +2,8 @@
 # define APP_H
 
 #include "snake.h"
+#include <unistd.h>
+#include <fcntl.h>
 
 extern t_app	App;
 

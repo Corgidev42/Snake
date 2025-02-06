@@ -65,8 +65,21 @@ typedef struct	s_texture_bomb
 	SDL_Texture	*a3;
 }				t_texture_bomb;
 
+typedef struct s_seed
+{
+	int			number;
+	char		*pi_decimals;
+	SDL_bool	is_yellow_light;
+	SDL_bool	is_green_light;
+	SDL_bool	is_blue_light;
+	SDL_bool	smooth;
+	int			tree_percent;
+	int			rock_percent;
+}	t_seed;
+
 typedef struct s_app
 {
+	t_seed				seed;
 	SDL_bool			running;
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
