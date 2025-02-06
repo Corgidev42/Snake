@@ -161,7 +161,7 @@ t_cell	*get_is_pending_cell(t_grid *grid)
 	while (x < GRID_COLS)
 	{
 		y = 0;
-		while (y < GRID_HEIGHT)
+		while (y < GRID_ROWS)
 		{
 			if (grid->cells[x][y].is_pending == SDL_TRUE)
 			{
@@ -185,6 +185,7 @@ void	generate_object(t_grid *grid, int *object_cooldown)
 	{
 		if((cell = get_is_pending_cell(grid)))
 		{
+			printf("test\n");
 			hot = rand() % 2;
 			if (hot)
 				cell->has_bomb = SDL_TRUE;
