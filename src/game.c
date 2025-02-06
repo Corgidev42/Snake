@@ -72,7 +72,7 @@ void	remove_snake_head_parts(t_grid *grid, t_user_data *player, int nb_removes)
 		nb_removes--;
 	}
 	player->head_snake = current;
-	if (nb_removes > 0)
+	if (nb_removes > 0 || !player->head_snake->next)
 	{
 		player->life -= 1;
 		kill_snake(grid, player);
