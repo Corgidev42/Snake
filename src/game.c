@@ -151,7 +151,53 @@ void	do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 	score_collision(grid, player1, player2); // pomme, bonus
 }
 
-void	generate_object(t_grid *grid, int *object_cooldown);
+t_cell	*get_is_pending_cell(t_grid *grid)
+{
+	int x;
+	int	y;
+	t_cell *cell_is_pending;
+	x = 0;
+	while (x < GRID_COLS)
+	{
+		y = 0;
+		while(y < GRID_HEIGHT)
+		{
+			if (grid->cells[x][y].is_pending == SDL_TRUE)
+			{
+				cell_is_pending = &grid->cells[x][y];
+				return cell_is_pending;
+			}
+			y++;
+		}
+		x++;
+	}
+	return NULL;
+}
+
+void	generate_object(t_grid *grid, int *object_cooldown)
+{
+	t_cell	*cell;
+	int		hot;
+	if (*object_cooldown > 0)
+		return;
+	if (*object_cooldown <= 0)
+	{
+		if(cell = get_is_pending_cell(grid))
+		{
+			hot = rand() % 2;
+			if (hot)
+				cell->has_bomb = SDL_TRUE;
+			else
+			{
+				// cell->bonus = rand() % NB_BONUS  + 1;
+				cell->has_bomb = SDL_TRUE;
+			}
+		}
+		cell = get_rand_empty_cell(grid, 0);
+		cell->is_pending = SDL_TRUE;
+		*object_cooldown += OBJECT_GENERATION_TIME;
+	}
+}
 
 int		get_seed_number(int x, int y, int max)
 {
@@ -611,9 +657,9 @@ void	init_map(t_grid *grid)
 			grid->cells[x][y].coords.x = x;
 			grid->cells[x][y].coords.y = y;
 			if (x == 0 || y == 0 || x == GRID_COLS - 1 || y == GRID_ROWS - 1)
-				grid->cells[x][y].obstacle = SDL_TRUE;
+				grid->cells[x][y].obstacle = WALL;
 			else
-				grid->cells[x][y].obstacle = SDL_FALSE;
+				grid->cells[x][y].obstacle = OBS_EMPTY;
 			grid->cells[x][y].has_apple = SDL_FALSE;
 			grid->cells[x][y].has_bomb = SDL_FALSE;
 			grid->cells[x][y].has_snake = SDL_FALSE;
@@ -653,7 +699,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 		do_collision(&grid, &player1, &player2);
 
 		generate_apple(&grid, &gametick.apple_cooldown);
-		// generate_object(&grid,&gametick.object_cooldown);
+		generate_object(&grid,&gametick.object_cooldown);
 
 		print_grid(grid, gametick);
 		print_snake(grid, player1.head_snake, gametick.snakes_animation);

@@ -34,6 +34,7 @@
 # define NB_APPLES 3
 # define NB_SNAKE_STATES 2
 # define NB_ORIENTATIONS 4
+# define NB_BONUS 6
 # define SNAKES_ANIMATION_TIME 2000
 
 # define SPRITE_WIDTH 16
