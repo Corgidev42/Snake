@@ -3,8 +3,8 @@
 
 # include "snake.h"
 
-void			do_collision(t_grid grid, t_user_data *player1,
-					t_user_data *player2);
+
+void			do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2);
 void			generate_object(t_grid *grid, int *object_cooldown);
 int				get_seed_number(int x, int y, int max);
 void			move_snake(t_grid *grid, int *snake_cooldown,
