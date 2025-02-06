@@ -156,22 +156,23 @@ t_cell	*get_is_pending_cell(t_grid *grid)
 	int x;
 	int	y;
 	t_cell *cell_is_pending;
+
 	x = 0;
 	while (x < GRID_COLS)
 	{
 		y = 0;
-		while(y < GRID_HEIGHT)
+		while (y < GRID_HEIGHT)
 		{
 			if (grid->cells[x][y].is_pending == SDL_TRUE)
 			{
 				cell_is_pending = &grid->cells[x][y];
-				return cell_is_pending;
+				return (cell_is_pending);
 			}
 			y++;
 		}
 		x++;
 	}
-	return NULL;
+	return (NULL);
 }
 
 void	generate_object(t_grid *grid, int *object_cooldown)
@@ -182,7 +183,7 @@ void	generate_object(t_grid *grid, int *object_cooldown)
 		return;
 	if (*object_cooldown <= 0)
 	{
-		if(cell = get_is_pending_cell(grid))
+		if((cell = get_is_pending_cell(grid)))
 		{
 			hot = rand() % 2;
 			if (hot)
@@ -192,6 +193,7 @@ void	generate_object(t_grid *grid, int *object_cooldown)
 				// cell->bonus = rand() % NB_BONUS  + 1;
 				cell->has_bomb = SDL_TRUE;
 			}
+			cell->is_pending = SDL_FALSE;
 		}
 		cell = get_rand_empty_cell(grid, 0);
 		cell->is_pending = SDL_TRUE;
