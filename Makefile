@@ -3,13 +3,19 @@ OS := $(shell uname -s)
 
 # Configuration par défaut
 CC = gcc
-CFLAGS = -Iinclude
-LDFLAGS = -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_image
+CFLAGS = -Iinclude -I$(HOME)/libsdl2/include
+LDFLAGS = -L$(HOME)/libsdl2/lib -Wl,-rpath=$(HOME)/libsdl2/lib -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_image
 
 # Spécifique à macOS
 ifeq ($(OS), Darwin)
 	CFLAGS += -I/opt/homebrew/include/
 	LDFLAGS += -L/opt/homebrew/lib -framework Cocoa
+endif
+
+# Spécifique à Linux
+ifeq ($(OS), Linux)
+	CFLAGS += -I/usr/include/
+	LDFLAGS += -L/usr/lib/
 endif
 
 # Cibles principales
