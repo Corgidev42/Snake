@@ -24,8 +24,8 @@ all: app
 libft.a:
 	make -C libft re
 
-app: $(wildcard src/*.c) libft.a
-	$(CC) $(wildcard src/*.c) libft.a -o app $(CFLAGS) $(LDFLAGS)
+app: $(wildcard src/*.c) $(wildcard src/game/*.c) libft.a
+	$(CC) $(wildcard src/*.c) $(wildcard src/game/*.c) libft.a -o app $(CFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f app

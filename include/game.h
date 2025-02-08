@@ -28,5 +28,8 @@ void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
 void			free_all_game(t_grid grid);
 void			init_map(t_grid *grid);
 void			game_window(t_user_data player1, t_user_data player2);
+void	print_is_pending(t_grid grid, int object_cooldown);
+void	rotate_snake(t_user_data *player, t_orientation orientation);
+t_cell	*get_is_pending_cell(t_grid *grid);
 
 #endif
