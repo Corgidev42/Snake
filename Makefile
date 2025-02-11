@@ -4,7 +4,7 @@ OS := $(shell uname -s)
 # Configuration par défaut
 CC = gcc
 CFLAGS = -Iinclude -I$(HOME)/libsdl2/include
-LDFLAGS = -L$(HOME)/libsdl2/lib -Wl,-rpath=$(HOME)/libsdl2/lib -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_image
+LDFLAGS = -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_image
 
 # Spécifique à macOS
 ifeq ($(OS), Darwin)
