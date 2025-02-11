@@ -45,6 +45,15 @@ static void	init_texture_rects_color(t_color color)
 			}
 		}
 	}
+	// Bomb rects
+	App.texture_bomb.r.x = 0;
+	App.texture_bomb.r.y = 0;
+	App.texture_bomb.r.w = SPRITE_WIDTH;
+	App.texture_bomb.r.h = SPRITE_HEIGHT;
+
+	App.texture_bomb.a1 = load_texture("asset/bomb/bomb1.png");
+	App.texture_bomb.a2 = load_texture("asset/bomb/bomb2.png");
+	App.texture_bomb.a3 = load_texture("asset/bomb/bomb3.png");
 }
 
 static void	init_texture_rects()
@@ -80,9 +89,45 @@ void	SDL_ExitWithError(const char *message)
 	exit(EXIT_FAILURE);
 }
 
+void	init_seed(t_seed *seed)
+{
+	int	tmp_seed = seed->number;
+
+	int	fd = open("pi_10000.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Failed to open pi_10000.txt\n");
+		exit(EXIT_FAILURE);
+	}
+	seed->pi_decimals = malloc(sizeof(char) * 10001);
+	if (!seed->pi_decimals)
+	{
+		printf("Failed to malloc pi_decimals\n");
+		exit(EXIT_FAILURE);
+	}
+	read(fd, seed->pi_decimals, 10000);
+	seed->pi_decimals[10000] = '\0';
+	close(fd);
+
+	seed->is_yellow_light = (tmp_seed & 1);
+	tmp_seed >>= 1;
+	seed->is_green_light = (tmp_seed & 1);
+	tmp_seed >>= 1;
+	seed->is_blue_light = (tmp_seed & 1);
+	tmp_seed >>= 1;
+	seed->smooth = (tmp_seed & 1);
+	tmp_seed >>= 1;
+	seed->tree_percent = 30 + ((tmp_seed & 0b111111) % 40);
+	seed->rock_percent = 100 - seed->tree_percent;
+	tmp_seed >>= 6;
+}
+
 void	init_app(void)
 {
 	srand(time(NULL));
+	App.seed.number = rand();
+	printf("Seed : %d\n", App.seed.number);
+	init_seed(&App.seed);
 	if (SDL_Init(SDL_INIT_EVERYTHING))
 		SDL_ExitWithError("Initialisation of SDL");
 	App.window = SDL_CreateWindow("Snake EnV Numeric.", SDL_WINDOWPOS_UNDEFINED,

@@ -29,8 +29,8 @@ typedef enum e_obstacle
 typedef enum e_color
 {
 	YELLOW,
-	BLUE,
-	GREEN
+	GREEN,
+	BLUE
 }			t_color;
 
 typedef enum e_orientation
@@ -57,13 +57,35 @@ typedef struct	s_texture_rects
 	SDL_Rect	apple[NB_APPLES];
 }				t_texture_rects;
 
+typedef struct	s_texture_bomb
+{
+	SDL_Rect	r;
+	SDL_Texture	*a1;
+	SDL_Texture	*a2;
+	SDL_Texture	*a3;
+}				t_texture_bomb;
+
+typedef struct s_seed
+{
+	int			number;
+	char		*pi_decimals;
+	SDL_bool	is_yellow_light;
+	SDL_bool	is_green_light;
+	SDL_bool	is_blue_light;
+	SDL_bool	smooth;
+	int			tree_percent;
+	int			rock_percent;
+}	t_seed;
+
 typedef struct s_app
 {
+	t_seed				seed;
 	SDL_bool			running;
 	SDL_Window			*window;
 	SDL_Renderer		*renderer;
 	TTF_Font			*font;
 	SDL_Texture			*spritesheet_texture;
+	t_texture_bomb		texture_bomb;
 	t_texture_rects		texture_rects;
 }						t_app;
 
@@ -94,6 +116,7 @@ typedef struct s_gametick
 
 typedef struct s_cell
 {
+	int					rand;
 	t_coords			coords;
 	t_obstable			obstacle;
 	SDL_bool			has_apple;
