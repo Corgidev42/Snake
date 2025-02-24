@@ -154,12 +154,16 @@ void	score_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 	if (grid->cells[current1->coords.x][current1->coords.y].has_apple == SDL_TRUE)
 	{
 		player1->score += 1;
+		if (current1->coords.x >= 0 && current1->coords.x < GRID_COLS
+			&& current1->coords.y >= 0 && current1->coords.y < GRID_ROWS)
 		grid->cells[current1->coords.x][current1->coords.y].has_apple = SDL_FALSE;
 		add_behind_snake_part(current1);
 	}
 	if (grid->cells[current2->coords.x][current2->coords.y].has_apple == SDL_TRUE)
 	{
 		player2->score += 1;
+		if (current2->coords.x >= 0 && current2->coords.x < GRID_COLS
+			&& current2->coords.y >= 0 && current2->coords.y < GRID_ROWS)
 		grid->cells[current2->coords.x][current2->coords.y].has_apple = SDL_FALSE;
 		add_behind_snake_part(current2);
 	}

@@ -77,7 +77,9 @@ void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 			current = prev->next;
 			if (current->next == NULL)
 			{
-				grid->cells[current->coords.x][current->coords.y].has_snake = SDL_FALSE;
+				if (current->coords.x > 0 && current->coords.x < GRID_COLS
+					&& current->coords.y > 0 && current->coords.y < GRID_ROWS)
+					grid->cells[current->coords.x][current->coords.y].has_snake = SDL_FALSE;
 				current->next = player->head_snake;
 				prev->next = NULL;
 
@@ -134,6 +136,9 @@ void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 	current = current->next;
 	while (current)
 	{
+		if (current->coords.x < 0 || current->coords.x >= GRID_COLS
+			|| current->coords.y < 0 || current->coords.y >= GRID_ROWS)
+			break;
 		cell_rect.x = GRID_POS_X + CELL_WIDTH * current->coords.x;
 		cell_rect.y = GRID_POS_Y + CELL_HEIGHT * current->coords.y;
 		int	body_sprite;

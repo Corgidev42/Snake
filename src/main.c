@@ -7,6 +7,7 @@ t_app App;
 	Scores a update
 	Animation des bombes
 	Ajouter les bonus
+	Gerer les AOE des bombes
 	Speed
 	Fin de partie
 	Makefile
