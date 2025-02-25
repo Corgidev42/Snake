@@ -46,8 +46,8 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 
 	while (i < INVENTORY_SIZE)
 	{
-		player1->inventory[i] = BONUS_EMPTY;
-		player2->inventory[i] = BONUS_EMPTY;
+		player1->inventory[i] = STAR;
+		player2->inventory[i] = STAR;
 		i++;
 	}
 }

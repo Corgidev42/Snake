@@ -1,5 +1,35 @@
 #include "snake.h"
 
+void	handle_bonus_active(t_bonus bonus)
+{
+	int	current_bonus_index = 0;
+	int	find_index = -1;
+
+	while (current_bonus_index < App.nb_bonus)
+	{
+		if (App.available_bonus[current_bonus_index] == bonus)
+		{
+			find_index = current_bonus_index;
+			break ;
+		}
+		current_bonus_index++;
+	}
+	if (find_index == -1)
+	{
+		App.available_bonus[App.nb_bonus] = bonus;
+		App.nb_bonus++;
+	}
+	else
+	{
+		while (current_bonus_index < App.nb_bonus - 1)
+		{
+			App.available_bonus[current_bonus_index] = App.available_bonus[current_bonus_index + 1];
+			current_bonus_index++;
+		}
+		App.nb_bonus--;
+	}
+}
+
 void	menu_do_input(t_user_data *player1, t_user_data *player2)
 {
 	SDL_Event	event;
@@ -9,47 +39,59 @@ void	menu_do_input(t_user_data *player1, t_user_data *player2)
 		switch (event.type)
 		{
 			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-					App.running = SDL_FALSE;
-				if (event.key.keysym.sym == SDLK_SPACE)
+				switch (event.key.keysym.scancode)
 				{
+				case SDL_SCANCODE_ESCAPE:
+					App.running = SDL_FALSE;
+					break;
+				case SDL_SCANCODE_SPACE:
 					player1->is_ready = (player1->is_ready ? SDL_FALSE : SDL_TRUE);
 					if (player1->is_ready && player1->head_snake->skin == player2->head_snake->skin)
 						player2->head_snake->skin = (player2->head_snake->skin == 0 ? NB_COLORS - 1 : player2->head_snake->skin - 1);
-				}
-				if (event.key.keysym.sym == SDLK_RETURN)
-				{
+					break;
+				case SDL_SCANCODE_RETURN:
 					player2->is_ready = (player2->is_ready ? SDL_FALSE : SDL_TRUE);
 					if (player2->is_ready && player1->head_snake->skin == player2->head_snake->skin)
 						player1->head_snake->skin = (player1->head_snake->skin == 0 ? NB_COLORS - 1 : player1->head_snake->skin - 1);
-				}
-				if (event.key.keysym.sym == SDLK_a)
-				{
+					break;
+				case SDL_SCANCODE_A:
 					player1->head_snake->skin = (player1->head_snake->skin == 0 ? NB_COLORS - 1 : player1->head_snake->skin - 1);
 					if (player2->is_ready && player1->head_snake->skin == player2->head_snake->skin)
 						player1->head_snake->skin = (player1->head_snake->skin == 0 ? NB_COLORS - 1 : player1->head_snake->skin - 1);
 					player1->is_ready = SDL_FALSE;
-				}
-				if (event.key.keysym.sym == SDLK_d)
-				{
+					break;
+				case SDL_SCANCODE_D:
 					player1->head_snake->skin = (player1->head_snake->skin == NB_COLORS - 1 ? 0 : player1->head_snake->skin + 1);
 					if (player2->is_ready && player1->head_snake->skin == player2->head_snake->skin)
 						player1->head_snake->skin = (player1->head_snake->skin == NB_COLORS - 1 ? 0 : player1->head_snake->skin + 1);
 					player1->is_ready = SDL_FALSE;
-				}
-				if (event.key.keysym.sym == SDLK_LEFT)
-				{
+					break;
+				case SDL_SCANCODE_LEFT:
 					player2->head_snake->skin = (player2->head_snake->skin == 0 ? NB_COLORS - 1 : player2->head_snake->skin - 1);
 					if (player1->is_ready && player1->head_snake->skin == player2->head_snake->skin)
 						player2->head_snake->skin = (player2->head_snake->skin == 0 ? NB_COLORS - 1 : player2->head_snake->skin - 1);
 					player2->is_ready = SDL_FALSE;
-				}
-				if (event.key.keysym.sym == SDLK_RIGHT)
-				{
+					break;
+				case SDL_SCANCODE_RIGHT:
 					player2->head_snake->skin = (player2->head_snake->skin == NB_COLORS - 1 ? 0 : player2->head_snake->skin + 1);
 					if (player1->is_ready && player1->head_snake->skin == player2->head_snake->skin)
 						player2->head_snake->skin = (player2->head_snake->skin == NB_COLORS - 1 ? 0 : player2->head_snake->skin + 1);
 					player2->is_ready = SDL_FALSE;
+					break;
+				case SDL_SCANCODE_1:
+					handle_bonus_active(LIFE_UP);
+					break;
+				case SDL_SCANCODE_2:
+					handle_bonus_active(TP);
+					break;
+				case SDL_SCANCODE_3:
+					handle_bonus_active(STAR);
+					break;
+				case SDL_SCANCODE_4:
+					handle_bonus_active(SLOW);
+					break;
+				default:
+					break;
 				}
 				break;
 			case SDL_QUIT:
@@ -99,14 +141,35 @@ void	print_player_choice(SDL_Rect rect_side, t_user_data player)
 	}
 }
 
+void	print_bonus_choice(SDL_Rect rect)
+{
+	// print bonus choice
+	char	*text_bonus = "Choose your bonus (1, 2, 3, 4)";
+	SDL_Rect	rect_bonus = {rect.x + rect.w / 2 - get_text_width(text_bonus, App.font), rect.y + 50, get_text_width(text_bonus, App.font) * 2, get_text_height(text_bonus, App.font) * 2};
+	render_text(App.renderer, text_bonus, rect_bonus, App.font, (SDL_Color){255, 255, 255, 255});
+
+	// print bonus
+	SDL_Rect	rect_bonus_life = {rect.x + rect.w / 2 - 300, rect.y + 100, 100, 100};
+	SDL_Rect	rect_bonus_tp = {rect.x + rect.w / 2 - 150, rect.y + 100, 100, 100};
+	SDL_Rect	rect_bonus_star = {rect.x + rect.w / 2, rect.y + 100, 100, 100};
+	SDL_Rect	rect_bonus_slow = {rect.x + rect.w / 2 + 150, rect.y + 100, 100, 100};
+
+	SDL_RenderCopy(App.renderer, App.texture_bonus.life_up, NULL, &rect_bonus_life);
+	SDL_RenderCopy(App.renderer, App.texture_bonus.tp, NULL, &rect_bonus_tp);
+	SDL_RenderCopy(App.renderer, App.texture_bonus.star, NULL, &rect_bonus_star);
+	SDL_RenderCopy(App.renderer, App.texture_bonus.slow, NULL, &rect_bonus_slow);
+}
+
 void	menu_window(t_user_data *player1, t_user_data *player2)
 {
 	SDL_Rect	rect_left;
 	SDL_Rect	rect_right;
+	SDL_Rect	rect_bonus;
 
-	rect_left.x = 0, rect_left.y = 0, rect_left.h = SCREEN_HEIGHT, rect_left.w = SCREEN_WIDTH / 2;
-	rect_right.x = SCREEN_WIDTH / 2, rect_right.y = 0, rect_right.h = SCREEN_HEIGHT, rect_right.w = SCREEN_WIDTH / 2;
-
+	rect_left.x = 0, rect_left.y = 0, rect_left.h = SCREEN_HEIGHT / 2, rect_left.w = SCREEN_WIDTH / 2;
+	rect_right.x = SCREEN_WIDTH / 2, rect_right.y = 0, rect_right.h = SCREEN_HEIGHT / 2, rect_right.w = SCREEN_WIDTH / 2;
+	rect_bonus.x = 0, rect_bonus.y = SCREEN_HEIGHT / 2, rect_bonus.h = SCREEN_HEIGHT / 2, rect_bonus.w = SCREEN_WIDTH;
+	
 	while (App.running && (!player1->is_ready || !player2->is_ready))
 	{
 		SDL_SetRenderDrawColor(App.renderer, 0, 0, 0, 255);
@@ -116,6 +179,8 @@ void	menu_window(t_user_data *player1, t_user_data *player2)
 
 		print_player_choice(rect_left, *player1);
 		print_player_choice(rect_right, *player2);
+
+		print_bonus_choice(rect_bonus);
 
 		SDL_RenderPresent(App.renderer);
 	}

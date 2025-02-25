@@ -31,6 +31,19 @@ void	generate_apple(t_grid *grid, int *apple_cooldown)
 	}
 }
 
+t_bonus	get_random_bonus(void)
+{
+	int	random = rand() % App.nb_bonus;
+
+	if (App.available_bonus[random] == LIFE_UP)
+	{
+		if (rand() % 10 == 0)
+			return LIFE_UP;
+		return get_random_bonus();
+	}
+	return App.available_bonus[random];
+}
+
 void	generate_object(t_grid *grid, int *object_cooldown)
 {
 	t_cell	*cell;
@@ -42,16 +55,10 @@ void	generate_object(t_grid *grid, int *object_cooldown)
 		if((cell = get_is_pending_cell(grid)))
 		{
 			hot = rand() % 2;
-			hot = 0;
 			if (hot)
 				cell->has_bomb = SDL_TRUE;
 			else
-			{
-				if (rand() % 10 == 0)
-					cell->bonus = LIFE_UP;
-				else
-					cell->bonus = rand() % (NB_BONUS - 1) + 2;
-			}
+				cell->bonus = get_random_bonus();
 			cell->is_pending = SDL_FALSE;
 		}
 		cell = get_rand_empty_cell(grid, 0);

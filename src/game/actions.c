@@ -71,6 +71,8 @@ void	do_actions(t_user_data *player1, t_user_data *player2, t_gametick *gametick
 	{
 		player1->is_star = SDL_FALSE;
 		gametick->snake_1_star_cooldown = STAR_COOLDOWN;
+		player1->head_snake->snake_state = NORMAL;
+		player1->speed = BASE_SPEED;
 	}
 	if (player1->is_slow && gametick->snake_1_slow_cooldown <= 0)
 	{
@@ -92,6 +94,8 @@ void	do_actions(t_user_data *player1, t_user_data *player2, t_gametick *gametick
 	{
 		player2->is_star = SDL_FALSE;
 		gametick->snake_2_star_cooldown = STAR_COOLDOWN;
+		player2->head_snake->snake_state = NORMAL;
+		player2->speed = BASE_SPEED;
 	}
 	if (player2->is_slow && gametick->snake_2_slow_cooldown <= 0)
 	{

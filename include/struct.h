@@ -97,6 +97,8 @@ typedef struct s_app
 	t_texture_bomb		texture_bomb;
 	t_texture_bonus		texture_bonus;
 	t_texture_rects		texture_rects;
+	int					available_bonus[NB_BONUS];
+	int					nb_bonus;
 }						t_app;
 
 typedef struct s_coords

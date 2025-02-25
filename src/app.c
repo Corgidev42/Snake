@@ -155,4 +155,9 @@ void	init_app(void)
 		SDL_ExitWithError("Failed to load font");
 	init_texture_rects();
 	App.spritesheet_texture = load_texture("asset/spritesheet.png");
+	App.available_bonus[0] = LIFE_UP;
+	App.available_bonus[1] = TP;
+	App.available_bonus[2] = STAR;
+	App.available_bonus[3] = SLOW;
+	App.nb_bonus = 4;
 }

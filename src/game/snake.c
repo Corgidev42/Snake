@@ -168,7 +168,8 @@ void	died_animation(t_grid *grid, int *died_cooldown, t_user_data *player)
 	if (*died_cooldown <= 0)
 	{
 		*died_cooldown += SNAKE_DIED_TIME;
-		remove_behind_snake_part(grid, player);
+		if (!player->is_star)
+			remove_behind_snake_part(grid, player);
 	}
 }
 
