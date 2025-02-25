@@ -4,13 +4,19 @@ t_app App;
 
 /*
 	A tester -> Ligne de demarcation entre biomes
-	Scores a update
-	Animation des bombes
-	Ajouter les bonus
-	Speed
-	Fin de partie
-	Makefile
+
 	Is pending en mode beau
+	Animation des bombes
+	Gerer les AOE des bombes
+
+	Speed
+
+	Ajouter les bonus
+
+	Scores a update
+	Fin de partie
+
+	Makefile
 	
 	!!!!!! IMPORTANT !!!!!!
 	STRUCTURER LE CODE
