@@ -69,6 +69,16 @@ static void	init_texture_rects()
 	App.texture_bomb.a1 = load_texture("asset/bomb/bomb1.png");
 	App.texture_bomb.a2 = load_texture("asset/bomb/bomb2.png");
 	App.texture_bomb.a3 = load_texture("asset/bomb/bomb3.png");
+
+	// Bonus rects
+	App.texture_bonus.r.x = 0;
+	App.texture_bonus.r.y = 0;
+	App.texture_bonus.r.w = SPRITE_WIDTH;
+	App.texture_bonus.r.h = SPRITE_HEIGHT;
+	App.texture_bonus.life_up = load_texture("asset/bonus/life_up.png");
+	App.texture_bonus.tp = load_texture("asset/bonus/tp.png");
+	App.texture_bonus.star = load_texture("asset/bonus/star.png");
+	App.texture_bonus.slow = load_texture("asset/bonus/slow.png");
 }
 
 void	kill_app(void)

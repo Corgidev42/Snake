@@ -26,6 +26,9 @@
 # define LIFE_MAX 3
 # define BASE_SPEED 1.0f
 # define SCALE_SPEED 2.7f
+# define SCALE_SLOW 0.5f
+# define STAR_COOLDOWN 6000
+# define SLOW_COOLDOWN 5000
 
 // A DEFINIR
 # define APPLE_GENERATION_TIME 2000
@@ -41,7 +44,7 @@
 # define NB_APPLES 3
 # define NB_SNAKE_STATES 2
 # define NB_ORIENTATIONS 4
-# define NB_BONUS 6
+# define NB_BONUS 4
 # define SNAKES_ANIMATION_TIME 2000
 
 # define SPRITE_WIDTH 16

@@ -13,9 +13,9 @@ typedef enum e_bonus
 	LIFE_UP,
 	TP,   // permet de passer de l'autre cote de la map
 	STAR, // rend invincible ( annule tout effet negatif)
-	MISSILE,
 	SLOW,
-	POISON // DOT
+	MISSILE, // V3
+	MINE // V3
 }						t_bonus;
 
 typedef enum e_obstacle
@@ -65,6 +65,15 @@ typedef struct s_texture_bomb
 	SDL_Texture			*a3;
 }						t_texture_bomb;
 
+typedef struct	s_texture_bonus
+{
+	SDL_Rect	r;
+	SDL_Texture	*life_up;
+	SDL_Texture	*tp;
+	SDL_Texture	*star;
+	SDL_Texture	*slow;
+}				t_texture_bonus;
+
 typedef struct s_seed
 {
 	int					number;
@@ -86,6 +95,7 @@ typedef struct s_app
 	TTF_Font			*font;
 	SDL_Texture			*spritesheet_texture;
 	t_texture_bomb		texture_bomb;
+	t_texture_bonus		texture_bonus;
 	t_texture_rects		texture_rects;
 }						t_app;
 
@@ -109,12 +119,19 @@ typedef struct s_gametick
 	int					elapsed_time;
 	int					apple_cooldown;
 	int					snakes_animation;
+
 	int					snake_1_cooldown;
-	int					snake_2_cooldown;
 	int					snake_1_speed_cooldown;
-	int					snake_2_speed_cooldown;
+	int					snake_1_star_cooldown;
+	int					snake_1_slow_cooldown;
 	int					snake_1_died_cooldown;
+
+	int					snake_2_speed_cooldown;
+	int					snake_2_cooldown;
+	int					snake_2_star_cooldown;
+	int					snake_2_slow_cooldown;
 	int					snake_2_died_cooldown;
+
 	int					object_cooldown;
 }						t_gametick;
 
@@ -144,6 +161,8 @@ typedef struct s_user_data
 	int					score;
 	int					life;
 	SDL_bool			is_speed;
+	SDL_bool			is_star;
+	SDL_bool			is_slow;
 	float				speed;
 	int					nb_apple_speed;
 	t_bonus				inventory[INVENTORY_SIZE];

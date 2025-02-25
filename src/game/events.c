@@ -32,6 +32,9 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 					case SDL_SCANCODE_Q:
 						handle_speed(player1);
 						break;
+					case SDL_SCANCODE_E:
+						handle_bonus(player1);
+						break;
 					case SDL_SCANCODE_LEFT:
 						rotate_snake(player2, LEFT);
 						break;
@@ -51,6 +54,8 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT)
 					handle_speed(player2);
+				if (event.button.button == SDL_BUTTON_RIGHT)
+					handle_bonus(player2);
 				break;
 		}
 	}

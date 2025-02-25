@@ -96,7 +96,6 @@ void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 	{
 		while(current)
 		{
-			// grid->cells
 			prev = current;
 			current = prev->next;
 			if (current->next == NULL)
@@ -140,8 +139,25 @@ void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 		default:
 			break;
 		}
-		if (player->head_snake->coords.x > 0 && player->head_snake->coords.x < GRID_COLS
-			&& player->head_snake->coords.y > 0 && player->head_snake->coords.y < GRID_ROWS)
+		if ((player->inventory[0] == TP || player->inventory[1] == TP) &&
+			(player->head_snake->coords.x < 0 || player->head_snake->coords.x >= GRID_COLS
+			|| player->head_snake->coords.y < 0 || player->head_snake->coords.y >= GRID_ROWS))
+		{
+			if (player->head_snake->coords.x < 0)
+				player->head_snake->coords.x = GRID_COLS - 1;
+			else if (player->head_snake->coords.x >= GRID_COLS)
+				player->head_snake->coords.x = 0;
+			else if (player->head_snake->coords.y < 0)
+				player->head_snake->coords.y = GRID_ROWS - 1;
+			else if (player->head_snake->coords.y >= GRID_ROWS)
+				player->head_snake->coords.y = 0;
+			if (player->inventory[0] == TP)
+				remove_bonus_slot(player, 0);
+			else
+				remove_bonus_slot(player, 1);
+		}
+		if (player->head_snake->coords.x >= 0 && player->head_snake->coords.x < GRID_COLS
+			&& player->head_snake->coords.y >= 0 && player->head_snake->coords.y < GRID_ROWS)
 			grid->cells[player->head_snake->coords.x][player->head_snake->coords.y].has_snake = SDL_TRUE;
 		*snake_cooldown += SNAKE_MOVE_TIME;
 	}

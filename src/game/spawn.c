@@ -42,12 +42,15 @@ void	generate_object(t_grid *grid, int *object_cooldown)
 		if((cell = get_is_pending_cell(grid)))
 		{
 			hot = rand() % 2;
+			hot = 0;
 			if (hot)
 				cell->has_bomb = SDL_TRUE;
 			else
 			{
-				// cell->bonus = rand() % NB_BONUS  + 1;
-				cell->has_bomb = SDL_TRUE;
+				if (rand() % 10 == 0)
+					cell->bonus = LIFE_UP;
+				else
+					cell->bonus = rand() % (NB_BONUS - 1) + 2;
 			}
 			cell->is_pending = SDL_FALSE;
 		}

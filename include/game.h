@@ -27,10 +27,12 @@ int				get_size_snake(t_snake_part *head_snake);
 void			print_obstacles(t_grid grid);
 void			do_input(t_user_data *player1, t_user_data *player2);
 void			init_gametick(t_gametick *gametick);
-void			update_gametick(t_gametick *gametick, t_user_data *player1,
-					t_user_data *player2);
+void			update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2);
+void			handle_bonus(t_user_data *player);
 void			handle_speed(t_user_data *player);
-void			do_speed(t_user_data *player, int *gametick);
+void			add_inventory_bonus(t_user_data *player, t_bonus bonus);
+void			remove_bonus_slot(t_user_data *player, int slot);
+void			do_actions(t_user_data *player1, t_user_data *player2, t_gametick *gametick);
 void			print_actions(SDL_Rect rect_pos, t_user_data player1,
 					t_user_data player2);
 void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
