@@ -17,7 +17,6 @@ void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1, t_user_data player
 	SDL_Rect score_rect_player1 = {score_text_rect.x + get_text_width("score", App.font) + 5, rect_pos.y,  get_text_width(ft_itoa(player1.score), App.font), get_text_height(ft_itoa(player1.score), App.font)};
 	SDL_Rect life_rect_player1 = {life_text_rect.x + get_text_width("life", App.font) + 5, rect_pos.y, get_text_width(ft_itoa(player1.life), App.font), get_text_height(ft_itoa(player1.life), App.font)};
 
-
 	render_text(App.renderer, "Player", player_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "score", score_text_rect, App.font, (SDL_Color){255, 255, 255, 255});
 	render_text(App.renderer, "life", life_text_rect, App.font, (SDL_Color){255, 255, 255, 255});

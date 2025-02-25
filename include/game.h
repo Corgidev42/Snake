@@ -22,6 +22,13 @@ void			move_snake(t_grid *grid, int *snake_cooldown,
 void			print_grid(t_grid grid);
 void			print_is_pending(t_grid grid, int object_cooldown);
 void			print_obstacles(t_grid grid);
+void			do_input(t_user_data *player1, t_user_data *player2);
+void			init_gametick(t_gametick *gametick);
+void			update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2);
+void			handle_speed(t_user_data *player);
+void			do_speed(t_user_data *player, int *gametick);
+void			print_actions(SDL_Rect rect_pos, t_user_data player1,
+		t_user_data player2);
 void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
 					t_user_data player2);
 void			print_snake(t_grid grid, t_snake_part *head_snake,
@@ -30,6 +37,4 @@ SDL_bool		recursive_neighbourg_empty_cells(t_grid *grid, int x, int y,
 					int r, int i);
 void			rotate_snake(t_user_data *player, t_orientation orientation);
 void			spawn_snake(t_grid *grid, t_user_data *player);
-void			update_gametick(t_gametick *gametick, int speed1, int speed2);
-
 #endif
