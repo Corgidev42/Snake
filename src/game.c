@@ -38,8 +38,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 		move_snake(&grid, &gametick.snake_1_cooldown, &player1);
 		move_snake(&grid, &gametick.snake_2_cooldown, &player2);
 
-		do_speed(&player1, &gametick.snake_1_speed_cooldown);
-		do_speed(&player2, &gametick.snake_2_speed_cooldown);
+		do_actions(&player1, &player2, &gametick);
 
 		do_collision(&grid, &player1, &player2);
 		if (!player1.life || !player2.life)

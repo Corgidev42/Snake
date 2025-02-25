@@ -26,6 +26,9 @@
 # define LIFE_MAX 3
 # define BASE_SPEED 1.0f
 # define SCALE_SPEED 2.7f
+# define SCALE_SLOW 0.7f
+# define STAR_COOLDOWN 6000
+# define SLOW_COOLDOWN 3000
 
 // A DEFINIR
 # define APPLE_GENERATION_TIME 2000

@@ -9,6 +9,56 @@ void	handle_speed(t_user_data *player)
 	}
 }
 
+void	handle_bonus(t_user_data *player)
+{
+	switch (player->inventory[0])
+	{
+	case LIFE_UP:
+		player->life += 1;
+		break;
+	case STAR:
+		player->is_star = SDL_TRUE;
+		break;
+	case SLOW:
+		player->is_slow = SDL_TRUE;
+		break;
+	default:
+		return ;
+	}
+	if (player->inventory[1] != BONUS_EMPTY && player->inventory[1] != TP)
+	{
+		player->inventory[0] = player->inventory[1];
+		player->inventory[1] = BONUS_EMPTY;
+	}
+	else
+		player->inventory[0] = BONUS_EMPTY;	
+}
+
+void	do_actions(t_user_data *player1, t_user_data *player2, t_gametick *gametick)
+{
+	if (player1->is_star && gametick->snake_1_star_cooldown <= 0)
+	{
+		player1->is_star = SDL_FALSE;
+		gametick->snake_1_star_cooldown = STAR_COOLDOWN;
+	}
+	if (player1->is_slow && gametick->snake_1_slow_cooldown <= 0)
+	{
+		player1->is_slow = SDL_FALSE;
+		gametick->snake_1_slow_cooldown = SLOW_COOLDOWN;
+	}
+
+	if (player2->is_star && gametick->snake_2_star_cooldown <= 0)
+	{
+		player2->is_star = SDL_FALSE;
+		gametick->snake_2_star_cooldown = STAR_COOLDOWN;
+	}
+	if (player2->is_slow && gametick->snake_2_slow_cooldown <= 0)
+	{
+		player2->is_slow = SDL_FALSE;
+		gametick->snake_2_slow_cooldown = SLOW_COOLDOWN;
+	}
+}
+
 void	do_speed(t_user_data *player, int *gametick)
 {
 	if (*gametick <= 0)

@@ -13,9 +13,9 @@ typedef enum e_bonus
 	LIFE_UP,
 	TP, // permet de passer de l'autre cote de la map
 	STAR, // rend invincible ( annule tout effet negatif)
-	MISSILE,
 	SLOW,
-	POISON //DOT
+	MISSILE, // V3
+	MINE // V3
 }						t_bonus;
 
 typedef enum e_obstacle
@@ -108,10 +108,17 @@ typedef struct s_gametick
 	int					elapsed_time;
 	int					apple_cooldown;
 	int					snakes_animation;
+
 	int					snake_1_cooldown;
-	int					snake_2_cooldown;
 	int					snake_1_speed_cooldown;
+	int					snake_1_star_cooldown;
+	int					snake_1_slow_cooldown;
+
 	int					snake_2_speed_cooldown;
+	int					snake_2_cooldown;
+	int					snake_2_star_cooldown;
+	int					snake_2_slow_cooldown;
+
 	int					object_cooldown;
 }						t_gametick;
 
@@ -141,6 +148,8 @@ typedef struct s_user_data
 	int					score;
 	int					life;
 	SDL_bool			is_speed;
+	SDL_bool			is_star;
+	SDL_bool			is_slow;
 	float				speed;
 	int					nb_apple_speed;
 	t_bonus				inventory[INVENTORY_SIZE];
