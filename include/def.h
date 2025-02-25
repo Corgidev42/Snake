@@ -36,6 +36,7 @@
 # define SNAKE_MOVE_TIME 400
 # define CONTAINER_MARGING 1000
 # define SNAKE_SPEED_TIME 650
+# define SNAKE_DIED_TIME 350
 
 # define NB_COLORS 3
 # define NB_TILES 8

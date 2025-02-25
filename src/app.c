@@ -38,8 +38,8 @@ static void	init_texture_rects_color(t_color color)
 		{
 			for (int x = 0; x < 8; x++)
 			{
-				App.texture_rects.snake_head[color][y][z][x].x = x * SPRITE_WIDTH;
-				App.texture_rects.snake_head[color][y][z][x].y = color_y_start + SPRITE_HEIGHT * (3 + y * 2 + z);
+				App.texture_rects.snake_head[color][y][z][x].x = y * (8 * SPRITE_WIDTH) + x * SPRITE_WIDTH;
+				App.texture_rects.snake_head[color][y][z][x].y = color_y_start + SPRITE_HEIGHT * (3 + z);
 				App.texture_rects.snake_head[color][y][z][x].w = SPRITE_WIDTH;
 				App.texture_rects.snake_head[color][y][z][x].h = SPRITE_HEIGHT;
 			}
