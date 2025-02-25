@@ -74,7 +74,7 @@ void	print_obstacles(t_grid grid)
 	}
 }
 
-void	print_grid(t_grid grid, t_gametick gametick)
+void	print_grid(t_grid grid)
 {
 	int	x;
 	int	y;

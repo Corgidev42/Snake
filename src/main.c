@@ -3,8 +3,6 @@
 t_app App;
 
 /*
-	A tester -> Ligne de demarcation entre biomes
-
 	Is pending en mode beau
 	Animation des bombes
 	Gerer les AOE des bombes
@@ -17,7 +15,7 @@ t_app App;
 	Fin de partie
 
 	Makefile
-	
+
 	!!!!!! IMPORTANT !!!!!!
 	STRUCTURER LE CODE
 	TOUS LES SEGFAULTS
@@ -25,12 +23,15 @@ t_app App;
 	FAIRE LES TESTS
 
 	V3
-	Ajouter des sons
+	Au demarrage, timer de lancement de la partie
+	Transition entre les menus
 	Animations des snakes quand ils meurent (bonk + explosion de la queue a la tete avant de respawn)
+
+	Ajouter des sons
+	A tester -> Ligne de demarcation entre biomes
+
 	Marge sur la map avec background (v3)
 	Ajouter une video dans le menu
-	Transition entre les menus
-	Au demarrage, timer de lancement de la partie
 */
 
 int	main(int argc, char const *argv[])

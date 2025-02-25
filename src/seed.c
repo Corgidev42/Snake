@@ -52,6 +52,7 @@ int	get_map_color(t_grid *grid, int x, int y)
 			return (rand() % 2 == 0 ? YELLOW : BLUE);
 		return (BLUE);
 	}
+	return 0;
 }
 
 int	get_map_tile(int x, int y)

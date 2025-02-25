@@ -45,15 +45,6 @@ static void	init_texture_rects_color(t_color color)
 			}
 		}
 	}
-	// Bomb rects
-	App.texture_bomb.r.x = 0;
-	App.texture_bomb.r.y = 0;
-	App.texture_bomb.r.w = SPRITE_WIDTH;
-	App.texture_bomb.r.h = SPRITE_HEIGHT;
-
-	App.texture_bomb.a1 = load_texture("asset/bomb/bomb1.png");
-	App.texture_bomb.a2 = load_texture("asset/bomb/bomb2.png");
-	App.texture_bomb.a3 = load_texture("asset/bomb/bomb3.png");
 }
 
 static void	init_texture_rects()
@@ -69,6 +60,15 @@ static void	init_texture_rects()
 		App.texture_rects.apple[x].w = SPRITE_WIDTH;
 		App.texture_rects.apple[x].h = SPRITE_HEIGHT;
 	}
+
+	// Bomb rects
+	App.texture_bomb.r.x = 0;
+	App.texture_bomb.r.y = 0;
+	App.texture_bomb.r.w = SPRITE_WIDTH;
+	App.texture_bomb.r.h = SPRITE_HEIGHT;
+	App.texture_bomb.a1 = load_texture("asset/bomb/bomb1.png");
+	App.texture_bomb.a2 = load_texture("asset/bomb/bomb2.png");
+	App.texture_bomb.a3 = load_texture("asset/bomb/bomb3.png");
 }
 
 void	kill_app(void)

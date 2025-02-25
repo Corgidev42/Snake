@@ -44,7 +44,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 		generate_apple(&grid, &gametick.apple_cooldown);
 		generate_object(&grid,&gametick.object_cooldown);
 
-		print_grid(grid, gametick);
+		print_grid(grid);
 		print_snake(grid, player1.head_snake, gametick.snakes_animation);
 		print_snake(grid, player2.head_snake, gametick.snakes_animation);
 		print_obstacles(grid);
