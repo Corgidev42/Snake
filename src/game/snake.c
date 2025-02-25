@@ -40,6 +40,31 @@ t_snake_part	*add_behind_snake_part(t_snake_part *head_snake)
 	return (new_snake_part);
 }
 
+void	remove_behind_snake_part(t_grid *grid,t_user_data *player)
+{
+	t_snake_part	*current;
+	t_snake_part	*prev;
+
+	current = player->head_snake;
+	prev = player->head_snake;
+	while (current && current->next)
+	{
+		prev = current;
+		current = current->next;
+	}
+	grid->cells[current->coords.x][current->coords.y].has_snake = SDL_FALSE;
+	free(current);
+	prev->next = NULL;
+	if (!player->head_snake->next)
+	{
+		player->life -= 1;
+		kill_snake(grid, player);
+		if (player->life == 0)
+			return ;
+		spawn_snake(grid, player);
+	}
+}
+
 void	rotate_snake(t_user_data *player, t_orientation orientation)
 {
 	t_snake_part	*second = player->head_snake->next;
@@ -122,6 +147,16 @@ void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 	}
 }
 
+void	died_animation(t_grid *grid, int *died_cooldown, t_user_data *player)
+{
+	if (*died_cooldown <= 0)
+	{
+		*died_cooldown += SNAKE_DIED_TIME;
+		remove_behind_snake_part(grid, player);
+	}
+}
+
+
 void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 {
 	t_snake_part	*current;
@@ -130,7 +165,7 @@ void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 	current = head_snake;
 	cell_rect.x = GRID_POS_X + CELL_WIDTH * current->coords.x;
 	cell_rect.y = GRID_POS_Y + CELL_HEIGHT * current->coords.y;
-	SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.snake_head[current->skin][NORMAL][current->orientation][snake_animation / (SNAKES_ANIMATION_TIME / 8)], &cell_rect);
+	SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.snake_head[current->skin][current->snake_state][current->orientation][snake_animation / (SNAKES_ANIMATION_TIME / 8)], &cell_rect);
 
 	current = current->next;
 	while (current)

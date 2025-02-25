@@ -35,6 +35,9 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		do_input(&player1, &player2);
 
+		died_animation(&grid, &gametick.snake_1_died_cooldown, &player1);
+		died_animation(&grid, &gametick.snake_2_died_cooldown, &player2);
+
 		move_snake(&grid, &gametick.snake_1_cooldown, &player1);
 		move_snake(&grid, &gametick.snake_2_cooldown, &player2);
 
@@ -60,5 +63,4 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		SDL_Delay(1000 / 60);
 	}
-	free_all_game(grid);
 }

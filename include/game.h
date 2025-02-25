@@ -5,6 +5,8 @@
 
 t_snake_part	*add_behind_snake_part(t_snake_part *head_snake);
 SDL_bool		cell_is_empty(t_cell *cell);
+void			died_animation(t_grid *grid, int *died_cooldown,
+					t_user_data *player);
 void			do_collision(t_grid *grid, t_user_data *player1,
 					t_user_data *player2);
 void			do_input(t_user_data *player1, t_user_data *player2);
@@ -21,14 +23,16 @@ void			move_snake(t_grid *grid, int *snake_cooldown,
 					t_user_data *player);
 void			print_grid(t_grid grid);
 void			print_is_pending(t_grid grid, int object_cooldown);
+int				get_size_snake(t_snake_part *head_snake);
 void			print_obstacles(t_grid grid);
 void			do_input(t_user_data *player1, t_user_data *player2);
 void			init_gametick(t_gametick *gametick);
-void			update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2);
+void			update_gametick(t_gametick *gametick, t_user_data *player1,
+					t_user_data *player2);
 void			handle_speed(t_user_data *player);
 void			do_speed(t_user_data *player, int *gametick);
 void			print_actions(SDL_Rect rect_pos, t_user_data player1,
-		t_user_data player2);
+					t_user_data player2);
 void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
 					t_user_data player2);
 void			print_snake(t_grid grid, t_snake_part *head_snake,
@@ -37,4 +41,6 @@ SDL_bool		recursive_neighbourg_empty_cells(t_grid *grid, int x, int y,
 					int r, int i);
 void			rotate_snake(t_user_data *player, t_orientation orientation);
 void			spawn_snake(t_grid *grid, t_user_data *player);
+void			kill_snake(t_grid *grid, t_user_data *player);
+void			remove_behind_snake_part(t_grid *grid,t_user_data *player);
 #endif

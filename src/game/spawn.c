@@ -73,6 +73,8 @@ void	spawn_snake(t_grid *grid, t_user_data *player)
 	cell = get_rand_empty_cell(grid, i);
 	while (!cell)
 		cell = get_rand_empty_cell(grid, --i);
+	player->head_snake->snake_state = NORMAL;
+	player->speed = BASE_SPEED;
 	head_snake->coords.x = cell->coords.x;
 	head_snake->coords.y = cell->coords.y;
 	head_snake->orientation = rand() % 4;

@@ -56,3 +56,18 @@ SDL_bool	recursive_neighbourg_empty_cells(t_grid *grid, int x, int y, int r, int
 	}
 	return (result);
 }
+
+int	get_size_snake(t_snake_part *head_snake)
+{
+	t_snake_part *current;
+	int	size;
+
+	current = head_snake;
+	size = 0;
+	while (current)
+	{
+		size += 1;
+		current = current->next;
+	}
+	return (size);
+}
