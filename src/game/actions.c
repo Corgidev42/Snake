@@ -6,6 +6,8 @@ void	add_inventory_bonus(t_user_data *player, t_bonus bonus)
 	{
 		if (player->inventory[1] == BONUS_EMPTY)
 			player->inventory[1] = TP;
+		else if (player->inventory[0] == BONUS_EMPTY)
+			player->inventory[0] = TP;
 		return ;
 	}
 
@@ -21,6 +23,16 @@ void	handle_speed(t_user_data *player)
 	{
 		player->is_speed = SDL_TRUE;
 		player->speed = SCALE_SPEED;
+	}
+}
+
+void	remove_bonus_slot(t_user_data *player, int slot)
+{
+	player->inventory[slot] = BONUS_EMPTY;
+	if (player->inventory[1] != BONUS_EMPTY && player->inventory[1] != TP && player->inventory[0] == BONUS_EMPTY)
+	{
+		player->inventory[0] = player->inventory[1];
+		player->inventory[1] = BONUS_EMPTY;
 	}
 }
 
@@ -40,13 +52,7 @@ void	handle_bonus(t_user_data *player)
 	default:
 		return ;
 	}
-	if (player->inventory[1] != BONUS_EMPTY && player->inventory[1] != TP)
-	{
-		player->inventory[0] = player->inventory[1];
-		player->inventory[1] = BONUS_EMPTY;
-	}
-	else
-		player->inventory[0] = BONUS_EMPTY;	
+	remove_bonus_slot(player, 0);
 }
 
 void	do_actions(t_user_data *player1, t_user_data *player2, t_gametick *gametick)
@@ -236,8 +242,8 @@ void	print_actions(SDL_Rect rect_pos, t_user_data player1, t_user_data player2)
 			default:
 				break;
 			}
-			SDL_RenderCopy(App.renderer, bonus_texture, NULL, (i == 0 ? &second_rect : &first_rect));
+			SDL_RenderCopy(App.renderer, bonus_texture, NULL, (i == 0 ? &first_rect : &second_rect));
 		}
-		SDL_RenderDrawRect(App.renderer, (i == 0 ? &second_rect : &first_rect));
+		SDL_RenderDrawRect(App.renderer, (i == 0 ? &first_rect : &second_rect));
 	}
 }

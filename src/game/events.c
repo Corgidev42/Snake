@@ -54,6 +54,8 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT)
 					handle_speed(player2);
+				if (event.button.button == SDL_BUTTON_RIGHT)
+					handle_bonus(player2);
 				break;
 		}
 	}
