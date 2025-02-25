@@ -17,7 +17,7 @@ t_app App;
 	Fin de partie
 
 	Makefile
-	
+
 	!!!!!! IMPORTANT !!!!!!
 	STRUCTURER LE CODE
 	TOUS LES SEGFAULTS

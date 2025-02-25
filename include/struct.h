@@ -99,7 +99,6 @@ typedef struct s_snake_part
 {
 	t_coords			coords;
 	t_orientation		orientation;
-	int					speed;
 	t_color				skin;
 	struct s_snake_part	*next;
 }						t_snake_part;
@@ -111,6 +110,8 @@ typedef struct s_gametick
 	int					snakes_animation;
 	int					snake_1_cooldown;
 	int					snake_2_cooldown;
+	int					snake_1_speed_cooldown;
+	int					snake_2_speed_cooldown;
 	int					object_cooldown;
 }						t_gametick;
 
@@ -139,6 +140,9 @@ typedef struct s_user_data
 	SDL_bool			is_ready;
 	int					score;
 	int					life;
+	SDL_bool			is_speed;
+	float				speed;
+	int					nb_apple_speed;
 	t_bonus				inventory[INVENTORY_SIZE];
 	t_snake_part		*head_snake;
 	t_orientation		orientation_snake;

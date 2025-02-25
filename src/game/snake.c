@@ -8,7 +8,6 @@ t_snake_part	*add_behind_snake_part(t_snake_part *head_snake)
 	new_snake_part = malloc(sizeof(t_snake_part));
 	if (!new_snake_part)
 		SDL_ExitWithError("malloc new_snake_part");
-	new_snake_part->speed = head_snake->speed;
 	new_snake_part->skin = head_snake->skin;
 	new_snake_part->next = NULL;
 

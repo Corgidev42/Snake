@@ -22,7 +22,13 @@ void			print_snake(t_grid grid, t_snake_part *head_snake,
 void			print_obstacles(t_grid grid);
 void			do_input(t_user_data *player1, t_user_data *player2);
 void			init_gametick(t_gametick *gametick);
-void			update_gametick(t_gametick *gametick, int speed1, int speed2);
+void			update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2);
+
+void			handle_speed(t_user_data *player);
+void			do_speed(t_user_data *player, int *gametick);
+void			print_actions(SDL_Rect rect_pos, t_user_data player1,
+		t_user_data player2);
+
 void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
 					t_user_data player2);
 void			free_all_game(t_grid grid);

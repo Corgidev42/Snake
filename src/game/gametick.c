@@ -7,18 +7,24 @@ void	init_gametick(t_gametick *gametick)
 	gametick->object_cooldown = OBJECT_GENERATION_TIME / 2;
 	gametick->snake_1_cooldown = SNAKE_MOVE_TIME;
 	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
+	gametick->snake_1_speed_cooldown = SNAKE_SPEED_TIME;
+	gametick->snake_2_speed_cooldown = SNAKE_SPEED_TIME;
 	gametick->snakes_animation = SNAKES_ANIMATION_TIME;
 }
 
-void	update_gametick(t_gametick *gametick, int speed1, int speed2)
+void	update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2)
 {
 	int	elapsed_time = SDL_GetTicks() - gametick->elapsed_time;
 
 	gametick->apple_cooldown -= elapsed_time;
 	gametick->object_cooldown -= elapsed_time;
-	gametick->snake_1_cooldown -= elapsed_time * speed1;
-	gametick->snake_2_cooldown -= elapsed_time * speed2;
+	gametick->snake_1_cooldown -= (int)(elapsed_time * player1->speed);
+	gametick->snake_2_cooldown -= (int)(elapsed_time * player2->speed);
 	gametick->snakes_animation -= elapsed_time;
+	if (player1->is_speed)
+		gametick->snake_1_speed_cooldown -= elapsed_time;
+	if (player2->is_speed)
+		gametick->snake_2_speed_cooldown -= elapsed_time;
 	if (gametick->snakes_animation <= 0)
 		gametick->snakes_animation += SNAKES_ANIMATION_TIME;
 	gametick->elapsed_time = SDL_GetTicks();

@@ -2,8 +2,6 @@
 
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
-	(void) player1;
-	(void) player2;
 	SDL_Event	event;
 
 	while (SDL_PollEvent(&event))
@@ -31,6 +29,9 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 					case SDL_SCANCODE_S:
 						rotate_snake(player1, DOWN);
 						break;
+					case SDL_SCANCODE_Q:
+						handle_speed(player1);
+						break;
 					case SDL_SCANCODE_LEFT:
 						rotate_snake(player2, LEFT);
 						break;
@@ -46,6 +47,10 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 					default:
 						break;
 				}
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if (event.button.button == SDL_BUTTON_LEFT)
+					handle_speed(player2);
 				break;
 		}
 	}
