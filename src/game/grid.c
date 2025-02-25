@@ -100,6 +100,28 @@ void	print_grid(t_grid grid)
 				SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.apple[grid.cells[x][y].rand % 3], &cell_rect);
 			if (grid.cells[x][y].has_bomb == SDL_TRUE)
 				SDL_RenderCopy(App.renderer, App.texture_bomb.a3, &App.texture_bomb.r, &cell_rect);
+			if (grid.cells[x][y].bonus != BONUS_EMPTY)
+			{
+				SDL_Texture *bonus_texture = NULL;
+				switch (grid.cells[x][y].bonus)
+				{
+					case LIFE_UP:
+						bonus_texture = App.texture_bonus.life_up;
+						break;
+					case STAR:
+						bonus_texture = App.texture_bonus.star;
+						break;
+					case SLOW:
+						bonus_texture = App.texture_bonus.slow;
+						break;
+					case TP:
+						bonus_texture = App.texture_bonus.tp;
+						break;
+					default:
+						break;
+				}
+				SDL_RenderCopy(App.renderer, bonus_texture, NULL, &cell_rect);
+			}
 
 			cell_rect.y += CELL_HEIGHT;
 			y++;

@@ -151,6 +151,17 @@ void	score_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 	t_snake_part	*current1 = player1->head_snake;
 	t_snake_part	*current2 = player2->head_snake;
 
+	if (grid->cells[current1->coords.x][current1->coords.y].bonus != BONUS_EMPTY)
+	{
+		add_inventory_bonus(player1, grid->cells[current1->coords.x][current1->coords.y].bonus);
+		grid->cells[current1->coords.x][current1->coords.y].bonus = BONUS_EMPTY;
+	}
+	if (grid->cells[current2->coords.x][current2->coords.y].bonus != BONUS_EMPTY)
+	{
+		add_inventory_bonus(player2, grid->cells[current2->coords.x][current2->coords.y].bonus);
+		grid->cells[current2->coords.x][current2->coords.y].bonus = BONUS_EMPTY;
+	}
+
 	if (grid->cells[current1->coords.x][current1->coords.y].has_apple == SDL_TRUE)
 	{
 		player1->score += 1;

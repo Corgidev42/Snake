@@ -65,6 +65,15 @@ typedef struct	s_texture_bomb
 	SDL_Texture	*a3;
 }				t_texture_bomb;
 
+typedef struct	s_texture_bonus
+{
+	SDL_Rect	r;
+	SDL_Texture	*life_up;
+	SDL_Texture	*tp;
+	SDL_Texture	*star;
+	SDL_Texture	*slow;
+}				t_texture_bonus;
+
 typedef struct s_seed
 {
 	int			number;
@@ -86,6 +95,7 @@ typedef struct s_app
 	TTF_Font			*font;
 	SDL_Texture			*spritesheet_texture;
 	t_texture_bomb		texture_bomb;
+	t_texture_bonus		texture_bonus;
 	t_texture_rects		texture_rects;
 }						t_app;
 
