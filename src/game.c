@@ -1,18 +1,5 @@
 #include "snake.h"
 
-void	free_all_game(t_grid grid)
-{
-	int	x;
-
-	x = 0;
-	while (x < GRID_COLS)
-	{
-		free(grid.cells[x]);
-		x++;
-	}
-	free(grid.cells);
-}
-
 void	game_window(t_user_data player1, t_user_data player2)
 {
 	t_grid		grid;
@@ -59,5 +46,4 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		SDL_Delay(1000 / 60);
 	}
-	free_all_game(grid);
 }
