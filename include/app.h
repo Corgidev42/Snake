@@ -17,6 +17,5 @@ void	init_app(void);
  */
 void	kill_app(void);
 
-
 void	SDL_ExitWithError(const char *message);
 #endif

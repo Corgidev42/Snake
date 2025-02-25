@@ -3,8 +3,8 @@
 
 # include "snake.h"
 
-
-void			do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2);
+void			do_collision(t_grid *grid, t_user_data *player1,
+					t_user_data *player2);
 void			generate_object(t_grid *grid, int *object_cooldown);
 int				get_seed_number(int x, int y, int max);
 void			move_snake(t_grid *grid, int *snake_cooldown,
@@ -28,8 +28,8 @@ void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
 void			free_all_game(t_grid grid);
 void			init_map(t_grid *grid);
 void			game_window(t_user_data player1, t_user_data player2);
-void	print_is_pending(t_grid grid, int object_cooldown);
-void	rotate_snake(t_user_data *player, t_orientation orientation);
-t_cell	*get_is_pending_cell(t_grid *grid);
+void			print_is_pending(t_grid grid, int object_cooldown);
+void			rotate_snake(t_user_data *player, t_orientation orientation);
+t_cell			*get_is_pending_cell(t_grid *grid);
 
 #endif
