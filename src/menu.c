@@ -1,19 +1,23 @@
 #include "snake.h"
 
-void	handle_bonus_active(t_bonus bonus)
+int	find_bonus_index(t_bonus bonus)
 {
 	int	current_bonus_index = 0;
-	int	find_index = -1;
 
 	while (current_bonus_index < App.nb_bonus)
 	{
 		if (App.available_bonus[current_bonus_index] == bonus)
-		{
-			find_index = current_bonus_index;
-			break ;
-		}
+			return (current_bonus_index);
 		current_bonus_index++;
 	}
+	return (-1);
+}
+
+void	handle_bonus_active(t_bonus bonus)
+{
+	int	current_bonus_index = 0;
+	int	find_index = find_bonus_index(bonus);
+
 	if (find_index == -1)
 	{
 		App.available_bonus[App.nb_bonus] = bonus;
@@ -21,6 +25,7 @@ void	handle_bonus_active(t_bonus bonus)
 	}
 	else
 	{
+		current_bonus_index = find_index;
 		while (current_bonus_index < App.nb_bonus - 1)
 		{
 			App.available_bonus[current_bonus_index] = App.available_bonus[current_bonus_index + 1];
@@ -155,9 +160,17 @@ void	print_bonus_choice(SDL_Rect rect)
 	SDL_Rect	rect_bonus_slow = {rect.x + rect.w / 2 + 150, rect.y + 100, 100, 100};
 
 	SDL_RenderCopy(App.renderer, App.texture_bonus.life_up, NULL, &rect_bonus_life);
+	if (find_bonus_index(LIFE_UP) == -1)
+		SDL_RenderCopy(App.renderer, App.texture_cross, NULL, &rect_bonus_life);
 	SDL_RenderCopy(App.renderer, App.texture_bonus.tp, NULL, &rect_bonus_tp);
+	if (find_bonus_index(TP) == -1)
+		SDL_RenderCopy(App.renderer, App.texture_cross, NULL, &rect_bonus_tp);
 	SDL_RenderCopy(App.renderer, App.texture_bonus.star, NULL, &rect_bonus_star);
+	if (find_bonus_index(STAR) == -1)
+		SDL_RenderCopy(App.renderer, App.texture_cross, NULL, &rect_bonus_star);
 	SDL_RenderCopy(App.renderer, App.texture_bonus.slow, NULL, &rect_bonus_slow);
+	if (find_bonus_index(SLOW) == -1)
+		SDL_RenderCopy(App.renderer, App.texture_cross, NULL, &rect_bonus_slow);
 }
 
 void	menu_window(t_user_data *player1, t_user_data *player2)

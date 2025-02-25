@@ -55,7 +55,7 @@ void	generate_object(t_grid *grid, int *object_cooldown)
 		if((cell = get_is_pending_cell(grid)))
 		{
 			hot = rand() % 2;
-			if (hot)
+			if (hot || App.nb_bonus == 0)
 				cell->has_bomb = SDL_TRUE;
 			else
 				cell->bonus = get_random_bonus();
