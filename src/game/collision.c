@@ -173,7 +173,6 @@ void	score_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 	}
 }
 
-
 void	do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2)
 {
 	kill_collision(grid, player1, player2); //mur, bombe, collision entre snake [tete contre tete, tete apres tete, tete contre corps]
