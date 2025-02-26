@@ -22,10 +22,12 @@ void	init_gametick(t_gametick *gametick)
 
 	gametick->snakes_animation = SNAKES_ANIMATION_TIME - 1;
 
+	gametick->score_snake_size_cooldown = SCORE_SNAKE_SIZE_TIME;
+
 	gametick->timer = TIMER_BEFORE_START;
 }
 
-void	update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2)
+void	update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2, t_score_anim **score_anims)
 {
 	int	elapsed_time = SDL_GetTicks() - gametick->elapsed_time;
 
@@ -55,5 +57,9 @@ void	update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *pl
 
 	if (gametick->snakes_animation <= 0)
 		gametick->snakes_animation += SNAKES_ANIMATION_TIME;
+
+	gametick->score_snake_size_cooldown -= elapsed_time;
+
+	update_score_anims(score_anims, elapsed_time);
 	gametick->elapsed_time = SDL_GetTicks();
 }

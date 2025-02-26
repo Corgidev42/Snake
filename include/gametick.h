@@ -30,6 +30,7 @@ void	init_gametick(t_gametick *gametick);
 	* @param gametick Pointeur vers la structure `t_gametick` contenant les chronomètres.
  * @param player1 Pointeur vers la structure `t_user_data` du premier joueur.
  * @param player2 Pointeur vers la structure `t_user_data` du second joueur.
+ * @param score_anims Tableau de pointeurs vers les animations de score.
  *
  * Cette fonction met à jour les éléments suivants :
  * - Diminue les délais de génération (`apple_cooldown`, `object_cooldown`).
@@ -41,9 +42,10 @@ void	init_gametick(t_gametick *gametick);
 	- Réduit les délais de mort (`snake_X_died_cooldown`) si un serpent est en état `BONKED`.
  *
 	- Met à jour le temps restant pour l'animation des serpents (`snakes_animation`).
+	- Met à jour les animations de score.
  * - Rafraîchit le temps écoulé (`elapsed_time`) pour le prochain appel.
  */
 void	update_gametick(t_gametick *gametick, t_user_data *player1,
-			t_user_data *player2);
+			t_user_data *player2, t_score_anim **score_anims);
 
 #endif // GAMETICK_H

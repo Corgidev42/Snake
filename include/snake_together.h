@@ -27,6 +27,7 @@
 # include "render.h"
 # include "seed.h"
 # include "snake.h"
+# include "score_anim.h"
 # include "utils.h"
 
 #endif

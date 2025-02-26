@@ -70,9 +70,10 @@ void		do_actions(t_user_data *player1, t_user_data *player2,
  * @param grid La grille de jeu.
  * @param player1 Données du premier joueur.
  * @param player2 Données du second joueur.
+ * @param score_anims Tableau des animations de score.
  */
 void		do_collision(t_grid *grid, t_user_data *player1,
-				t_user_data *player2);
+				t_user_data *player2, t_score_anim **score_anims);
 
 /**
  * @brief Gère les collisions fatales pour les serpents.
@@ -86,9 +87,10 @@ void		do_collision(t_grid *grid, t_user_data *player1,
  * @param grid La grille de jeu.
  * @param player1 Données du premier joueur.
  * @param player2 Données du second joueur.
+ * @param score_anims Tableau des animations de score.
  */
 void		kill_collision(t_grid *grid, t_user_data *player1,
-				t_user_data *player2);
+				t_user_data *player2, t_score_anim **score_anims);
 
 /**
  * @brief Gère les collisions liées au score.
@@ -99,9 +101,10 @@ void		kill_collision(t_grid *grid, t_user_data *player1,
  * @param grid La grille de jeu.
  * @param player1 Données du premier joueur.
  * @param player2 Données du second joueur.
+ * @param score_anims Tableau des animations de score.
  */
 void		score_collision(t_grid *grid, t_user_data *player1,
-				t_user_data *player2);
+				t_user_data *player2, t_score_anim **score_anims);
 
 /**
  * @brief Vérifie si un serpent occupe une certaine position sur la grille.

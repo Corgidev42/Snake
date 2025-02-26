@@ -134,6 +134,8 @@ typedef struct s_gametick
 
 	int					object_cooldown;
 
+	int					score_snake_size_cooldown;
+
 	int					timer;
 }						t_gametick;
 
@@ -174,5 +176,16 @@ typedef struct s_user_data
 	Uint32				bonked_start_time;
 	Uint32				last_bonk_removal;
 }						t_user_data;
+
+typedef struct s_score_anim
+{
+	int					x;
+	int					y;
+	int					score;
+	int					dy_max;
+	int					life_time;
+	int					time;
+	SDL_Color			color;
+}						t_score_anim;
 
 #endif
