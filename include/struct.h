@@ -94,6 +94,7 @@ typedef struct s_app
 	t_texture_bonus		texture_bonus;
 	t_texture_rects		texture_rects;
 	SDL_Texture			*texture_cross;
+	SDL_Texture			*texture_crown;
 	int					available_bonus[NB_BONUS];
 	int					nb_bonus;
 }						t_app;
@@ -166,6 +167,7 @@ typedef struct s_user_data
 	SDL_bool			is_slow;
 	float				speed;
 	int					nb_apple_speed;
+	int					max_snake_size;
 	t_bonus				inventory[INVENTORY_SIZE];
 	t_snake_part		*head_snake;
 	t_orientation		orientation_snake;

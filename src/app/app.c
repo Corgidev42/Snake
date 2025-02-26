@@ -4,58 +4,7 @@
 // la gestion de la fenêtre,
 // du rendu et le chargement des ressources graphiques.
 
-// ----------- Fonctions d’initialisation générale ------------
-
-void	init_app(void)
-{
-	srand(time(NULL));
-	App.seed.number = rand();
-	printf("Seed : %d\n", App.seed.number);
-	init_seed(&App.seed);
-	if (SDL_Init(SDL_INIT_EVERYTHING))
-		SDL_ExitWithError("Initialisation of SDL");
-	App.window = SDL_CreateWindow("Snake EnV Numeric.", SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,
-			SDL_WINDOW_ALWAYS_ON_TOP);
-	if (!App.window)
-		SDL_ExitWithError("Create Window");
-	App.renderer = SDL_CreateRenderer(App.window, -1, SDL_RENDERER_SOFTWARE);
-	if (!App.renderer)
-		SDL_ExitWithError("Create Renderer");
-	App.running = SDL_TRUE;
-	if (TTF_Init())
-		SDL_ExitWithError("Initialisation of TTF");
-	App.font = TTF_OpenFont("asset/kenney_mini.ttf", 16);
-	if (!App.font)
-		SDL_ExitWithError("Failed to load font");
-	init_texture_rects();
-	App.spritesheet_texture = load_texture("asset/spritesheet.png");
-	App.available_bonus[0] = LIFE_UP;
-	App.available_bonus[1] = TP;
-	App.available_bonus[2] = STAR;
-	App.available_bonus[3] = SLOW;
-	App.nb_bonus = 4;
-}
-
-void	kill_app(void)
-{
-	TTF_CloseFont(App.font);
-	TTF_Quit();
-	SDL_DestroyTexture(App.spritesheet_texture);
-	SDL_DestroyRenderer(App.renderer);
-	SDL_DestroyWindow(App.window);
-	SDL_Quit();
-}
-
-void	SDL_ExitWithError(const char *message)
-{
-	SDL_Log("ERROR : %s > %s\n", message, SDL_GetError());
-	kill_app();
-	exit(EXIT_FAILURE);
-}
-
 // ----------- Chargement des textures et polices ------------
-
 static void	init_texture_rects_color(t_color color)
 {
 	int	color_y_start;
@@ -141,5 +90,57 @@ static void	init_texture_rects(void)
 	App.texture_bonus.slow = load_texture("asset/bonus/slow.png");
 	// Cross texture
 	App.texture_cross = load_texture("asset/cross.png");
+
+	// Crown texture
+	App.texture_crown = load_texture("asset/crown.png");
 }
-// ----------- Variables globales ou structure centrale ------------
+
+// ----------- Fonctions d’initialisation générale ------------
+void	init_app(void)
+{
+	srand(time(NULL));
+	App.seed.number = rand();
+	printf("Seed : %d\n", App.seed.number);
+	init_seed(&App.seed);
+	if (SDL_Init(SDL_INIT_EVERYTHING))
+		SDL_ExitWithError("Initialisation of SDL");
+	App.window = SDL_CreateWindow("Snake EnV Numeric.", SDL_WINDOWPOS_UNDEFINED,
+			SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,
+			SDL_WINDOW_ALWAYS_ON_TOP);
+	if (!App.window)
+		SDL_ExitWithError("Create Window");
+	App.renderer = SDL_CreateRenderer(App.window, -1, SDL_RENDERER_SOFTWARE);
+	if (!App.renderer)
+		SDL_ExitWithError("Create Renderer");
+	App.running = SDL_TRUE;
+	if (TTF_Init())
+		SDL_ExitWithError("Initialisation of TTF");
+	App.font = TTF_OpenFont("asset/kenney_mini.ttf", 16);
+	if (!App.font)
+		SDL_ExitWithError("Failed to load font");
+	init_texture_rects();
+	App.spritesheet_texture = load_texture("asset/spritesheet.png");
+	App.available_bonus[0] = LIFE_UP;
+	App.available_bonus[1] = TP;
+	App.available_bonus[2] = STAR;
+	App.available_bonus[3] = SLOW;
+	App.nb_bonus = 4;
+}
+
+void	kill_app(void)
+{
+	TTF_CloseFont(App.font);
+	TTF_Quit();
+	SDL_DestroyTexture(App.spritesheet_texture);
+	SDL_DestroyRenderer(App.renderer);
+	SDL_DestroyWindow(App.window);
+	SDL_Quit();
+}
+
+void	SDL_ExitWithError(const char *message)
+{
+	SDL_Log("ERROR : %s > %s\n", message, SDL_GetError());
+	kill_app();
+	exit(EXIT_FAILURE);
+}
+

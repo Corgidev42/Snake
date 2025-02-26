@@ -15,15 +15,16 @@
 void			spawn_snake(t_grid *grid, t_user_data *player);
 
 /**
- * @brief Ajoute une nouvelle partie du corps du serpent à l'arrière.
+ * @brief Ajoute une partie derrière le serpent.
  *
-
-	* La nouvelle partie est ajoutée en fonction de l'orientation actuelle du serpent.
+ * Cette fonction ajoute une nouvelle partie derrière le dernier élément du serpent.
  *
- * @param head_snake Le pointeur vers la tête du serpent.
- * @return Un pointeur vers la nouvelle partie du serpent.
+ * @param player Les données du joueur associées au serpent.
+ * @param update_max_size Indique si la taille maximale du serpent
+ * doit être mise à jour.
+ * @return Le pointeur vers la nouvelle partie du serpent.
  */
-t_snake_part	*add_behind_snake_part(t_snake_part *head_snake);
+t_snake_part	*add_behind_snake_part(t_user_data *player, SDL_bool update_max_size);
 
 /**
  * @brief Supprime la dernière partie du serpent.

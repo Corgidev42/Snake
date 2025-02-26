@@ -90,7 +90,7 @@ void	score_collision(t_grid *grid, t_user_data *player1,
 		if (current1->coords.x >= 0 && current1->coords.x < GRID_COLS
 			&& current1->coords.y >= 0 && current1->coords.y < GRID_ROWS)
 			grid->cells[current1->coords.x][current1->coords.y].has_apple = SDL_FALSE;
-		add_behind_snake_part(current1);
+		add_behind_snake_part(player1, SDL_TRUE);
 		if (!player1->is_speed && NB_APPLE_SPEED > player1->nb_apple_speed)
 			player1->nb_apple_speed += 1;
 	}
@@ -100,7 +100,7 @@ void	score_collision(t_grid *grid, t_user_data *player1,
 		if (current2->coords.x >= 0 && current2->coords.x < GRID_COLS
 			&& current2->coords.y >= 0 && current2->coords.y < GRID_ROWS)
 			grid->cells[current2->coords.x][current2->coords.y].has_apple = SDL_FALSE;
-		add_behind_snake_part(current2);
+		add_behind_snake_part(player2, SDL_TRUE);
 		if (!player2->is_speed && NB_APPLE_SPEED > player2->nb_apple_speed)
 			player2->nb_apple_speed += 1;
 	}

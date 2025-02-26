@@ -28,22 +28,26 @@ void	spawn_snake(t_grid *grid, t_user_data *player)
 	head_snake->orientation = rand() % 4;
 	player->orientation_snake = head_snake->orientation;
 	head_snake->next = NULL;
-	add_behind_snake_part(head_snake);
+	add_behind_snake_part(player, SDL_TRUE);
 	cell->has_snake = SDL_TRUE;
 	grid->cells[head_snake->next->coords.x][head_snake->next->coords.y].has_snake = SDL_TRUE;
 }
 
-t_snake_part	*add_behind_snake_part(t_snake_part *head_snake)
+t_snake_part	*add_behind_snake_part(t_user_data *player, SDL_bool update_max_size)
 {
 	t_snake_part	*new_snake_part;
 	t_snake_part	*current;
+	t_snake_state	snake_state;
 
+	snake_state = player->head_snake->snake_state;
 	new_snake_part = malloc(sizeof(t_snake_part));
 	if (!new_snake_part)
 		SDL_ExitWithError("malloc new_snake_part");
-	new_snake_part->skin = head_snake->skin;
+	new_snake_part->skin = player->head_snake->skin;
 	new_snake_part->next = NULL;
-	current = head_snake;
+	new_snake_part->snake_state = snake_state;
+
+	current = player->head_snake;
 	while (current && current->next)
 		current = current->next;
 	new_snake_part->orientation = current->orientation;
@@ -69,6 +73,8 @@ t_snake_part	*add_behind_snake_part(t_snake_part *head_snake)
 		break ;
 	}
 	current->next = new_snake_part;
+	if (update_max_size && get_size_snake(player->head_snake) > player->max_snake_size)
+		player->max_snake_size = get_size_snake(player->head_snake);
 	return (new_snake_part);
 }
 
