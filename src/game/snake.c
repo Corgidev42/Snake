@@ -4,12 +4,15 @@ t_snake_part	*add_behind_snake_part(t_snake_part *head_snake)
 {
 	t_snake_part	*new_snake_part;
 	t_snake_part	*current;
+	t_snake_state	snake_state;
 
+	snake_state = head_snake->snake_state;
 	new_snake_part = malloc(sizeof(t_snake_part));
 	if (!new_snake_part)
 		SDL_ExitWithError("malloc new_snake_part");
 	new_snake_part->skin = head_snake->skin;
 	new_snake_part->next = NULL;
+	new_snake_part->snake_state = snake_state;
 
 	current = head_snake;
 	while (current && current->next)
@@ -183,7 +186,6 @@ void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 	cell_rect.x = GRID_POS_X + CELL_WIDTH * current->coords.x;
 	cell_rect.y = GRID_POS_Y + CELL_HEIGHT * current->coords.y;
 	SDL_RenderCopy(App.renderer, App.spritesheet_texture, &App.texture_rects.snake_head[current->skin][current->snake_state][current->orientation][snake_animation / (SNAKES_ANIMATION_TIME / 8)], &cell_rect);
-
 	current = current->next;
 	while (current)
 	{

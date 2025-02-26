@@ -10,15 +10,15 @@ void	init_gametick(t_gametick *gametick)
 	gametick->snake_1_speed_cooldown = SNAKE_SPEED_TIME;
 	gametick->snake_1_star_cooldown = STAR_COOLDOWN;
 	gametick->snake_1_slow_cooldown = SLOW_COOLDOWN;
+	gametick->snake_1_died_cooldown = SNAKE_DIED_TIME;
 	
-	gametick->snake_2_speed_cooldown = SNAKE_SPEED_TIME;
 	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
+	gametick->snake_2_speed_cooldown = SNAKE_SPEED_TIME;
 	gametick->snake_2_star_cooldown = STAR_COOLDOWN;
 	gametick->snake_2_slow_cooldown = SLOW_COOLDOWN;
+	gametick->snake_2_died_cooldown = SNAKE_DIED_TIME;
 
 	gametick->snakes_animation = SNAKES_ANIMATION_TIME;
-	gametick->snake_1_died_cooldown = SNAKE_DIED_TIME;
-	gametick->snake_2_died_cooldown = SNAKE_DIED_TIME;
 }
 
 void	update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2)

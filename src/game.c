@@ -35,7 +35,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 			break;
 
 		generate_apple(&grid, &gametick.apple_cooldown);
-		generate_object(&grid,&gametick.object_cooldown);
+		generate_object(&grid, &gametick.object_cooldown);
 
 		print_grid(grid);
 		print_snake(grid, player1.head_snake, gametick.snakes_animation);
@@ -49,4 +49,6 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		SDL_Delay(1000 / 60);
 	}
+	if (App.running)
+		end_game_window(&player1, &player2);
 }

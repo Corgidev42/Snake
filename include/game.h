@@ -45,4 +45,7 @@ void			rotate_snake(t_user_data *player, t_orientation orientation);
 void			spawn_snake(t_grid *grid, t_user_data *player);
 void			kill_snake(t_grid *grid, t_user_data *player);
 void			remove_behind_snake_part(t_grid *grid,t_user_data *player);
+
+
+void			end_game_window(t_user_data *player1, t_user_data *player2);
 #endif
