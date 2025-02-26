@@ -9,8 +9,6 @@ t_app App;
 	Scores a update
 	Fin de partie
 
-	Makefile
-
 	!!!!!! IMPORTANT !!!!!!
 	STRUCTURER LE CODE
 	TOUS LES SEGFAULTS

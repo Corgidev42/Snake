@@ -27,7 +27,7 @@ OBJ_DIR = obj
 INCLUDE_DIR = include
 
 # 📌 Inclure les fichiers headers
-INCLUDES = -I$(INCLUDE_DIR)
+INCLUDES = -I$(INCLUDE_DIR) $(LIBFT_INCLUDE)
 
 # 🔍 Trouver tous les fichiers source (.c)
 SRC_FILES = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c)
@@ -39,6 +39,7 @@ OBJ_FILES = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 LIBFT_DIR = mylib
 LIBFT = $(LIBFT_DIR)/lib/libft.a
 LIBFT_REPO = https://github.com/Corgidev42/mylib.git
+LIBFT_INCLUDE = -I$(LIBFT_DIR)/include
 
 # 🎯 Compilation principale
 all: $(PROJECT_NAME)
