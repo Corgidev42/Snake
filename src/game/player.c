@@ -7,7 +7,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 	player1->id = 1;
 	player1->is_ready = 0;
 	player1->score = 0;
-	player1->life = LIFE_MAX;\
+	player1->life = LIFE_MAX;
 
 	player1->is_speed = SDL_FALSE;
 	player1->is_star = SDL_FALSE;

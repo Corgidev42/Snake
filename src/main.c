@@ -50,7 +50,7 @@ int	main(int argc, char const *argv[])
 		menu_window(&player1, &player2);
 		game_window(player1, player2);
 	}
-	free_players(&player1, &player2);
-	kill_app();
+	// free_players(&player1, &player2);
+	// kill_app();
 	return (0);
 }
