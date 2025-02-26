@@ -92,4 +92,7 @@ relibft:
 	rm -rf $(LIBFT_DIR)
 	$(MAKE) $(LIBFT)
 
+run: all
+	./$(PROJECT_NAME)
+
 .PHONY: all clean fclean re relibft
