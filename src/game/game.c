@@ -46,7 +46,7 @@ void countdown_transition(t_grid grid, t_user_data player1, t_user_data player2,
 		render_text(App.renderer, countdown_text, text_rect, App.font, (SDL_Color){255, 255, 255, 255});
 		free(countdown_text);
 		SDL_RenderPresent(App.renderer);
-		SDL_Delay(16);
+		SDL_Delay(1000 / 60);
 	}
 	// mettre à jour le temps écoulé
 	gametick->elapsed_time = SDL_GetTicks();
