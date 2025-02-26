@@ -4,8 +4,6 @@ test.c
 
 Memento SDL.md
 
-app
-
 *.a
 
 *.old
@@ -13,3 +11,5 @@ app
 *.out
 
 *.o
+
+.vscode

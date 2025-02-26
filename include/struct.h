@@ -136,6 +136,8 @@ typedef struct s_gametick
 	int					snake_2_died_cooldown;
 
 	int					object_cooldown;
+
+	int					timer;
 }						t_gametick;
 
 typedef struct s_cell

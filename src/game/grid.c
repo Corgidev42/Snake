@@ -133,13 +133,39 @@ void	print_grid(t_grid grid)
 
 void	print_is_pending(t_grid grid, int object_cooldown)
 {
-	SDL_Rect	cell_rect = {GRID_POS_X, GRID_POS_Y, CELL_WIDTH, CELL_HEIGHT};
+	SDL_Rect	cell_rect;
+	SDL_Rect	text_rect;
 	t_cell		*is_pending_cell;
+	char		*cooldown_text;
+	int			text_width;
+	int			text_height;
 
+	// Récupère la cellule en attente
 	is_pending_cell = get_is_pending_cell(&grid);
 	if (!is_pending_cell)
 		return ;
+
+	// Définition de la position de la cellule
 	cell_rect.x = GRID_POS_X + CELL_WIDTH * is_pending_cell->coords.x;
 	cell_rect.y = GRID_POS_Y + CELL_HEIGHT * is_pending_cell->coords.y;
-	render_text(App.renderer, ft_itoa((object_cooldown / 1000) + 1), cell_rect, App.font, (SDL_Color){255, 255, 255, 255});
+	cell_rect.w = CELL_WIDTH;
+	cell_rect.h = CELL_HEIGHT;
+
+	// Convertit le cooldown en texte
+	cooldown_text = ft_itoa((object_cooldown / 1000) + 1);
+
+	// Calcule la taille du texte
+	text_width = get_text_width(cooldown_text, App.font) * 2;
+	text_height = get_text_height(cooldown_text, App.font) * 2;
+
+	// Centre le texte dans la cellule
+	text_rect.x = cell_rect.x + (cell_rect.w - text_width) / 2;
+	text_rect.y = cell_rect.y + (cell_rect.h - text_height) / 2;
+	text_rect.w = text_width;
+	text_rect.h = text_height;
+
+	// Affiche le texte centré
+	render_text(App.renderer, cooldown_text, text_rect, App.font, (SDL_Color){255, 255, 255, 255});
+
+	free(cooldown_text);
 }

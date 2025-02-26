@@ -3,13 +3,10 @@
 t_app App;
 
 /*
-	Is pending en mode beau
 	Au demarrage, timer de lancement de la partie
 
 	Scores a update
 	Fin de partie
-
-	Makefile
 
 	!!!!!! IMPORTANT !!!!!!
 	STRUCTURER LE CODE
