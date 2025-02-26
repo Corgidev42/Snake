@@ -3,7 +3,7 @@
 
 # include "snake.h"
 
-t_snake_part	*add_behind_snake_part(t_snake_part *head_snake);
+t_snake_part	*add_behind_snake_part(t_user_data *player, SDL_bool update_max_size);
 SDL_bool		cell_is_empty(t_cell *cell);
 void			died_animation(t_grid *grid, int *died_cooldown,
 					t_user_data *player);

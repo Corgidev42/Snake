@@ -80,8 +80,9 @@ static void	init_texture_rects()
 	App.texture_bonus.star = load_texture("asset/bonus/star.png");
 	App.texture_bonus.slow = load_texture("asset/bonus/slow.png");
 
-	// Cross texture
+	// Cross/Crowm textures
 	App.texture_cross = load_texture("asset/cross.png");
+	App.texture_crown = load_texture("asset/crown.png");
 }
 
 void	kill_app(void)

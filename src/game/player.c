@@ -15,6 +15,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 
 	player1->speed = BASE_SPEED;
 	player1->nb_apple_speed = 0;
+	player1->max_snake_size = 2;
 	player1->head_snake = malloc(sizeof(t_snake_part));
 	if (!player1->head_snake)
 		exit(1);
@@ -35,6 +36,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 
 	player2->speed = BASE_SPEED;
 	player2->nb_apple_speed = 0;
+	player2->max_snake_size = 2;
 	player2->head_snake = malloc(sizeof(t_snake_part));
 	if (!player2->head_snake)
 		exit(1);

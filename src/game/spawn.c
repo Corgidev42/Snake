@@ -90,7 +90,7 @@ void	spawn_snake(t_grid *grid, t_user_data *player)
 	head_snake->orientation = rand() % 4;
 	player->orientation_snake = head_snake->orientation;
 	head_snake->next = NULL;
-	add_behind_snake_part(head_snake);
+	add_behind_snake_part(player, SDL_TRUE);
 	cell->has_snake = SDL_TRUE;
 	grid->cells[head_snake->next->coords.x][head_snake->next->coords.y].has_snake = SDL_TRUE;
 }

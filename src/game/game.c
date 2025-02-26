@@ -72,6 +72,7 @@ void	game_window(t_user_data player1, t_user_data player2)
 	init_gametick(&gametick);
 
 	countdown_transition(grid, player1, player2, &gametick, actions_rect_pos, scoreboard_rect_pos);
+	
 	while (App.running && player1.life && player2.life)
 	{
 		update_gametick(&gametick, &player1, &player2);
