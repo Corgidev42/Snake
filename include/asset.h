@@ -1,12 +1,25 @@
-#ifndef ASSET_H
-# define ASSET_H
+#ifndef ASSETS_H
+# define ASSETS_H
 
-# include "snake.h"
+# include "snake_together.h"
 
-int			get_text_width(const char *text, TTF_Font *font);
-int			get_text_height(const char *text, TTF_Font *font);
-void		render_text(SDL_Renderer *renderer, const char *text, SDL_Rect rect,
-				TTF_Font *font, SDL_Color color);
-SDL_Texture	*load_texture(const char *path);
+/**
+ * @brief Sélectionne un bonus aléatoire parmi ceux disponibles.
+ *
+ * @return t_bonus Le bonus sélectionné aléatoirement.
+ *
+ * Cette fonction effectue les étapes suivantes :
+ * - Sélectionne un bonus aléatoirement dans `App.available_bonus`.
+ * - Applique une rareté spéciale pour le bonus `LIFE_UP` (1 chance sur 10).
+ * - Si `LIFE_UP` est sélectionné mais ne respecte pas la probabilité,
+ *   la fonction est rappelée récursivement pour en choisir un autre.
+ *
+ * Le bonus retourné est un des éléments suivants :
+ * - `LIFE_UP`
+ * - `TP`
+ * - `STAR`
+ * - `SLOW`
+ */
+t_bonus	get_random_bonus(void);
 
-#endif
+#endif // ASSETS_H

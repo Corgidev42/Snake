@@ -1,4 +1,4 @@
-#include "snake.h"
+#include "snake_together.h"
 
 void	init_players(t_user_data *player1, t_user_data *player2)
 {
@@ -28,7 +28,7 @@ void	init_players(t_user_data *player1, t_user_data *player2)
 	player2->is_ready = 0;
 	player2->score = 0;
 	player2->life = LIFE_MAX;
-	
+
 	player2->is_speed = SDL_FALSE;
 	player2->is_star = SDL_FALSE;
 	player2->is_slow = SDL_FALSE;

@@ -1,5 +1,7 @@
-#include "snake.h"
+#include "snake_together.h"
 
+// Module Gametick (gametick)
+// Pour centraliser le chronométrage et la mise à jour des délais d’actions.
 void	init_gametick(t_gametick *gametick)
 {
 	gametick->elapsed_time = SDL_GetTicks();

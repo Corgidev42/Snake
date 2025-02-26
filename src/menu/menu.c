@@ -1,113 +1,8 @@
-#include "snake.h"
+#include "snake_together.h"
 
-int	find_bonus_index(t_bonus bonus)
-{
-	int	current_bonus_index = 0;
+// Ce module gère l’affichage et la logique du menu de sélection (choix du bonus, choix de couleur/skin, préparation des joueurs).
 
-	while (current_bonus_index < App.nb_bonus)
-	{
-		if (App.available_bonus[current_bonus_index] == bonus)
-			return (current_bonus_index);
-		current_bonus_index++;
-	}
-	return (-1);
-}
-
-void	handle_bonus_active(t_bonus bonus)
-{
-	int	current_bonus_index = 0;
-	int	find_index = find_bonus_index(bonus);
-
-	if (find_index == -1)
-	{
-		App.available_bonus[App.nb_bonus] = bonus;
-		App.nb_bonus++;
-	}
-	else
-	{
-		current_bonus_index = find_index;
-		while (current_bonus_index < App.nb_bonus - 1)
-		{
-			App.available_bonus[current_bonus_index] = App.available_bonus[current_bonus_index + 1];
-			current_bonus_index++;
-		}
-		App.nb_bonus--;
-	}
-}
-
-void	menu_do_input(t_user_data *player1, t_user_data *player2)
-{
-	SDL_Event	event;
-
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-			case SDL_KEYDOWN:
-				switch (event.key.keysym.scancode)
-				{
-				case SDL_SCANCODE_ESCAPE:
-					App.running = SDL_FALSE;
-					break;
-				case SDL_SCANCODE_SPACE:
-					player1->is_ready = (player1->is_ready ? SDL_FALSE : SDL_TRUE);
-					if (player1->is_ready && player1->head_snake->skin == player2->head_snake->skin)
-						player2->head_snake->skin = (player2->head_snake->skin == 0 ? NB_COLORS - 1 : player2->head_snake->skin - 1);
-					break;
-				case SDL_SCANCODE_RETURN:
-					player2->is_ready = (player2->is_ready ? SDL_FALSE : SDL_TRUE);
-					if (player2->is_ready && player1->head_snake->skin == player2->head_snake->skin)
-						player1->head_snake->skin = (player1->head_snake->skin == 0 ? NB_COLORS - 1 : player1->head_snake->skin - 1);
-					break;
-				case SDL_SCANCODE_A:
-					player1->head_snake->skin = (player1->head_snake->skin == 0 ? NB_COLORS - 1 : player1->head_snake->skin - 1);
-					if (player2->is_ready && player1->head_snake->skin == player2->head_snake->skin)
-						player1->head_snake->skin = (player1->head_snake->skin == 0 ? NB_COLORS - 1 : player1->head_snake->skin - 1);
-					player1->is_ready = SDL_FALSE;
-					break;
-				case SDL_SCANCODE_D:
-					player1->head_snake->skin = (player1->head_snake->skin == NB_COLORS - 1 ? 0 : player1->head_snake->skin + 1);
-					if (player2->is_ready && player1->head_snake->skin == player2->head_snake->skin)
-						player1->head_snake->skin = (player1->head_snake->skin == NB_COLORS - 1 ? 0 : player1->head_snake->skin + 1);
-					player1->is_ready = SDL_FALSE;
-					break;
-				case SDL_SCANCODE_LEFT:
-					player2->head_snake->skin = (player2->head_snake->skin == 0 ? NB_COLORS - 1 : player2->head_snake->skin - 1);
-					if (player1->is_ready && player1->head_snake->skin == player2->head_snake->skin)
-						player2->head_snake->skin = (player2->head_snake->skin == 0 ? NB_COLORS - 1 : player2->head_snake->skin - 1);
-					player2->is_ready = SDL_FALSE;
-					break;
-				case SDL_SCANCODE_RIGHT:
-					player2->head_snake->skin = (player2->head_snake->skin == NB_COLORS - 1 ? 0 : player2->head_snake->skin + 1);
-					if (player1->is_ready && player1->head_snake->skin == player2->head_snake->skin)
-						player2->head_snake->skin = (player2->head_snake->skin == NB_COLORS - 1 ? 0 : player2->head_snake->skin + 1);
-					player2->is_ready = SDL_FALSE;
-					break;
-				case SDL_SCANCODE_1:
-					handle_bonus_active(LIFE_UP);
-					break;
-				case SDL_SCANCODE_2:
-					handle_bonus_active(TP);
-					break;
-				case SDL_SCANCODE_3:
-					handle_bonus_active(STAR);
-					break;
-				case SDL_SCANCODE_4:
-					handle_bonus_active(SLOW);
-					break;
-				default:
-					break;
-				}
-				break;
-			case SDL_QUIT:
-				App.running = SDL_FALSE;
-				break;
-			default:
-				break;
-		}
-	}
-}
-
+// ------- Affichage du menu -------
 void	print_player_choice(SDL_Rect rect_side, t_user_data player)
 {
 	char	*text_id = "Player ";
@@ -141,7 +36,7 @@ void	print_player_choice(SDL_Rect rect_side, t_user_data player)
 		SDL_Rect	rect_right = {rect_ready.x + get_text_width(text_ready, App.font) * 2 + 25, rect_ready.y, get_text_width(right_btn, App.font) * 2, get_text_height(right_btn, App.font) * 2};
 		render_text(App.renderer, left_btn, rect_left, App.font, (SDL_Color){255, 255, 255, 255});
 		render_text(App.renderer, right_btn, rect_right, App.font, (SDL_Color){255, 255, 255, 255});
-		
+
 		free(text_ready);
 	}
 }
@@ -182,7 +77,7 @@ void	menu_window(t_user_data *player1, t_user_data *player2)
 	rect_left.x = 0, rect_left.y = 0, rect_left.h = SCREEN_HEIGHT / 2, rect_left.w = SCREEN_WIDTH / 2;
 	rect_right.x = SCREEN_WIDTH / 2, rect_right.y = 0, rect_right.h = SCREEN_HEIGHT / 2, rect_right.w = SCREEN_WIDTH / 2;
 	rect_bonus.x = 0, rect_bonus.y = SCREEN_HEIGHT / 2, rect_bonus.h = SCREEN_HEIGHT / 2, rect_bonus.w = SCREEN_WIDTH;
-	
+
 	while (App.running && (!player1->is_ready || !player2->is_ready))
 	{
 		SDL_SetRenderDrawColor(App.renderer, 0, 0, 0, 255);
@@ -196,5 +91,41 @@ void	menu_window(t_user_data *player1, t_user_data *player2)
 		print_bonus_choice(rect_bonus);
 
 		SDL_RenderPresent(App.renderer);
+	}
+}
+
+// ------- Fonctions utilitaire -------
+int	find_bonus_index(t_bonus bonus)
+{
+	int	current_bonus_index = 0;
+
+	while (current_bonus_index < App.nb_bonus)
+	{
+		if (App.available_bonus[current_bonus_index] == bonus)
+			return (current_bonus_index);
+		current_bonus_index++;
+	}
+	return (-1);
+}
+
+void	handle_bonus_active(t_bonus bonus)
+{
+	int	current_bonus_index = 0;
+	int	find_index = find_bonus_index(bonus);
+
+	if (find_index == -1)
+	{
+		App.available_bonus[App.nb_bonus] = bonus;
+		App.nb_bonus++;
+	}
+	else
+	{
+		current_bonus_index = find_index;
+		while (current_bonus_index < App.nb_bonus - 1)
+		{
+			App.available_bonus[current_bonus_index] = App.available_bonus[current_bonus_index + 1];
+			current_bonus_index++;
+		}
+		App.nb_bonus--;
 	}
 }

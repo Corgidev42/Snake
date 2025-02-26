@@ -1,48 +1,37 @@
 #ifndef GAME_H
 # define GAME_H
 
-# include "snake.h"
+# include "snake_together.h" // Inclusion des dépendances nécessaires
 
-t_snake_part	*add_behind_snake_part(t_snake_part *head_snake);
-SDL_bool		cell_is_empty(t_cell *cell);
-void			died_animation(t_grid *grid, int *died_cooldown,
-					t_user_data *player);
-void			do_collision(t_grid *grid, t_user_data *player1,
-					t_user_data *player2);
-void			do_input(t_user_data *player1, t_user_data *player2);
-void			free_all_game(t_grid grid);
-void			game_window(t_user_data player1, t_user_data player2);
-void			generate_apple(t_grid *grid, int *apple_cooldown);
-void			generate_object(t_grid *grid, int *object_cooldown);
-t_cell			*get_is_pending_cell(t_grid *grid);
-t_cell			*get_rand_empty_cell(t_grid *grid, int r);
-int				get_seed_number(int x, int y, int max);
-void			init_gametick(t_gametick *gametick);
-void			init_map(t_grid *grid);
-void			move_snake(t_grid *grid, int *snake_cooldown,
-					t_user_data *player);
-void			print_grid(t_grid grid);
-void			print_is_pending(t_grid grid, int object_cooldown);
-int				get_size_snake(t_snake_part *head_snake);
-void			print_obstacles(t_grid grid);
-void			do_input(t_user_data *player1, t_user_data *player2);
-void			init_gametick(t_gametick *gametick);
-void			update_gametick(t_gametick *gametick, t_user_data *player1, t_user_data *player2);
-void			handle_bonus(t_user_data *player);
-void			handle_speed(t_user_data *player);
-void			add_inventory_bonus(t_user_data *player, t_bonus bonus);
-void			remove_bonus_slot(t_user_data *player, int slot);
-void			do_actions(t_user_data *player1, t_user_data *player2, t_gametick *gametick);
-void			print_actions(SDL_Rect rect_pos, t_user_data player1,
-					t_user_data player2);
-void			print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
-					t_user_data player2);
-void			print_snake(t_grid grid, t_snake_part *head_snake,
-					int snake_animation);
-SDL_bool		recursive_neighbourg_empty_cells(t_grid *grid, int x, int y,
-					int r, int i);
-void			rotate_snake(t_user_data *player, t_orientation orientation);
-void			spawn_snake(t_grid *grid, t_user_data *player);
-void			kill_snake(t_grid *grid, t_user_data *player);
-void			remove_behind_snake_part(t_grid *grid,t_user_data *player);
-#endif
+/**
+ * @brief Lance la fenêtre de jeu et gère la boucle principale.
+ *
+ * @param player1 Structure contenant les informations du premier joueur.
+ * @param player2 Structure contenant les informations du second joueur.
+ *
+ * Cette fonction effectue les étapes suivantes :
+ * - Initialise la carte (`t_grid`) et les serpents (`spawn_snake()`).
+ * - Initialise la gestion du temps (`t_gametick`).
+ * - Lance un compte à rebours avant le début du jeu (`countdown_transition()`).
+ * - Exécute la boucle principale du jeu :
+ *   - Met à jour le temps et les états (`update_gametick()`).
+ *   - Gère les entrées utilisateur (`do_input()`).
+ *   - Applique les animations et mouvements (`died_animation()`,
+	`move_snake()`).
+ *   - Effectue les actions et résout les collisions (`do_actions()`,
+	`do_collision()`).
+ *   - Génère les éléments interactifs (`generate_apple()`,
+	`generate_object()`).
+ *   - Affiche la carte,
+	les serpents et l’interface utilisateur (`print_grid()`, `print_snake()`,
+	etc.).
+ *   - Rafraîchit le rendu (`SDL_RenderPresent()`).
+ *   - Gère un délai pour maintenir un framerate stable (`SDL_Delay()`).
+ *
+ * La boucle s'exécute tant que :
+ * - L'application est en cours (`App.running`).
+ * - Les deux joueurs ont encore des vies (`player1.life` et `player2.life`).
+ */
+void	game_window(t_user_data player1, t_user_data player2);
+
+#endif // GAME_H

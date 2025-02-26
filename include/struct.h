@@ -1,11 +1,7 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# include "snake.h"
-# include <SDL2/SDL.h>
-# include <SDL2/SDL_image.h>
-# include <SDL2/SDL_ttf.h>
-# include <time.h>
+# include "snake_together.h"
 
 typedef enum e_bonus
 {
@@ -15,7 +11,7 @@ typedef enum e_bonus
 	STAR, // rend invincible ( annule tout effet negatif)
 	SLOW,
 	MISSILE, // V3
-	MINE // V3
+	MINE     // V3
 }						t_bonus;
 
 typedef enum e_obstacle
@@ -65,14 +61,14 @@ typedef struct s_texture_bomb
 	SDL_Texture			*a3;
 }						t_texture_bomb;
 
-typedef struct	s_texture_bonus
+typedef struct s_texture_bonus
 {
-	SDL_Rect	r;
-	SDL_Texture	*life_up;
-	SDL_Texture	*tp;
-	SDL_Texture	*star;
-	SDL_Texture	*slow;
-}				t_texture_bonus;
+	SDL_Rect			r;
+	SDL_Texture			*life_up;
+	SDL_Texture			*tp;
+	SDL_Texture			*star;
+	SDL_Texture			*slow;
+}						t_texture_bonus;
 
 typedef struct s_seed
 {

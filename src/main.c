@@ -1,4 +1,4 @@
-#include "snake.h"
+#include "snake_together.h"
 
 t_app App;
 
