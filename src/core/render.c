@@ -190,14 +190,12 @@ void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 }
 
 // ------- Rendu de l’interface (scoreboard, jauges, actions) -------
-
 void	print_actions(SDL_Rect rect_pos, t_user_data player1,
 		t_user_data player2)
 {
 	SDL_Rect		speed_rect = {rect_pos.x + 20, rect_pos.y + 5, 50, 40};
-	int				color[4] = {0, 0, 0, 255};
-	SDL_Rect		first_rect = {speed_rect.x + 30, speed_rect.y, 40, 40};
-	SDL_Rect		second_rect = {first_rect.x + first_rect.w + 10, first_rect.y + 5, 30, 30};
+	SDL_Rect 		first_rect = {0, 0, 40, 40};
+	SDL_Rect 		second_rect = {0, 0, 30, 30};
 	SDL_Texture		*bonus_texture;
 
 	if (SDL_SetRenderDrawColor(App.renderer, 255, 255, 255, 255))
@@ -208,6 +206,7 @@ void	print_actions(SDL_Rect rect_pos, t_user_data player1,
 	// Print player 1 speed -> jauge de vitesse en fonction de NB_APPLE_SPEED
 	for (int i = 0; i < NB_APPLE_SPEED; i++)
 	{
+		int	color[4] = {0, 0, 0, 255};
 		if (player1.nb_apple_speed > i)
 		{
 			if (player1.head_snake->skin == YELLOW)
@@ -241,6 +240,10 @@ void	print_actions(SDL_Rect rect_pos, t_user_data player1,
 		speed_rect.x += 50;
 	}
 	SDL_SetRenderDrawColor(App.renderer, 255, 255, 255, 255);
+	first_rect.x = speed_rect.x + 30;
+	first_rect.y = speed_rect.y;
+	second_rect.x = first_rect.x + first_rect.w + 10;
+	second_rect.y = first_rect.y + 5;
 	// Print player 1 bonuses
 	for (int i = 0; i < INVENTORY_SIZE; i++)
 	{
@@ -275,6 +278,7 @@ void	print_actions(SDL_Rect rect_pos, t_user_data player1,
 	speed_rect.y = rect_pos.y + 5;
 	for (int i = 0; i < NB_APPLE_SPEED; i++)
 	{
+		int	color[4] = {0, 0, 0, 255};
 		if (player2.nb_apple_speed > i)
 		{
 			if (player2.head_snake->skin == YELLOW)
@@ -429,6 +433,15 @@ void	countdown_transition(t_grid grid, t_user_data player1,
 		// Effacer l'écran en noir
 		SDL_SetRenderDrawColor(App.renderer, 0, 0, 0, 255);
 		SDL_RenderClear(App.renderer);
+
+		SDL_Event event;
+
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+				App.running = SDL_FALSE;
+		}
+
 		print_grid(grid);
 		print_snake(grid, player1.head_snake, gametick->snakes_animation);
 		print_snake(grid, player2.head_snake, gametick->snakes_animation);

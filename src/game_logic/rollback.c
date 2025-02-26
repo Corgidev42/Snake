@@ -8,7 +8,7 @@ void	do_rollback_move(t_grid *grid, t_user_data *player)
 {
 	if (!player || !player->head_snake || !player->head_snake->next)
 		return ;
-	add_behind_snake_part(player->head_snake);
+	add_behind_snake_part(player, SDL_FALSE);
 	if (get_size_snake(player->head_snake) > 2)
 		remove_snake_head_parts(grid, player, 1);
 }
