@@ -19,6 +19,12 @@ void countdown_transition(t_grid grid, t_user_data player1, t_user_data player2,
 		SDL_SetRenderDrawColor(App.renderer, 0, 0, 0, 255);
 		SDL_RenderClear(App.renderer);
 
+		SDL_Event event;
+
+		while (SDL_PollEvent(&event))
+			if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+				App.running = SDL_FALSE;
+
 		print_grid(grid);
 		print_snake(grid, player1.head_snake, gametick->snakes_animation);
 		print_snake(grid, player2.head_snake, gametick->snakes_animation);
@@ -103,4 +109,6 @@ void	game_window(t_user_data player1, t_user_data player2)
 
 		SDL_Delay(1000 / 60);
 	}
+	if (App.running)
+		end_game_window(&player1, &player2);
 }

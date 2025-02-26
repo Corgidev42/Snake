@@ -18,7 +18,7 @@ void	init_gametick(t_gametick *gametick)
 	gametick->snake_2_slow_cooldown = SLOW_COOLDOWN;
 	gametick->snake_2_died_cooldown = SNAKE_DIED_TIME;
 
-	gametick->snakes_animation = SNAKES_ANIMATION_TIME;
+	gametick->snakes_animation = SNAKES_ANIMATION_TIME - 1;
 
 	gametick->timer = TIMER_BEFORE_START;
 }
