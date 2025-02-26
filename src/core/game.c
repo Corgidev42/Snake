@@ -50,4 +50,8 @@ void	game_window(t_user_data player1, t_user_data player2)
 		SDL_RenderPresent(App.renderer);
 		SDL_Delay(1000 / 60);
 	}
+	if (App.running)
+	{
+		printf("Player %d won !!!\n", player1.life ? 1 : 2);
+	}
 }

@@ -1,6 +1,6 @@
 #include "snake.h"
 
-SDL_Color	get_color_by_skin(t_color color)
+static SDL_Color	get_color_by_skin(t_color color)
 {
 	switch (color)
 	{
@@ -35,7 +35,7 @@ void	end_game_window(t_user_data *player1, t_user_data *player2)
 		SDL_ExitWithError("Render clear");
 
 	// If same life -> draw a draw
-	if (player1->life == player2->life && player1->score == player2->score)
+	if (player1->life == player2->life && player1->score == player2->score && player1->max_snake_size == player2->max_snake_size)
 	{
 		rect_pos.y = 0;
 		rect_pos.h = SCREEN_HEIGHT / (10 / 3);
@@ -55,20 +55,20 @@ void	end_game_window(t_user_data *player1, t_user_data *player2)
 		rect_text.h = get_text_height(text, App.font) * 8;
 		rect_text.y = rect_pos.y + rect_pos.h / 2 - rect_text.h / 2;
 		render_text(App.renderer, text, rect_text, App.font, color);
-	
+
 		text = ft_itoa(player1->life ? 1 : 2);
 		rect_text.x += rect_text.w;
 		rect_text.w = get_text_width(text, App.font) * 8;
 		rect_text.h = get_text_height(text, App.font) * 8;
 		render_text(App.renderer, text, rect_text, App.font, get_color_by_skin(player1->life ? player1->head_snake->skin : player2->head_snake->skin));
 		free(text);
-	
+
 		text = " win !!!";
 		rect_text.x += rect_text.w;
 		rect_text.w = get_text_width(text, App.font) * 8;
 		rect_text.h = get_text_height(text, App.font) * 8;
 		render_text(App.renderer, text, rect_text, App.font, color);
-		rect_text.x = 100;	
+		rect_text.x = 100;
 	}
 
 	rect_pos.y += rect_pos.h;
@@ -157,7 +157,7 @@ void	end_game_window(t_user_data *player1, t_user_data *player2)
 		tmp_rect.w = 75;
 		tmp_rect.h = 75;
 		SDL_RenderCopy(App.renderer, App.texture_crown, NULL, &tmp_rect);
-	} 
+	}
 
 	// Player 2 score
 	text = ft_itoa(player2->score);

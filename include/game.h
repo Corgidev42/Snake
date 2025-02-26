@@ -32,6 +32,35 @@
  * - L'application est en cours (`App.running`).
  * - Les deux joueurs ont encore des vies (`player1.life` et `player2.life`).
  */
-void	game_window(t_user_data player1, t_user_data player2);
+void				game_window(t_user_data player1, t_user_data player2);
+
+/**
+ * @brief Retourne la couleur associée à un skin de serpent.
+ *
+ * Cette fonction associe une couleur spécifique à chaque skin de serpent.
+ * Si le skin ne correspond à aucune couleur définie,
+	la couleur blanche est retournée par défaut.
+ *
+ * @param color La couleur associée au skin du serpent.
+ * @return SDL_Color La couleur correspondante en SDL.
+ */
+static SDL_Color	get_color_by_skin(t_color color);
+
+/**
+ * @brief Affiche l'écran de fin de partie.
+ *
+ * Cette fonction affiche le joueur gagnant,
+	la taille maximale atteinte par chaque serpent,
+ * le score final de chaque joueur, et attend une entrée pour quitter l'écran.
+ *
+ * - Affiche le joueur gagnant ou "Draw" en cas d'égalité.
+ *
+	- Affiche les scores et tailles maximales des serpents avec des icônes correspondantes.
+ * - Attend une entrée clavier pour fermer l'écran de fin de partie.
+ *
+ * @param player1 Données du premier joueur.
+ * @param player2 Données du second joueur.
+ */
+void				end_game_window(t_user_data *player1, t_user_data *player2);
 
 #endif // GAME_H
