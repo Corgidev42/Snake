@@ -104,6 +104,7 @@ void	update_score_anims(t_score_anim **score_anims, int elapsed_time)
 		else
 		{
 			score_anims[i]->y -= score_anims[i]->dy_max * elapsed_time / score_anims[i]->life_time;
+			score_anims[i]->color.a = 255 - 255 * score_anims[i]->time / score_anims[i]->life_time;
 			i++;
 		}
 	}

@@ -188,7 +188,7 @@ void	end_game_window(t_user_data *player1, t_user_data *player2)
 	render_text(App.renderer, text, rect_text, App.font, color);
 
 	SDL_RenderPresent(App.renderer);
-	SDL_Delay(1000 / 60);
+	SDL_Delay(2000);
 
 	SDL_Event	event;
 	while (1)

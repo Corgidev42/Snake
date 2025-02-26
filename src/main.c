@@ -3,13 +3,10 @@
 t_app App;
 
 /*
-	Au demarrage, timer de lancement de la partie
-
-	Scores a update
-	Fin de partie
+	BUG CANCEL MORT
+	SCORE BUGGE FIN DE PARTIE
 
 	!!!!!! IMPORTANT !!!!!!
-	STRUCTURER LE CODE
 	TOUS LES SEGFAULTS
 	TOUS LES FREES
 	FAIRE LES TESTS

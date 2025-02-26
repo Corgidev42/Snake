@@ -58,7 +58,8 @@ void	kill_collision(t_grid *grid, t_user_data *player1, t_user_data *player2, t_
 		|| has_snake_in_coords(player2->head_snake, current1->coords))
 	{
 		colls_to_bonk(grid, player1);
-		add_snake_score_anim(score_anims, player1->head_snake, SCORE_KILL_SNAKE, player2->head_snake->skin);
+		add_snake_score_anim(score_anims, player2->head_snake, SCORE_KILL_SNAKE, player1->head_snake->skin);
+		player2->score += SCORE_KILL_SNAKE;
 	}
 	if (grid->cells[current2->coords.x][current2->coords.y].obstacle == SDL_TRUE
 		|| grid->cells[current2->coords.x][current2->coords.y].has_bomb == SDL_TRUE)
@@ -70,7 +71,8 @@ void	kill_collision(t_grid *grid, t_user_data *player1, t_user_data *player2, t_
 		|| has_snake_in_coords(player1->head_snake, current2->coords))
 	{
 		colls_to_bonk(grid, player2);
-		add_snake_score_anim(score_anims, player2->head_snake, SCORE_KILL_SNAKE, player1->head_snake->skin);
+		add_snake_score_anim(score_anims, player1->head_snake, SCORE_KILL_SNAKE, player2->head_snake->skin);
+		player1->score += SCORE_KILL_SNAKE;
 	}
 }
 
@@ -88,6 +90,7 @@ void	score_collision(t_grid *grid, t_user_data *player1,
 			grid->cells[current1->coords.x][current1->coords.y].bonus);
 		grid->cells[current1->coords.x][current1->coords.y].bonus = BONUS_EMPTY;
 		add_snake_score_anim(score_anims, player1->head_snake, SCORE_BONUS_EAT, player1->head_snake->skin);
+		player1->score += SCORE_BONUS_EAT;
 	}
 	if (grid->cells[current2->coords.x][current2->coords.y].bonus != BONUS_EMPTY)
 	{
@@ -95,6 +98,7 @@ void	score_collision(t_grid *grid, t_user_data *player1,
 			grid->cells[current2->coords.x][current2->coords.y].bonus);
 		grid->cells[current2->coords.x][current2->coords.y].bonus = BONUS_EMPTY;
 		add_snake_score_anim(score_anims, player2->head_snake, SCORE_BONUS_EAT, player2->head_snake->skin);
+		player2->score += SCORE_BONUS_EAT;
 	}
 	if (grid->cells[current1->coords.x][current1->coords.y].has_apple == SDL_TRUE)
 	{

@@ -59,7 +59,5 @@ void	game_window(t_user_data player1, t_user_data player2)
 	}
 	destroy_score_anims(score_anims);
 	if (App.running)
-	{
-		printf("Player %d won !!!\n", player1.life ? 1 : 2);
-	}
+		end_game_window(&player1, &player2);
 }
