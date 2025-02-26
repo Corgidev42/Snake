@@ -11,8 +11,8 @@ UNAME_S := $(shell uname -s)
 
 # 🔧 Configuration spécifique à l'OS
 ifeq ($(UNAME_S), Linux)
-	CFLAGS   +=
-	LDFLAGS  +=
+	CFLAGS   += -I/usr/include
+	LDFLAGS  += -L/usr/lib
 else ifeq ($(UNAME_S), Darwin)
 	CFLAGS   += -I/opt/homebrew/include
 	LDFLAGS  += -L/opt/homebrew/lib -framework Cocoa
@@ -46,7 +46,7 @@ all: $(PROJECT_NAME)
 
 # 🏗️ Création de l'exécutable
 $(PROJECT_NAME): $(LIBFT) $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(OS_FLAGS) $(LDFLAGS) $(INCLUDES) $(OBJ_FILES) $(LIBFT) -o $@
+	$(CC) $(CFLAGS) $(OS_FLAGS) $(INCLUDES) $(OBJ_FILES) $(LDFLAGS) $(LIBFT) -o $@
 	@echo "✅ Compilation terminée !"
 
 # 🛠️ Compilation des fichiers objets (avec support des sous-dossiers)

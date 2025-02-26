@@ -11,3 +11,5 @@ Memento SDL.md
 *.out
 
 *.o
+
+.vscode
