@@ -69,7 +69,8 @@ void	do_actions(t_user_data *player1, t_user_data *player2,
 		if (player1->nb_apple_speed == 0)
 		{
 			player1->is_speed = SDL_FALSE;
-			player1->speed = BASE_SPEED;
+			if (!(player1->head_snake->snake_state == BONKED))
+				player1->speed = BASE_SPEED;
 		}
 	}
 	if (player1->is_star && gametick->snake_1_star_cooldown <= 0)
@@ -91,7 +92,8 @@ void	do_actions(t_user_data *player1, t_user_data *player2,
 		if (player2->nb_apple_speed == 0)
 		{
 			player2->is_speed = SDL_FALSE;
-			player2->speed = BASE_SPEED;
+			if (!(player2->head_snake->snake_state == BONKED))
+				player2->speed = BASE_SPEED;
 		}
 	}
 	if (player2->is_star && gametick->snake_2_star_cooldown <= 0)

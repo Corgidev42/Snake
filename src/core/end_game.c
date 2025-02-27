@@ -188,9 +188,9 @@ void	end_game_window(t_user_data *player1, t_user_data *player2)
 	render_text(App.renderer, text, rect_text, App.font, color);
 
 	SDL_RenderPresent(App.renderer);
-	SDL_Delay(2000);
-
 	SDL_Event	event;
+	SDL_Delay(2000);
+	SDL_PollEvent(&event);
 	while (1)
 	{
 		if (SDL_PollEvent(&event))
@@ -201,9 +201,11 @@ void	end_game_window(t_user_data *player1, t_user_data *player2)
 				break;
 			}
 			if (event.type == SDL_KEYDOWN)
+			{
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					App.running = SDL_FALSE;
 				break;
+			}
 		}
 	}
 }

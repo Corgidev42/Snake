@@ -22,6 +22,8 @@ void	kill_collision(t_grid *grid, t_user_data *player1, t_user_data *player2, t_
 {
 	t_snake_part	*current1;
 	t_snake_part	*current2;
+	int				player1_life;
+	int				player2_life;
 
 	current1 = player1->head_snake;
 	current2 = player2->head_snake;
@@ -40,38 +42,49 @@ void	kill_collision(t_grid *grid, t_user_data *player1, t_user_data *player2, t_
 				&& (current2->coords.x == current1->next->coords.x
 					&& current2->coords.y == current1->next->coords.y)))
 		{
+			player1_life = player1->life;
+			player2_life = player2->life;
 			remove_snake_head_parts(grid, player1, 3);
-			add_snake_score_anim(score_anims, player1->head_snake, SCORE_KILL_SNAKE, player1->head_snake->skin);
+			if (player1_life != player1->life)
+			{
+				add_snake_score_anim(score_anims, player2->head_snake, SCORE_KILL_SNAKE, player2->head_snake->skin);
+				player2->score += SCORE_KILL_SNAKE;
+			}
 			remove_snake_head_parts(grid, player2, 3);
-			add_snake_score_anim(score_anims, player2->head_snake, SCORE_KILL_SNAKE, player2->head_snake->skin);
+			if (player2_life != player2->life)
+			{
+				add_snake_score_anim(score_anims, player1->head_snake, SCORE_KILL_SNAKE, player1->head_snake->skin);
+				player1->score += SCORE_KILL_SNAKE;
+			}
+
 		}
 	}
 	current1 = player1->head_snake;
 	current2 = player2->head_snake;
 	if (grid->cells[current1->coords.x][current1->coords.y].obstacle == SDL_TRUE
-		|| grid->cells[current1->coords.x][current1->coords.y].has_bomb == SDL_TRUE)
+		|| grid->cells[current1->coords.x][current1->coords.y].has_bomb == SDL_TRUE
+		|| has_snake_tail_in_coords(player1->head_snake, current1->coords))
 	{
 		grid->cells[current1->coords.x][current1->coords.y].has_bomb = SDL_FALSE;
 		colls_to_bonk(grid, player1);
 	}
-	if ( has_snake_tail_in_coords(player1->head_snake, current1->coords)
-		|| has_snake_in_coords(player2->head_snake, current1->coords))
+	if (has_snake_in_coords(player2->head_snake, current1->coords))
 	{
 		colls_to_bonk(grid, player1);
-		add_snake_score_anim(score_anims, player2->head_snake, SCORE_KILL_SNAKE, player1->head_snake->skin);
+		add_snake_score_anim(score_anims, player2->head_snake, SCORE_KILL_SNAKE, player2->head_snake->skin);
 		player2->score += SCORE_KILL_SNAKE;
 	}
 	if (grid->cells[current2->coords.x][current2->coords.y].obstacle == SDL_TRUE
-		|| grid->cells[current2->coords.x][current2->coords.y].has_bomb == SDL_TRUE)
+		|| grid->cells[current2->coords.x][current2->coords.y].has_bomb == SDL_TRUE
+		|| has_snake_tail_in_coords(player2->head_snake, current2->coords))
 	{
 		grid->cells[current2->coords.x][current2->coords.y].has_bomb = SDL_FALSE;
 		colls_to_bonk(grid, player2);
 	}
-	if (has_snake_tail_in_coords(player2->head_snake, current2->coords)
-		|| has_snake_in_coords(player1->head_snake, current2->coords))
+	if (has_snake_in_coords(player1->head_snake, current2->coords))
 	{
 		colls_to_bonk(grid, player2);
-		add_snake_score_anim(score_anims, player1->head_snake, SCORE_KILL_SNAKE, player2->head_snake->skin);
+		add_snake_score_anim(score_anims, player1->head_snake, SCORE_KILL_SNAKE, player1->head_snake->skin);
 		player1->score += SCORE_KILL_SNAKE;
 	}
 }
