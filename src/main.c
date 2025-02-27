@@ -3,7 +3,7 @@
 t_app App;
 
 /*
-	BUG CANCEL MORT
+
 	SCORE BUGGE FIN DE PARTIE
 
 	!!!!!! IMPORTANT !!!!!!
@@ -12,6 +12,8 @@ t_app App;
 	FAIRE LES TESTS
 
 	V3 - A faire sur du CPP !!!!!!
+	pomme doree qui donne + de boost de speed
+	bonus intengible
 	!!!! PENSER LE CODE EN RESEAU LOCAL
 	Transition entre les menus
 	Animations des snakes quand ils meurent (bonk + explosion de la queue a la tete avant de respawn)

@@ -106,7 +106,7 @@ void	init_app(void)
 		SDL_ExitWithError("Initialisation of SDL");
 	App.window = SDL_CreateWindow("Snake EnV Numeric.", SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,
-			SDL_WINDOW_ALWAYS_ON_TOP);
+			SDL_WINDOW_SHOWN);
 	if (!App.window)
 		SDL_ExitWithError("Create Window");
 	App.renderer = SDL_CreateRenderer(App.window, -1, SDL_RENDERER_SOFTWARE);

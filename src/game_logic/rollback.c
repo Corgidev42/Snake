@@ -24,10 +24,15 @@ void	colls_to_bonk(t_grid *grid, t_user_data *player)
 }
 void	died_animation(t_grid *grid, int *died_cooldown, t_user_data *player)
 {
+	printf("3.1\n");
 	if (*died_cooldown <= 0)
 	{
+		printf("3.2\n");
 		*died_cooldown += SNAKE_DIED_TIME;
+		printf("3.3\n");
 		if (!player->is_star)
 			remove_behind_snake_part(grid, player);
+
+		printf("3.4\n");
 	}
 }

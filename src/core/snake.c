@@ -10,17 +10,21 @@ void	spawn_snake(t_grid *grid, t_user_data *player)
 	int				i;
 
 	head_snake = player->head_snake;
+	printf("3.3.7.1\n");
 	if (!head_snake)
 	{
 		head_snake = malloc(sizeof(t_snake_part));
+		printf("3.3.7.2\n");
 		if (!head_snake)
 			SDL_ExitWithError("malloc head_snake");
 		player->head_snake = head_snake;
 	}
 	i = 4;
+	printf("3.3.7.3\n");
 	cell = get_rand_empty_cell(grid, i);
 	while (!cell)
 		cell = get_rand_empty_cell(grid, --i);
+	printf("3.3.7.4\n");
 	player->head_snake->snake_state = NORMAL;
 	player->speed = BASE_SPEED;
 	head_snake->coords.x = cell->coords.x;
@@ -28,9 +32,12 @@ void	spawn_snake(t_grid *grid, t_user_data *player)
 	head_snake->orientation = rand() % 4;
 	player->orientation_snake = head_snake->orientation;
 	head_snake->next = NULL;
+	printf("3.3.7.5\n");
 	add_behind_snake_part(player, SDL_TRUE);
+	printf("3.3.7.6\n");
 	cell->has_snake = SDL_TRUE;
 	grid->cells[head_snake->next->coords.x][head_snake->next->coords.y].has_snake = SDL_TRUE;
+	printf("3.3.7.7\n");
 }
 
 t_snake_part	*add_behind_snake_part(t_user_data *player, SDL_bool update_max_size)
@@ -85,21 +92,31 @@ void	remove_behind_snake_part(t_grid *grid, t_user_data *player)
 
 	current = player->head_snake;
 	prev = player->head_snake;
+	printf("3.3.1\n");
 	while (current && current->next)
 	{
 		prev = current;
 		current = current->next;
 	}
-	grid->cells[current->coords.x][current->coords.y].has_snake = SDL_FALSE;
+	printf("3.3.2\n");
+	if (current->coords.x >= 0 && current->coords.x < GRID_COLS
+		&& current->coords.y >= 0 && current->coords.y < GRID_ROWS)
+		grid->cells[current->coords.x][current->coords.y].has_snake = SDL_FALSE;
+	printf("3.3.3\n");
 	free(current);
+	printf("3.3.4\n");
 	prev->next = NULL;
+	printf("3.3.5\n");
 	if (!player->head_snake->next)
 	{
 		player->life -= 1;
+		printf("3.3.6\n");
 		kill_snake(grid, player);
+		printf("3.3.7\n");
 		if (player->life == 0)
 			return ;
 		spawn_snake(grid, player);
+		printf("3.3.8\n");
 	}
 }
 
@@ -142,14 +159,18 @@ void	kill_snake(t_grid *grid, t_user_data *player)
 	t_snake_part	*prev;
 
 	current = player->head_snake->next;
+	printf("3.3.6.1\n");
 	while (current)
 	{
 		prev = current;
 		current = prev->next;
+		printf("3.3.6.2\n");
 		if (prev->coords.x >= 0 && prev->coords.x < GRID_COLS
 			&& prev->coords.y >= 0 && prev->coords.y < GRID_ROWS)
 			grid->cells[prev->coords.x][prev->coords.y].has_snake = SDL_FALSE;
+		printf("3.3.6.3\n");
 		free(prev);
+		printf("3.3.6.4\n");
 	}
 }
 
