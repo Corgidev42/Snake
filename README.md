@@ -124,7 +124,7 @@ Snake/
 │   │   ├── rollback.c
 │   ├── input/                 # Input handling for players and menu
 │   │   ├── input.c
-│   ├── menu/                  # Menu logic and rendering
+│   ├── menu/                  # Menu logic
 │   │   ├── menu.c
 │   ├── main.c                 # Entry point: launches the menu and game window
 ├── .gitignore
