@@ -5,6 +5,7 @@
 // du rendu et le chargement des ressources graphiques.
 
 // ----------- Chargement des textures et polices ------------
+
 static void	init_texture_rects_color(t_color color)
 {
 	int	color_y_start;

@@ -4,6 +4,7 @@
 // Les fonctions qui gèrent les actions et interactions liées aux joueurs (inventaire, bonus, vitesse…).
 
 // ------- Gestion des bonus et des actions -------
+
 void	add_inventory_bonus(t_user_data *player, t_bonus bonus)
 {
 	if (bonus == TP)

@@ -3,6 +3,7 @@
 // Module Assets / Bonus
 
 // Les fonctions qui gèrent la logique liée aux bonus
+
 t_bonus	get_random_bonus(void)
 {
 	int	random = rand() % App.nb_bonus;

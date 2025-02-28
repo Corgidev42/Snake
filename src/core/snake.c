@@ -3,6 +3,7 @@
 // Module Snake et Mouvements (snake) Regrouper ici tout ce qui touche à la représentation,	la manipulation et l’animation des serpents.
 
 // ------- Fonctions de création et modification d’un serpent -------
+
 void	spawn_snake(t_grid *grid, t_user_data *player)
 {
 	t_snake_part	*head_snake;
@@ -279,6 +280,7 @@ void	move_snake(t_grid *grid, int *snake_cooldown, t_user_data *player)
 }
 
 // ------- Fonctions utilitaire -------
+
 int	get_size_snake(t_snake_part *head_snake)
 {
 	t_snake_part	*current;

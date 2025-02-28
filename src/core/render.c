@@ -1,6 +1,7 @@
 #include "snake_together.h"
 
 // ------- Rendu de la grille, obstacles, bonus -------
+
 void	print_grid(t_grid grid)
 {
 	int			x;
@@ -128,6 +129,7 @@ void	print_is_pending(t_grid grid, int object_cooldown)
 }
 
 // ------- Rendu des serpents -------
+
 void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 {
 	t_snake_part	*current;
@@ -190,6 +192,7 @@ void	print_snake(t_grid grid, t_snake_part *head_snake, int snake_animation)
 }
 
 // ------- Rendu de l’interface (scoreboard, jauges, actions) -------
+
 void	print_actions(SDL_Rect rect_pos, t_user_data player1,
 		t_user_data player2)
 {
@@ -388,6 +391,7 @@ void	print_scoreboard(SDL_Rect rect_pos, t_user_data player1,
 }
 
 // ------- Rendu du compte à rebours -------
+
 void	countdown_transition(t_grid grid, t_user_data player1,
 		t_user_data player2, t_gametick *gametick, SDL_Rect actions_rect_pos,
 		SDL_Rect scoreboard_rect_pos)

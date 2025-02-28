@@ -3,6 +3,7 @@
 // Ce module se charge de récupérer et traiter les entrées utilisateur, que ce soit pendant le jeu ou dans le menu.
 
 // ------- Gestion des événements en jeu  -------
+
 void	do_input(t_user_data *player1, t_user_data *player2)
 {
 	SDL_Event	event;
@@ -66,6 +67,7 @@ void	do_input(t_user_data *player1, t_user_data *player2)
 }
 
 // ------- Gestion des entrées dans le menu  -------
+
 void	menu_do_input(t_user_data *player1, t_user_data *player2)
 {
 	SDL_Event	event;

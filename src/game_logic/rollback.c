@@ -4,6 +4,7 @@
 // Les fonctions qui gèrent les rollbacks et interactions liées aux joueurs (inventaire, bonus, vitesse…).
 
 // --- Fonctions de rollback ou d’animation de mort ----
+
 void	do_rollback_move(t_grid *grid, t_user_data *player)
 {
 	if (!player || !player->head_snake || !player->head_snake->next)

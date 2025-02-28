@@ -5,6 +5,7 @@ t_app App;
 /*
 
 	SCORE BUGGE FIN DE PARTIE
+	FAIRE README
 
 	!!!!!! IMPORTANT !!!!!!
 	TOUS LES SEGFAULTS
@@ -14,6 +15,7 @@ t_app App;
 	V3 - A faire sur du CPP !!!!!!
 	pomme doree qui donne + de boost de speed
 	bonus intengible
+	mettre des petit coeurs au lieu de la life en chiffre actuel
 	!!!! PENSER LE CODE EN RESEAU LOCAL
 	Transition entre les menus
 	Animations des snakes quand ils meurent (bonk + explosion de la queue a la tete avant de respawn)

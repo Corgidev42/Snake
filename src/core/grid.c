@@ -3,6 +3,7 @@
 // Module de Gestion de la Grille (grid) Ici se regroupera tout ce qui concerne la création et la gestion de la grille du jeu.
 
 // ------- Initialisation de la grille -------
+
 void	init_map(t_grid *grid)
 {
 	int	zone_limit;
@@ -55,6 +56,7 @@ void	init_map(t_grid *grid)
 }
 
 // ------- Fonctions d’accès et de recherche sur la grille -------
+
 t_cell	*get_is_pending_cell(t_grid *grid)
 {
 	int		x;
@@ -129,6 +131,7 @@ void	generate_apple(t_grid *grid, int *apple_cooldown)
 }
 
 // ------- Les fonctions qui gèrent la grille, la sélection de cellules et la détermination de la couleur ou du type d’un élément de la carte. -------
+
 t_cell	*get_rand_empty_cell(t_grid *grid, int r)
 {
 	int	x;

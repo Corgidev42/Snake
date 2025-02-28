@@ -2,6 +2,7 @@
 
 // Module Gametick (gametick)
 // Pour centraliser le chronométrage et la mise à jour des délais d’actions.
+
 void	init_gametick(t_gametick *gametick)
 {
 	gametick->elapsed_time = SDL_GetTicks();
@@ -13,7 +14,7 @@ void	init_gametick(t_gametick *gametick)
 	gametick->snake_1_star_cooldown = STAR_COOLDOWN;
 	gametick->snake_1_slow_cooldown = SLOW_COOLDOWN;
 	gametick->snake_1_died_cooldown = SNAKE_DIED_TIME;
-	
+
 	gametick->snake_2_cooldown = SNAKE_MOVE_TIME;
 	gametick->snake_2_speed_cooldown = SNAKE_SPEED_TIME;
 	gametick->snake_2_star_cooldown = STAR_COOLDOWN;

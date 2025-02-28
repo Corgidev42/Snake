@@ -1,5 +1,8 @@
 #include "snake_together.h"
 
+// Module de gestion des joueurs (player)
+// Fonctions de d'initialisations des joueurs
+
 void	init_players(t_user_data *player1, t_user_data *player2)
 {
 	int	i = 0;

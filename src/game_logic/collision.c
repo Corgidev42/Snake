@@ -5,6 +5,7 @@
 // Les fonctions qui gèrent les collisions et interactions liées aux joueurs (inventaire, bonus, vitesse…).
 
 // ------- Gestion des collisions et interactions -------
+
 void	do_collision(t_grid *grid, t_user_data *player1, t_user_data *player2, t_score_anim **score_anims)
 {
 	kill_collision(grid, player1, player2, score_anims); /* mur, bombe,
