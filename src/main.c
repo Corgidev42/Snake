@@ -5,7 +5,6 @@ t_app App;
 /*
 
 	SCORE BUGGE FIN DE PARTIE
-	FAIRE README
 
 	!!!!!! IMPORTANT !!!!!!
 	TOUS LES SEGFAULTS
