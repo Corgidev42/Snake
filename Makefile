@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -I/opt/homebrew/include/
-LDFLAGS = -L/opt/homebrew/lib -lSDL2 -lSDL2main -framework Cocoa
+CFLAGS = 
+LDFLAGS = -I/usr/lib/include -lSDL2 -lSDL2main
 
 all: app
 
